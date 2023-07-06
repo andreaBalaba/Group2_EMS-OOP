@@ -4,29 +4,34 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class HrPage implements ActionListener 
+public class HrPage extends JFrame implements ActionListener 
 {
-    private JFrame hrStaffFrame = new JFrame("G2 Computer Services");
     private JLabel titleLabel;
     private JMenuBar menuBar = new JMenuBar();
-    private JMenu menu1,menu2,menu3, menu4, menu5, menu6;
+    private JMenu menu1,menu2,menu3, menu4, menu5;
     
-
     public HrPage() 
     {
-        
-        hrStaffFrame.setBounds(100, 100, 750, 550);
-        hrStaffFrame.setLocationRelativeTo(null);
-        hrStaffFrame.setLayout(null);
+        setTitle("G2 Computer Services");
+        setBounds(100, 100, 750, 550);
+        setLocationRelativeTo(null);
+        setLayout(null);
 
         titleLabel = new JLabel("Employee Management System");
-        titleLabel.setFont(new Font("Open Sans", Font.BOLD, 18));
-        titleLabel.setBounds(235, 225, 400, 35);
+        titleLabel.setFont(new Font("Open Sans", Font.BOLD, 25));
+        titleLabel.setBounds(180, 70, 400, 35);
+        
+        ImageIcon icon2 = new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/ems.png"));
+        Image Icon2 = icon2.getImage().getScaledInstance(550,350,Image.SCALE_DEFAULT);
+        ImageIcon pic2 = new ImageIcon(Icon2);
+        JLabel pics2 = new JLabel(pic2);
+        pics2.setBounds(100, 100, 550, 350);
         
         menuBar.setBackground(Color.WHITE);
         
+        
         menu1 = new JMenu("Profile");
-        menu1.setFont(new Font("Open Sans", Font.PLAIN, 13));
+        menu1.setFont(new Font("Open Sans", Font.PLAIN, 14));
         JMenuItem menuItem1 = new JMenuItem("Add New Employee Profile");
         JMenuItem menuItem2 = new JMenuItem("View Profile");
         menuItem1.setFont(new Font("Open Sans", Font.PLAIN, 12));
@@ -35,7 +40,7 @@ public class HrPage implements ActionListener
         menuItem2.addActionListener(this);
        
         menu2 = new JMenu("Manage");
-        menu2.setFont(new Font("Open Sans", Font.PLAIN, 13));
+        menu2.setFont(new Font("Open Sans", Font.PLAIN, 14));
         JMenuItem menuItem3 = new JMenuItem("Update Employee Details");
         JMenuItem menuItem4 = new JMenuItem("Delete Employee");
         menuItem3.setFont(new Font("Open Sans", Font.PLAIN, 12));
@@ -43,35 +48,26 @@ public class HrPage implements ActionListener
         menuItem3.addActionListener(this);
         menuItem4.addActionListener(this);
         
-        menu3 = new JMenu("Attendance");
-        menu3.setFont(new Font("Open Sans", Font.PLAIN, 13));
-        JMenuItem menuItem5 = new JMenuItem("Take Attendance");
-        JMenuItem menuItem6 = new JMenuItem("View Attendance");
+        menu3 = new JMenu("Request");
+        menu3.setFont(new Font("Open Sans", Font.PLAIN, 14));
+        JMenuItem menuItem5 = new JMenuItem("Time Off");
+        JMenuItem menuItem6 = new JMenuItem("Expenses");
         menuItem5.setFont(new Font("Open Sans", Font.PLAIN, 12));
         menuItem6.setFont(new Font("Open Sans", Font.PLAIN, 12));
         menuItem5.addActionListener(this);
         menuItem6.addActionListener(this);
         
-        menu4 = new JMenu("Request");
-        menu4.setFont(new Font("Open Sans", Font.PLAIN, 13));
-        JMenuItem menuItem7 = new JMenuItem("Time Off");
-        JMenuItem menuItem8 = new JMenuItem("Expenses");
+        menu4 = new JMenu("Review");
+        menu4.setFont(new Font("Open Sans", Font.PLAIN, 14));
+        JMenuItem menuItem7 = new JMenuItem("Performance Review");
         menuItem7.setFont(new Font("Open Sans", Font.PLAIN, 12));
-        menuItem8.setFont(new Font("Open Sans", Font.PLAIN, 12));
         menuItem7.addActionListener(this);
+        
+        menu5 = new JMenu("Exit");
+        menu5.setFont(new Font("Open Sans", Font.PLAIN, 14));
+        JMenuItem menuItem8 = new JMenuItem("Log Out");
+        menuItem8.setFont(new Font("Open Sans", Font.PLAIN, 12));
         menuItem8.addActionListener(this);
-        
-        menu5 = new JMenu("Review");
-        menu5.setFont(new Font("Open Sans", Font.PLAIN, 13));
-        JMenuItem menuItem9 = new JMenuItem("Performance Review");
-        menuItem9.setFont(new Font("Open Sans", Font.PLAIN, 12));
-        menuItem9.addActionListener(this);
-        
-        menu6 = new JMenu("Exit");
-        menu6.setFont(new Font("Open Sans", Font.PLAIN, 13));
-        JMenuItem menuItem10 = new JMenuItem("Log Out");
-        menuItem10.setFont(new Font("Open Sans", Font.PLAIN, 12));
-        menuItem10.addActionListener(this);
         
         
         menu1.add(menuItem1);
@@ -81,25 +77,24 @@ public class HrPage implements ActionListener
         menu3.add(menuItem5);
         menu3.add(menuItem6);
         menu4.add(menuItem7);
-        menu4.add(menuItem8);
-        menu5.add(menuItem9);
-        menu6.add(menuItem10);
+        menu5.add(menuItem8);
         
         menuBar.add(menu1);
         menuBar.add(menu2);
         menuBar.add(menu3);
         menuBar.add(menu4);
         menuBar.add(menu5);
-        menuBar.add(menu6);
+        
 
-        hrStaffFrame.add(titleLabel);
-        hrStaffFrame.setJMenuBar(menuBar);
+        add(titleLabel);
+        add(pics2);
+        setJMenuBar(menuBar);
 
-        hrStaffFrame.setVisible(true);
+        setVisible(true);
     }
  @Override
- public void actionPerformed(ActionEvent e)
- {
+    public void actionPerformed(ActionEvent e)
+    {
      String comnd = e.getActionCommand();
         if (comnd.equals("Add New Employee Profile"))
         {   
@@ -118,14 +113,6 @@ public class HrPage implements ActionListener
         {
             new DeleteEmployee();
         }
-        else if (comnd.equals("Take Attendance"))
-        {
-            
-        }
-        else if (comnd.equals("View Attendance"))
-        {
-        
-        }
         else if (comnd.equals("Time Off"))
         {
         
@@ -140,9 +127,16 @@ public class HrPage implements ActionListener
         }
         else if (comnd.equals("Log Out"))
         {
-            hrStaffFrame.dispose(); 
-            new MainPage();
+            dispose();
+            SwingUtilities.invokeLater(new Runnable() 
+            {
+            @Override
+                 public void run() 
+                 {
+                     new WelcomePage();
+                }
+            });
         }
      
- }
+    }
 }

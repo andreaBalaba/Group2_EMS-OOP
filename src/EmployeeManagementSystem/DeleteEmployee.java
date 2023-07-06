@@ -4,45 +4,23 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.ResultSet;
-import java.util.Vector;
 
-public class DeleteEmployee implements ActionListener 
+public class DeleteEmployee extends JFrame implements ActionListener 
 {
-    private EMSdatabase database = new EMSdatabase();
-    private JFrame deleteEmpFrame;
+    private EMSdataAccess database = new EMSdataAccess();
     private JLabel deleteEmpHeader, employeeListLabel, empIdLabel;
     private JTable employeeTable;
     private JScrollPane scrollPane;
     private JTextField empIdField;
     private JButton deleteButton, backButton;
     
-    private boolean deleteEmployee(String employeeId) {
-           
-        try 
-        {
-            
-            PreparedStatement preparedStatement = database.connection.prepareStatement("DELETE FROM employeeData WHERE employeeId = ?");
-            preparedStatement.setString(1, employeeId);
-
-            int rowsAffected = preparedStatement.executeUpdate();
-            return rowsAffected > 0;
-        } 
-        catch (SQLException e) 
-        {
-            e.printStackTrace();
-            return false;
-        }
-    }
 
     public DeleteEmployee() 
     {
-        deleteEmpFrame = new JFrame("Delete Employee");
-        deleteEmpFrame.setBounds(100, 100, 750, 550);
-        deleteEmpFrame.setLocationRelativeTo(null);
-        deleteEmpFrame.setLayout(null);
+        setTitle("Delete Employee");
+        setBounds(100, 100, 750, 550);
+        setLocationRelativeTo(null);
+        setLayout(null);
 
         deleteEmpHeader = new JLabel("Delete Employee Information");
         deleteEmpHeader.setFont(new Font("Open Sans", Font.BOLD, 25));
@@ -82,65 +60,24 @@ public class DeleteEmployee implements ActionListener
         backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         backButton.addActionListener(this);
         
-        deleteEmpFrame.add(deleteEmpHeader);
-        deleteEmpFrame.add(empIdField);
-        deleteEmpFrame.add(deleteButton);
-        deleteEmpFrame.add(backButton);
-        deleteEmpFrame.add(employeeListLabel);
-        deleteEmpFrame.add(scrollPane);
-        deleteEmpFrame.add(empIdLabel);
+        add(deleteEmpHeader);
+        add(empIdField);
+        add(deleteButton);
+        add(backButton);
+        add(employeeListLabel);
+        add(scrollPane);
+        add(empIdLabel);
 
-        deleteEmpFrame.setVisible(true);
+        setVisible(true);
         displayEmployeeList();
     }
     
     private void displayEmployeeList() 
     {
-        DefaultTableModel model = getEmployeeTableModel();
+        DefaultTableModel model = database.getEmployeeTableModel();
         employeeTable.setModel(model);
     }
     
-    public DefaultTableModel getEmployeeTableModel() 
-    {
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Employee ID");
-        model.addColumn("Name");
-        model.addColumn("Department");
-        model.addColumn("Date of Hired");
-        model.addColumn("Position");
-        model.addColumn("Salary");
-
-        try 
-        {
-            ResultSet resultSet = database.statement.executeQuery("SELECT * FROM employeeData ORDER BY employeeId");
-
-            while (resultSet.next()) 
-            {
-                String employeeId = resultSet.getString("employeeId");
-                String name = resultSet.getString("name");
-                String department = resultSet.getString("department");
-                String dateOfHired = resultSet.getString("dateOfHired");
-                String position = resultSet.getString("position");
-                String salary = resultSet.getString("salary");
-
-                Vector<String> rowData = new Vector<>();
-                rowData.add(employeeId);
-                rowData.add(name);
-                rowData.add(department);
-                rowData.add(dateOfHired);
-                rowData.add(position);
-                rowData.add(salary);
-
-                model.addRow(rowData);
-            }
-        } 
-        catch (SQLException e) 
-        {
-            e.printStackTrace();
-        }
-
-        return model;
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) 
@@ -148,21 +85,21 @@ public class DeleteEmployee implements ActionListener
         if (e.getSource() == deleteButton) 
         {
             String employeeId = empIdField.getText();
-            boolean success = deleteEmployee(employeeId);
+            boolean success = database.deleteEmployee(employeeId);
 
             if (success) 
             {
-                JOptionPane.showMessageDialog(deleteEmpFrame, "Employee deleted successfully.");
+                JOptionPane.showMessageDialog(null, "Employee deleted successfully.");
                 displayEmployeeList();
             } 
             else 
             {
-                JOptionPane.showMessageDialog(deleteEmpFrame, "Failed to delete the employee.");
+                JOptionPane.showMessageDialog(null, "Failed to delete the employee.");
             }
         }
         else if (e.getSource() == backButton) 
         {
-            deleteEmpFrame.dispose();
+            dispose();
         }
     }
 }

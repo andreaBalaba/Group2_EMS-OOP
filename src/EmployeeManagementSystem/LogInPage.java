@@ -3,68 +3,29 @@ package EmployeeManagementSystem;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.*;
 
-public class LogInPage implements ActionListener
+public class LogInPage extends JFrame implements ActionListener
 {  
-	private JFrame Lframe = new JFrame("Log In");
-	private JLabel Email, Password, WelcomeText;
-	private JTextField TEmail;
-	private JPasswordField passwordField;
-	private JButton LogInButton, BackButton;
-	private String accountType;
-        private Connection connection;
+    private EMSdataAccess database = new EMSdataAccess();
+    private JLabel Email, Password, WelcomeText;
+    private JTextField TEmail;
+    private JPasswordField passwordField;
+    private JButton LogInButton, BackButton;
+    private String accountType;
 	
-        private boolean validateEmail(String email) 
-        {
+    private boolean validateEmail(String email) 
+    {
             return email.contains("@");
-        }
-        private boolean validateManagerCredentials(String email, String password) 
-        {   
-            
-            try 
-            {
-                String query = "SELECT * FROM logIndata WHERE email = ? AND password = ?";
-                PreparedStatement statement = connection.prepareStatement(query);
-                statement.setString(1, email);
-                statement.setString(2,password);
-                ResultSet resultSet = statement.executeQuery();
-                return resultSet.next(); 
-            } 
-            catch (SQLException e) 
-            {
-                e.printStackTrace();
-            }
-            return false;
-         }
-        private boolean validateHRStaffCredentials(String email, String password) 
-        {
-            
-            try 
-            {
-                String query = "SELECT * FROM logIndata WHERE email = ? AND password = ?";
-                PreparedStatement statement = connection.prepareStatement(query);
-                statement.setString(1,email);
-                statement.setString(2,password);
-                ResultSet resultSet = statement.executeQuery();
-                
-                return resultSet.next(); 
-            }
-            catch (SQLException e) 
-            {
-                e.printStackTrace();
-            }
-         return false;
-       
-        }
- public LogInPage(String accountType, Connection connection) 
- {
+    }
+        
+    public LogInPage(String accountType) 
+    {
                 this.accountType = accountType;
-                this.connection = connection;
-            
-		Lframe.setBounds(100, 100, 450, 300);
-		Lframe.setLocationRelativeTo(null);
-		Lframe.setLayout(null);
+                
+                setTitle("Log In");
+		setBounds(100, 100, 450, 300);
+		setLocationRelativeTo(null);
+		setLayout(null);
 		
                 WelcomeText = new JLabel("G2 COMPUTER SERVICES");
 		WelcomeText.setFont(new Font("Open Sans", Font.BOLD, 17));
@@ -110,24 +71,24 @@ public class LogInPage implements ActionListener
                 BackButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		BackButton.addActionListener(this);
                 
-		Lframe.add(WelcomeText);
-		Lframe.add(TEmail);
-		Lframe.add(passwordField);
-		Lframe.add(Email);
-		Lframe.add(Password);
-		Lframe.add(LogInButton);
-		Lframe.add(BackButton);
-                Lframe.add(pics1);
+		add(WelcomeText);
+		add(TEmail);
+		add(passwordField);
+		add(Email);
+		add(Password);
+		add(LogInButton);
+		add(BackButton);
+                add(pics1);
 		
 		
-		Lframe.setVisible(true);
-                Lframe.setFocusable(false);
+		setVisible(true);
+                setFocusable(false);
                 
 	}
  
  @Override
- public void actionPerformed(ActionEvent e) 
- {
+    public void actionPerformed(ActionEvent e) 
+    {
      if (e.getSource() == LogInButton) 
      {
            String email = TEmail.getText().trim();
@@ -138,46 +99,46 @@ public class LogInPage implements ActionListener
                          String domain = email.substring(email.indexOf("@") + 1);
                              if (accountType.equals("Manager") && domain.equalsIgnoreCase("manager.com")) 
                              {
-                                 if (validateManagerCredentials(email, password)) 
+                                 if (database.validateManagerCredentials(email, password)) 
                                  {
-                                        Lframe.dispose(); 
+                                        dispose(); 
                                         new ManagerPage();
                                  } 
                                  else 
                                  {
-                                    JOptionPane.showMessageDialog(Lframe, "Invalid email or password.", 
+                                    JOptionPane.showMessageDialog(null, "Invalid email or password.", 
                                             "Log In Error", JOptionPane.ERROR_MESSAGE);
                                  }
                              } 
                              else if (accountType.equals("HR Staff") && domain.equalsIgnoreCase("hr.com")) 
                              {
-                                 if (validateHRStaffCredentials(email, password)) 
+                                 if (database.validateHRStaffCredentials(email, password)) 
                                  {
-                                    Lframe.dispose();
+                                    dispose();
                                     new HrPage();
                                  } 
                                  else 
                                  {
-                                    JOptionPane.showMessageDialog(Lframe, "Invalid email or password.", 
+                                    JOptionPane.showMessageDialog(null, "Invalid email or password.", 
                                             "Log In Error", JOptionPane.ERROR_MESSAGE);
                                  }
                              } 
                              else 
                              {
-                                     JOptionPane.showMessageDialog(Lframe, "Invalid email or password.",
+                                     JOptionPane.showMessageDialog(null, "Invalid email or password.",
                                              "Log In Error", JOptionPane.ERROR_MESSAGE);
                              }
                     } 
                     else 
                     {
-                            JOptionPane.showMessageDialog(Lframe, "Invalid email format.", 
+                            JOptionPane.showMessageDialog(null, "Invalid email format.", 
                                     "Log In Error", JOptionPane.ERROR_MESSAGE);
                     }
      } 
      else if (e.getSource() == BackButton) 
      {
-           Lframe.dispose();
-           new MainPage();
+           dispose();
+           new WelcomePage();
      }
  }
 }

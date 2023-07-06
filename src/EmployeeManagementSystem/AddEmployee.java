@@ -4,33 +4,27 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import com.toedter.calendar.JDateChooser;
-import java.sql.*;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Date;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.text.SimpleDateFormat;
 
-
-
-public class AddEmployee implements ActionListener
+public class AddEmployee extends JFrame implements ActionListener
 {       
-        private EMSdatabase database = new EMSdatabase();
-        private JFrame addEmpFrame = new JFrame("Add Employee");
-        private JLabel addEmpHeader, newEmpName, newEmpAge, newEmpDoH, newEmpSalary, newEmpDep;
-        private JLabel newEmpAddress, newEmppn, newEmpEmail, newEmpHE, newEmpID, newEmpPos, subResult;
-        private JTextField tfname, tfage, tfSalary, tfAddress, tfpn, tfEmail, tfID, tfPos, tfDep;
-        private JComboBox tfHE;
-        private JButton SubmitButton, BackButton;
-        private JDateChooser dcDoH;
-        private List<String> existingEmployeeIds;
+    private EMSdataAccess database = new EMSdataAccess();
+    private JLabel addEmpHeader, newEmpName, newEmpAge, newEmpDoH, newEmpSalary, newEmpDep;
+    private JLabel newEmpAddress, newEmppn, newEmpEmail, newEmpHE, newEmpID, newEmpPos, subResult;
+    private JTextField tfname, tfage, tfSalary, tfAddress, tfpn, tfEmail, tfID, tfPos, tfDep;
+    private JComboBox tfHE;
+    private JButton SubmitButton, BackButton;
+    private JDateChooser dcDoH;
+    private List<String> existingEmployeeIds;
         
     public AddEmployee () 
     {
-        addEmpFrame.setBounds(100, 100, 750, 550);
-        addEmpFrame.setLocationRelativeTo(null);
-        addEmpFrame.setLayout(null);
+        setTitle("Add Employee");
+        setBounds(100, 100, 750, 550);
+        setLocationRelativeTo(null);
+        setLayout(null);
+        
         
         addEmpHeader = new JLabel("New Employee Details");
         addEmpHeader.setFont(new Font("Open Sans", Font.BOLD, 25));
@@ -96,7 +90,7 @@ public class AddEmployee implements ActionListener
         newEmpID.setBounds(50, 297, 150, 30);
         newEmpID.setFont(new Font("Open Sans", Font.PLAIN, 16));
         
-        String newEmployeeId = getNextEmployeeId();
+        String newEmployeeId = database.getNextEmployeeId();
         tfID = new JTextField(newEmployeeId);
 	tfID.setFont(new Font("Open Sans", Font.PLAIN, 12));
 	tfID.setBounds(150, 300, 150, 28);
@@ -153,132 +147,46 @@ public class AddEmployee implements ActionListener
         BackButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	BackButton.addActionListener(this);
         
-        addEmpFrame.add(addEmpHeader);
-        addEmpFrame.add(newEmpName);
-        addEmpFrame.add(tfname);
-        addEmpFrame.add(newEmpAge);
-        addEmpFrame.add(tfage);
-        addEmpFrame.add(newEmpDoH);
-        addEmpFrame.add(dcDoH);
-        addEmpFrame.add(newEmpSalary);
-        addEmpFrame.add(tfSalary);
-        addEmpFrame.add(newEmpAddress);
-        addEmpFrame.add(tfAddress);
-        addEmpFrame.add(newEmppn);
-        addEmpFrame.add(tfpn);
-        addEmpFrame.add(newEmpEmail);
-        addEmpFrame.add(tfEmail);
-        addEmpFrame.add(newEmpHE);
-        addEmpFrame.add(tfHE);
-        addEmpFrame.add(newEmpID);
-        addEmpFrame.add(tfID);
-        addEmpFrame.add(newEmpPos);
-        addEmpFrame.add(tfPos);
-        addEmpFrame.add(subResult);
-        addEmpFrame.add(SubmitButton);
-        addEmpFrame.add(BackButton);
-        addEmpFrame.add(newEmpDep);
-        addEmpFrame.add(tfDep);
+        add(addEmpHeader);
+        add(newEmpName);
+        add(tfname);
+        add(newEmpAge);
+        add(tfage);
+        add(newEmpDoH);
+        add(dcDoH);
+        add(newEmpSalary);
+        add(tfSalary);
+        add(newEmpAddress);
+        add(tfAddress);
+        add(newEmppn);
+        add(tfpn);
+        add(newEmpEmail);
+        add(tfEmail);
+        add(newEmpHE);
+        add(tfHE);
+        add(newEmpID);
+        add(tfID);
+        add(newEmpPos);
+        add(tfPos);
+        add(subResult);
+        add(SubmitButton);
+        add(BackButton);
+        add(newEmpDep);
+        add(tfDep);
         
-        addEmpFrame.setVisible(true);
+        setVisible(true);
         
-        existingEmployeeIds = retrieveExistingEmployeeIds();
+        existingEmployeeIds = database.retrieveExistingEmployeeIds();
         
     }
-    private boolean addEmployee(String name, int age, Date dateOfHired, String email, String address,
-                           String phone, String employeeId, String education, String position, int salary, String department) 
-        {
-            try 
-            { 
-                PreparedStatement preparedStatement = database.connection.prepareStatement(
-                "INSERT INTO employeeData (name, age, dateOfHired, email, address, phone, employeeId, education, position, salary, department) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                
-                preparedStatement.setString(1, name);
-                preparedStatement.setInt(2, age);
-                preparedStatement.setDate(3, new java.sql.Date(dateOfHired.getTime()));
-                preparedStatement.setString(4, email);
-                preparedStatement.setString(5, address);
-                preparedStatement.setString(6, phone);
-                preparedStatement.setString(7, employeeId);
-                preparedStatement.setString(8, education);
-                preparedStatement.setString(9, position);
-                preparedStatement.setInt(10, salary);
-                preparedStatement.setString(11, department);
 
-                int rowsAffected = preparedStatement.executeUpdate();
-                return rowsAffected > 0;
-            } 
-            catch (SQLException e) 
-            {
-                e.printStackTrace();
-                return false;
-            }
-        }
-    private List<String> retrieveExistingEmployeeIds() 
-    {
-        
-        List<String> employeeIds = new ArrayList<>();
-
-        try 
-        {
-            
-            Statement statement = database.connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT employeeId FROM employeeData");
-
-            while (resultSet.next()) 
-            {
-                String employeeId = resultSet.getString("employeeId");
-                employeeIds.add(employeeId);
-            }
-
-            resultSet.close();
-            statement.close();
-            //database.connection.close();
-        } 
-        catch (SQLException ey) 
-        {
-            ey.printStackTrace();
-        }
-
-        return employeeIds;
-    }
-    public String getNextEmployeeId() 
-    {
-        String nextEmployeeId = null;
-
-        try 
-        {
-            
-            String query = "SELECT MAX(employeeId) FROM employeeData";
-            ResultSet resultSet = database.statement.executeQuery(query);
-
-            if (resultSet.next()) 
-            {
-                String lastEmployeeId = resultSet.getString(1);
-                int lastNumber = Integer.parseInt(lastEmployeeId.substring(3));
-                int nextNumber = lastNumber + 1;
-
-                // Format the next employee ID with leading zeros
-                nextEmployeeId = String.format("%04d", nextNumber);
-            }
-
-            resultSet.close();
-        } 
-        catch (SQLException ee) 
-        {
-            ee.printStackTrace();
-        }
-
-        return nextEmployeeId;
-    }
    
   @Override
- public void actionPerformed(ActionEvent e)
- {
+    public void actionPerformed(ActionEvent e)
+    {
      
      if (e.getSource() == SubmitButton) 
-     {
+     { 
         String name = tfname.getText();
         int age = Integer.parseInt(tfage.getText());
         Date dateOfHired = dcDoH.getDate();
@@ -291,23 +199,25 @@ public class AddEmployee implements ActionListener
         int salary = Integer.parseInt(tfSalary.getText());
         String department = tfDep.getText();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String formattedDateOfHired = sdf.format(dateOfHired);
+        Employee employee = new Employee(name, age, dateOfHired, email, address, phone, employeeId, education, position, salary, department);
 
-        boolean addSuccess = addEmployee(name, age, dateOfHired, email, address, phone, employeeId, education, position, salary, department);
+        boolean success = database.addEmployee(employee);
 
-        if (addSuccess)
+        if (success)
         {
             subResult.setText("New Employee is successfully added!");
         } 
         else 
         {
             subResult.setText("Sorry, failed to add new employee.");
+            
         }
     } 
     else if (e.getSource() == BackButton) 
     {
-        addEmpFrame.dispose();
+        dispose();
     }
  }   
+
+    
 }

@@ -4,26 +4,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.List;
 
 
-public class SearchEmployee implements ActionListener {
+public class SearchEmployee extends JFrame implements ActionListener {
     
-        private EMSdatabase database = new EMSdatabase();
-        private JFrame searchFrame;
-        private JLabel titleLabel, employeeIdLabel;
-        private JTextField employeeIdField;
-        private JButton searchButton;
-        private JTextArea employeeListTextArea;
+    private EMSdataAccess database = new EMSdataAccess();
+    private JLabel titleLabel, employeeIdLabel;
+    private JTextField employeeIdField;
+    private JButton searchButton;
+    private JTextArea employeeListTextArea;
 
     public SearchEmployee() {
         
-        searchFrame = new JFrame("Search Employee");
-        searchFrame.setBounds(100, 100, 300, 335);
-        searchFrame.setLocationRelativeTo(null);
-        searchFrame.setLayout(null);
+        setTitle("Search Employee");
+        setBounds(100, 100, 300, 335);
+        setLocationRelativeTo(null);
+        setLayout(null);
 
         titleLabel = new JLabel("Search Employee");
         titleLabel.setFont(new Font("Open Sans", Font.BOLD, 16));
@@ -50,13 +47,13 @@ public class SearchEmployee implements ActionListener {
         JScrollPane scrollPane = new JScrollPane(employeeListTextArea);
         scrollPane.setBounds(40, 60, 210, 130);
 
-        searchFrame.add(titleLabel);
-        searchFrame.add(employeeIdLabel);
-        searchFrame.add(employeeIdField);
-        searchFrame.add(searchButton);
-        searchFrame.add(scrollPane);
+        add(titleLabel);
+        add(employeeIdLabel);
+        add(employeeIdField);
+        add(searchButton);
+        add(scrollPane);
 
-        searchFrame.setVisible(true);
+        setVisible(true);
 
         displayEmployeeList();
     }
@@ -64,70 +61,52 @@ public class SearchEmployee implements ActionListener {
     public void search() 
     {
         String employeeId = employeeIdField.getText();
-    
+
         if (!employeeId.isEmpty()) 
         {
-             try 
-             {
-                  PreparedStatement preparedStatement = database.getConnection().prepareStatement("SELECT * FROM employeeData WHERE employeeId = ?");
-                  preparedStatement.setString(1, employeeId);
-                  ResultSet resultSet = preparedStatement.executeQuery();
+            Employee employee = database.displayEmployeeDetails(employeeId);
 
-                  if (resultSet.next()) 
-                  {
-                     searchFrame.dispose();
-                     new ViewProfile(employeeId);
-                  } 
-                  else 
-                  {
-                     JOptionPane.showMessageDialog(searchFrame, "No employee found with the given ID.",
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                  }
-        } 
-        catch (SQLException ex) 
-        {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(searchFrame, "Error occurred while accessing the database.",
+            if (employee != null) 
+            {
+                dispose();
+                new ViewProfile(employeeId);
+            } 
+            else 
+            {
+            JOptionPane.showMessageDialog(null, "No employee found with the given ID.",
                     "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        
-    }
-    else 
-      {
-        JOptionPane.showMessageDialog(searchFrame, "Please enter an employee ID.",
+            }
+        } 
+        else 
+        {
+            JOptionPane.showMessageDialog(null, "Please enter an employee ID.",
                 "Error", JOptionPane.ERROR_MESSAGE);
-      }
+        }
     }
-
     public void displayEmployeeList() 
     {
-        try 
-        {
-             PreparedStatement preparedStatement = database.getConnection().prepareStatement("SELECT employeeId, name, position FROM employeeData");
-             ResultSet resultSet = preparedStatement.executeQuery();
-
-             StringBuilder employeeList = new StringBuilder();
-               while (resultSet.next()) 
+        List<String> employeeList = database.getEmployeeList();
+    
+            if (employeeList != null && !employeeList.isEmpty()) 
+            {
+                StringBuilder employeeListBuilder = new StringBuilder();
+                for (String employee : employeeList) 
                 {
-                     String employeeId = resultSet.getString("employeeId");
-                     String name = resultSet.getString("name");
-                     String position = resultSet.getString("position");
-                     employeeList.append(employeeId).append("  ").append(name).append(" (").append(position).append(")").append("\n");
+                    employeeListBuilder.append(employee).append("\n");
                 }
-
-        employeeListTextArea.setText(employeeList.toString());
-        } 
-        catch (SQLException exp) 
-        {
-             exp.printStackTrace();
-             JOptionPane.showMessageDialog(searchFrame, "Error occurred while accessing the database.",
+                employeeListTextArea.setText(employeeListBuilder.toString());
+            } 
+            else 
+            {
+                JOptionPane.showMessageDialog(null, "Error occurred while retrieving employee list.",
                 "Error", JOptionPane.ERROR_MESSAGE);
-        } 
-  }
+            }
+    }
+
 
     @Override
-  public void actionPerformed(ActionEvent e) 
-  {
+    public void actionPerformed(ActionEvent e) 
+    {
         if (e.getSource() == searchButton) 
         {
             search();

@@ -3,15 +3,12 @@ package EmployeeManagementSystem;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.ResultSet;
+import java.util.List;
 
-public class UpdateEmployeeDetails implements ActionListener 
+public class UpdateEmployeeDetails extends JFrame implements ActionListener 
 {
     
-    private EMSdatabase database = new EMSdatabase();
-    private JFrame updateEmployeeFrame;
+    private EMSdataAccess database = new EMSdataAccess();
     private JLabel titleLabel, employeeIdLabel, nameLabel, ageLabel, positionLabel, salaryLabel;
     private JLabel addressLabel, emailLabel, phoneLabel, departmentLabel;
     private JTextField nameField, ageField, positionField, salaryField, departmentField;
@@ -21,10 +18,10 @@ public class UpdateEmployeeDetails implements ActionListener
 
     public UpdateEmployeeDetails() 
     {
-        updateEmployeeFrame = new JFrame("Update Employee Details");
-        updateEmployeeFrame.setBounds(100, 100, 400, 450);
-        updateEmployeeFrame.setLocationRelativeTo(null);
-        updateEmployeeFrame.setLayout(null);
+        setTitle("Update Employee Details");
+        setBounds(100, 100, 400, 450);
+        setLocationRelativeTo(null);
+        setLayout(null);
 
         titleLabel = new JLabel("Update Employee Details");
         titleLabel.setFont(new Font("Open Sans", Font.BOLD, 18));
@@ -101,101 +98,68 @@ public class UpdateEmployeeDetails implements ActionListener
         cancelButton.setFocusable(false);
         cancelButton.addActionListener(this);
 
-        updateEmployeeFrame.add(titleLabel);
-        updateEmployeeFrame.add(employeeIdLabel);
-        updateEmployeeFrame.add(nameLabel);
-        updateEmployeeFrame.add(ageLabel);
-        updateEmployeeFrame.add(positionLabel);
-        updateEmployeeFrame.add(salaryLabel);
-        updateEmployeeFrame.add(addressLabel);
-        updateEmployeeFrame.add(emailLabel);
-        updateEmployeeFrame.add(phoneLabel);
-        updateEmployeeFrame.add(employeeIdChoice);
-        updateEmployeeFrame.add(nameField);
-        updateEmployeeFrame.add(ageField);
-        updateEmployeeFrame.add(positionField);
-        updateEmployeeFrame.add(salaryField);
-        updateEmployeeFrame.add(addressField);
-        updateEmployeeFrame.add(emailField);
-        updateEmployeeFrame.add(phoneField);
-        updateEmployeeFrame.add(updateButton);
-        updateEmployeeFrame.add(cancelButton);
-        updateEmployeeFrame.add(departmentLabel);
-        updateEmployeeFrame.add(departmentField);
+        add(titleLabel);
+        add(employeeIdLabel);
+        add(nameLabel);
+        add(ageLabel);
+        add(positionLabel);
+        add(salaryLabel);
+        add(addressLabel);
+        add(emailLabel);
+        add(phoneLabel);
+        add(employeeIdChoice);
+        add(nameField);
+        add(ageField);
+        add(positionField);
+        add(salaryField);
+        add(addressField);
+        add(emailField);
+        add(phoneField);
+        add(updateButton);
+        add(cancelButton);
+        add(departmentLabel);
+        add(departmentField);
 
-        updateEmployeeFrame.setVisible(true);
+        setVisible(true);
 
         populateEmployeeIds();
     }
-
+    
     private void populateEmployeeIds() 
     {
-        try 
-        {
-            PreparedStatement preparedStatement = database.connection.prepareStatement("SELECT employeeId FROM employeeData ORDER BY employeeId");
-            ResultSet resultSet = preparedStatement.executeQuery();
+        List<String> employeeIds = database.retrieveExistingEmployeeIds();
 
-            while (resultSet.next()) 
-            {
-                String employeeId = resultSet.getString("employeeId");
-                employeeIdChoice.addItem(employeeId);
-            }
-        } 
-        catch (SQLException ex) 
+        employeeIdChoice.removeAllItems(); 
+
+        for (String employeeId : employeeIds) 
         {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(updateEmployeeFrame, "Error occurred while accessing the database.", 
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            updateEmployeeFrame.dispose();
+            employeeIdChoice.addItem(employeeId); 
         }
     }
-
-    private void displayEmployeeDetails(String employeeId) 
+    
+    private Employee displayEmployeeDetails(String employeeId) 
     {
-        try 
+        Employee employee = database.displayEmployeeDetails(employeeId);
+        
+        if (employee != null) 
         {
-            PreparedStatement preparedStatement = database.connection.prepareStatement("SELECT * FROM employeeData WHERE employeeId = ?");
-            preparedStatement.setString(1, employeeId);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) 
-            {
-                String name = resultSet.getString("name");
-                String age = resultSet.getString("age");
-                String department = resultSet.getString("department");
-                String position = resultSet.getString("position");
-                String salary = resultSet.getString("salary");
-                String address = resultSet.getString("address");
-                String email = resultSet.getString("email");
-                String phone = resultSet.getString("phone");
-
-                nameField.setText(name);
-                ageField.setText(age);
-                departmentField.setText(department);
-                positionField.setText(position);
-                salaryField.setText(salary);
-                addressField.setText(address);
-                emailField.setText(email);
-                phoneField.setText(phone);
-            } 
-            else 
-            {
-                // Employee not found
-                JOptionPane.showMessageDialog(updateEmployeeFrame, "Employee not found!", 
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                updateEmployeeFrame.dispose();
-            }
+            nameField.setText(employee.getName());
+            ageField.setText(Integer.toString(employee.getAge()));
+            departmentField.setText(employee.getDepartment());
+            positionField.setText(employee.getPosition());
+            salaryField.setText(Integer.toString(employee.getSalary()));
+            addressField.setText(employee.getAddress());
+            emailField.setText(employee.getEmail());
+            phoneField.setText(employee.getPhone());
         } 
-        catch (SQLException ex) 
+        else 
         {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(updateEmployeeFrame, "Error occurred while accessing the database.", 
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            updateEmployeeFrame.dispose();
+            JOptionPane.showMessageDialog(this, "Employee not found.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    
+        return employee;
     }
-
+    
     private void updateEmployeeDetails(String employeeId) 
     {
         String name = nameField.getText();
@@ -206,59 +170,36 @@ public class UpdateEmployeeDetails implements ActionListener
         String address = addressField.getText();
         String email = emailField.getText();
         String phone = phoneField.getText();
+      
 
-        try 
+        boolean success = database.updateEmployeeDetails(employeeId, name, age, department, position, salary, address, email, phone);
+        
+        if (success) 
         {
-            PreparedStatement preparedStatement = database.connection.prepareStatement("UPDATE employeeData SET name = ?, age = ?, "
-                    + "department = ?, position = ?, salary = ?, address = ?, email = ?, phone = ? WHERE employeeId = ?");
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, age);
-            preparedStatement.setString(3, department);
-            preparedStatement.setString(4, position);
-            preparedStatement.setString(5, salary);
-            preparedStatement.setString(6, address);
-            preparedStatement.setString(7, email);
-            preparedStatement.setString(8, phone);
-            preparedStatement.setString(9, employeeId);
-
-            int rowsUpdated = preparedStatement.executeUpdate();
-
-            if (rowsUpdated > 0) 
-            {
-                JOptionPane.showMessageDialog(updateEmployeeFrame, "Employee details updated successfully.", 
-                        "Success", JOptionPane.INFORMATION_MESSAGE);
-                updateEmployeeFrame.dispose();
-            } 
-            else 
-            {
-                JOptionPane.showMessageDialog(updateEmployeeFrame, "Failed to update employee details.", 
-                        "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            JOptionPane.showMessageDialog(this, "Employee details updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
         } 
-        catch (SQLException ex) 
+        else 
         {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(updateEmployeeFrame, "Error occurred while accessing the database.", 
-                    "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Failed to update employee details.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
   @Override
-  public void actionPerformed(ActionEvent e) 
-  {
+    public void actionPerformed(ActionEvent e) 
+    {
         if (e.getSource() == employeeIdChoice) 
         {
-            String selectedEmployeeId = (String) employeeIdChoice.getSelectedItem();
+            String selectedEmployeeId = employeeIdChoice.getSelectedItem().toString();
             displayEmployeeDetails(selectedEmployeeId);
         } 
         else if (e.getSource() == updateButton) 
         {
-            String selectedEmployeeId = (String) employeeIdChoice.getSelectedItem();
+            String selectedEmployeeId =  employeeIdChoice.getSelectedItem().toString();
             updateEmployeeDetails(selectedEmployeeId);
         } 
         else if (e.getSource() == cancelButton) 
         {
-            updateEmployeeFrame.dispose();
+            dispose();
         }
   }
 }

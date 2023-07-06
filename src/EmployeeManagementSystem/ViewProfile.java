@@ -3,14 +3,11 @@ package EmployeeManagementSystem;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
-public class ViewProfile implements ActionListener
+
+public class ViewProfile extends JFrame implements ActionListener
 {   
-    private EMSdatabase database = new EMSdatabase();
-    private JFrame viewProfileFrame;
+    private EMSdataAccess database = new EMSdataAccess();
     private JLabel titleLabel, employeeIdLabel, nameLabel, ageLabel, positionLabel,depLabel;
     private JLabel salaryLabel, addressLabel, hireLabel, educationLabel, emailLabel, phoneLabel;
     private JTextField employeeIdField, nameField, ageField, positionField, salaryField, addressField;
@@ -22,10 +19,10 @@ public class ViewProfile implements ActionListener
     {
         this.employeeId = employeeId;
         
-        viewProfileFrame = new JFrame("View Employee Profile");
-        viewProfileFrame.setBounds(100, 100, 400, 550);
-        viewProfileFrame.setLocationRelativeTo(null);
-        viewProfileFrame.setLayout(null);
+        setTitle("View Employee Profile");
+        setBounds(100, 100, 400, 550);
+        setLocationRelativeTo(null);
+        setLayout(null);
 
         titleLabel = new JLabel("Employee Profile");
         titleLabel.setFont(new Font("Open Sans", Font.BOLD, 18));
@@ -67,46 +64,57 @@ public class ViewProfile implements ActionListener
         employeeIdField = new JTextField();
         employeeIdField.setEditable(false);
         employeeIdField.setBounds(140, 70, 200, 20);
+        employeeIdField.setBorder(null);
 
         nameField = new JTextField();
         nameField.setEditable(false);
         nameField.setBounds(140, 100, 200, 20);
+        nameField.setBorder(null);
 
         ageField = new JTextField();
         ageField.setEditable(false);
         ageField.setBounds(140, 130, 200, 20);
+        ageField.setBorder(null);
         
         depField = new JTextField();
         depField.setEditable(false);
         depField.setBounds(140, 160, 200, 20);
+        depField.setBorder(null);
 
         positionField = new JTextField();
         positionField.setEditable(false);
         positionField.setBounds(140, 190, 200, 20);
+        positionField.setBorder(null);
 
         salaryField = new JTextField();
         salaryField.setEditable(false);
         salaryField.setBounds(140, 220, 200, 20);
+        salaryField.setBorder(null);
         
         hireField = new JTextField();
         hireField.setEditable(false);
         hireField.setBounds(140, 250, 200, 20);
+        hireField.setBorder(null);
         
         addressField = new JTextField();
         addressField.setEditable(false);
         addressField.setBounds(140, 280, 200, 20);
+        addressField.setBorder(null);
         
         educationField = new JTextField();
         educationField.setEditable(false);
         educationField.setBounds(140, 310, 200, 20);
+        educationField.setBorder(null);
         
         emailField = new JTextField();
         emailField.setEditable(false);
         emailField.setBounds(140, 340, 200, 20);
+        emailField.setBorder(null);
         
         phoneField = new JTextField();
         phoneField.setEditable(false);
         phoneField.setBounds(140, 370, 200, 20);
+        phoneField.setBorder(null);
 
         backButton = new JButton("Back");
         backButton.setFont(new Font("Open Sans", Font.BOLD, 13));
@@ -117,92 +125,62 @@ public class ViewProfile implements ActionListener
         backButton.setBounds(150, 425, 100, 30);
         backButton.setFocusable(false);
         backButton.addActionListener(this);
-            
+        
+        add(titleLabel);
+        add(employeeIdLabel);
+        add(nameLabel);
+        add(ageLabel);
+        add(positionLabel);
+        add(salaryLabel);
+        add(addressLabel);
+        add(hireLabel);
+        add(educationLabel);
+        add(emailLabel);
+        add(phoneLabel);
+        add(employeeIdField);
+        add(nameField);
+        add(ageField);
+        add(positionField);
+        add(salaryField);
+        add(addressField);
+        add(hireField);
+        add(educationField);
+        add(emailField);
+        add(phoneField);
+        add(backButton);
+        add(depLabel);
+        add(depField);
 
-        viewProfileFrame.add(titleLabel);
-        viewProfileFrame.add(employeeIdLabel);
-        viewProfileFrame.add(nameLabel);
-        viewProfileFrame.add(ageLabel);
-        viewProfileFrame.add(positionLabel);
-        viewProfileFrame.add(salaryLabel);
-        viewProfileFrame.add(addressLabel);
-        viewProfileFrame.add(hireLabel);
-        viewProfileFrame.add(educationLabel);
-        viewProfileFrame.add(emailLabel);
-        viewProfileFrame.add(phoneLabel);
-        viewProfileFrame.add(employeeIdField);
-        viewProfileFrame.add(nameField);
-        viewProfileFrame.add(ageField);
-        viewProfileFrame.add(positionField);
-        viewProfileFrame.add(salaryField);
-        viewProfileFrame.add(addressField);
-        viewProfileFrame.add(hireField);
-        viewProfileFrame.add(educationField);
-        viewProfileFrame.add(emailField);
-        viewProfileFrame.add(phoneField);
-        viewProfileFrame.add(backButton);
-        viewProfileFrame.add(depLabel);
-        viewProfileFrame.add(depField);
-
-        viewProfileFrame.setVisible(true);
-
+        setVisible(true);
+        
         displayProfile();
     }
     
-
-    public void displayProfile() 
+    private void displayProfile() 
     {
-        try 
+    
+        Employee employee = database.displayEmployeeDetails(employeeId);
+
+        if (employee != null) 
         {
-            PreparedStatement preparedStatement = database.connection.prepareStatement("SELECT * FROM employeeData WHERE employeeId = ?");
-            preparedStatement.setString(1, employeeId);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) 
-            {
-                String name = resultSet.getString("name");
-                String age = resultSet.getString("age");
-                String department = resultSet.getString("department");
-                String position = resultSet.getString("position");
-                String salary = resultSet.getString("salary");
-                String dateOfHired = resultSet.getString("dateOfHired");
-                String address = resultSet.getString("address");
-                String education = resultSet.getString("education");
-                String email = resultSet.getString("email");
-                String phone = resultSet.getString("phone");
-
-                employeeIdField.setText(employeeId);
-                nameField.setText(name);
-                ageField.setText(age);
-                depField.setText(department);
-                positionField.setText(position);
-                salaryField.setText(salary);
-                hireField.setText(dateOfHired);
-                addressField.setText(address);
-                educationField.setText(education);
-                emailField.setText(email);
-                phoneField.setText(phone);
-            } 
-            else 
-            {
-                // Employee not found
-                JOptionPane.showMessageDialog(viewProfileFrame, "Employee not found!", 
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                viewProfileFrame.dispose();
-            }
+            employeeIdField.setText(employeeId);
+            nameField.setText(employee.getName());
+            ageField.setText(Integer.toString(employee.getAge()));
+            depField.setText(employee.getDepartment());
+            positionField.setText(employee.getPosition());
+            salaryField.setText(Integer.toString(employee.getSalary()));
+            hireField.setText(employee.getDateOfHired().toString());
+            addressField.setText(employee.getAddress());
+            educationField.setText(employee.getEducation());
+            emailField.setText(employee.getEmail());
+            phoneField.setText(employee.getPhone());
         } 
-        catch (SQLException ex) 
+        else 
         {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(viewProfileFrame, "Error occurred while accessing the database.", 
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            viewProfileFrame.dispose();
-        } 
-        finally 
-        {
-            database.closeConnection();
+            JOptionPane.showMessageDialog(null, "Employee not found!", "Error", JOptionPane.ERROR_MESSAGE);
+            dispose();
         }
+        
     }
     
     @Override
@@ -210,7 +188,7 @@ public class ViewProfile implements ActionListener
     {
         if (e.getSource() == backButton) 
         {
-            viewProfileFrame.dispose();
+            dispose();
         }
     }   
 }
