@@ -31,8 +31,8 @@ public class AddEmployee extends JFrame implements ActionListener
         addEmpHeader.setBounds(250, 30, 500, 50);
         
         newEmpDep = new JLabel("Department:");
-        newEmpDep.setFont(new Font("Open Sans", Font.PLAIN, 16));
-        newEmpDep.setBounds(250, 90, 150, 30);
+        newEmpDep.setFont(new Font("Open Sans", Font.PLAIN, 15));
+        newEmpDep.setBounds(250, 87, 150, 30);
         
         tfDep = new JTextField();
 	tfDep.setFont(new Font("Open Sans", Font.PLAIN, 12));
@@ -40,7 +40,7 @@ public class AddEmployee extends JFrame implements ActionListener
         
         newEmpName = new JLabel("Name: ");
         newEmpName.setBounds(50, 147, 150, 30);
-        newEmpName.setFont(new Font("Open Sans", Font.PLAIN, 16));
+        newEmpName.setFont(new Font("Open Sans", Font.PLAIN, 15));
         
         tfname = new JTextField();
 	tfname.setFont(new Font("Open Sans", Font.PLAIN, 12));
@@ -48,7 +48,7 @@ public class AddEmployee extends JFrame implements ActionListener
         
         newEmpAge = new JLabel("Age: ");
         newEmpAge.setBounds(370, 147, 150, 30);
-        newEmpAge.setFont(new Font("Open Sans", Font.PLAIN, 16));
+        newEmpAge.setFont(new Font("Open Sans", Font.PLAIN, 15));
         
         tfage = new JTextField();
 	tfage.setFont(new Font("Open Sans", Font.PLAIN, 12));
@@ -56,7 +56,7 @@ public class AddEmployee extends JFrame implements ActionListener
         
         newEmpDoH = new JLabel("Date of Hired: ");
         newEmpDoH.setBounds(50, 197, 150, 30);
-        newEmpDoH.setFont(new Font("Open Sans", Font.PLAIN, 16));
+        newEmpDoH.setFont(new Font("Open Sans", Font.PLAIN, 15));
         
         dcDoH = new JDateChooser();
         dcDoH.setBounds(150, 200, 150, 28);
@@ -64,7 +64,7 @@ public class AddEmployee extends JFrame implements ActionListener
         
         newEmpEmail = new JLabel("Email: ");
         newEmpEmail.setBounds(370, 197, 150, 30);
-        newEmpEmail.setFont(new Font("Open Sans", Font.PLAIN, 16));
+        newEmpEmail.setFont(new Font("Open Sans", Font.PLAIN, 15));
         
         tfEmail = new JTextField();
 	tfEmail.setFont(new Font("Open Sans", Font.PLAIN, 12));
@@ -72,7 +72,7 @@ public class AddEmployee extends JFrame implements ActionListener
         
         newEmpAddress = new JLabel("Address: ");
         newEmpAddress.setBounds(50, 247, 150, 30);
-        newEmpAddress.setFont(new Font("Open Sans", Font.PLAIN, 16));
+        newEmpAddress.setFont(new Font("Open Sans", Font.PLAIN, 15));
         
         tfAddress = new JTextField();
 	tfAddress.setFont(new Font("Open Sans", Font.PLAIN, 12));
@@ -80,7 +80,7 @@ public class AddEmployee extends JFrame implements ActionListener
         
         newEmppn = new JLabel("Phone No.: ");
         newEmppn.setBounds(370, 247, 150, 30);
-        newEmppn.setFont(new Font("Open Sans", Font.PLAIN, 16));
+        newEmppn.setFont(new Font("Open Sans", Font.PLAIN, 15));
         
         tfpn = new JTextField();
 	tfpn.setFont(new Font("Open Sans", Font.PLAIN, 12));
@@ -88,7 +88,7 @@ public class AddEmployee extends JFrame implements ActionListener
         
         newEmpID = new JLabel("Employee ID: ");
         newEmpID.setBounds(50, 297, 150, 30);
-        newEmpID.setFont(new Font("Open Sans", Font.PLAIN, 16));
+        newEmpID.setFont(new Font("Open Sans", Font.PLAIN, 15));
         
         String newEmployeeId = database.getNextEmployeeId();
         tfID = new JTextField(newEmployeeId);
@@ -98,7 +98,7 @@ public class AddEmployee extends JFrame implements ActionListener
         
         newEmpHE = new JLabel("Education Attainment: ");
         newEmpHE.setBounds(370, 297, 170, 30);
-        newEmpHE.setFont(new Font("Open Sans", Font.PLAIN, 16));
+        newEmpHE.setFont(new Font("Open Sans", Font.PLAIN, 15));
         
         String eduAt[] = {"Please select...","Elementary", "High School Undergraduate", "High School Graduate", 
             "College Undergraduate","College Graduate", "Vocational Education"};
@@ -110,7 +110,7 @@ public class AddEmployee extends JFrame implements ActionListener
 
         newEmpPos = new JLabel("Position: ");
         newEmpPos.setBounds(50, 347, 150, 30);
-        newEmpPos.setFont(new Font("Open Sans", Font.PLAIN, 16));
+        newEmpPos.setFont(new Font("Open Sans", Font.PLAIN, 15));
         
         tfPos = new JTextField();
 	tfPos.setFont(new Font("Open Sans", Font.PLAIN, 12));
@@ -118,7 +118,7 @@ public class AddEmployee extends JFrame implements ActionListener
         
         newEmpSalary = new JLabel("Salary: ");
         newEmpSalary.setBounds(370, 347, 150, 30);
-        newEmpSalary.setFont(new Font("Open Sans", Font.PLAIN, 16));
+        newEmpSalary.setFont(new Font("Open Sans", Font.PLAIN, 15));
         
         tfSalary = new JTextField();
 	tfSalary.setFont(new Font("Open Sans", Font.PLAIN, 12));

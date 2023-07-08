@@ -3,14 +3,17 @@ package EmployeeManagementSystem;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.table.DefaultTableModel;
 
 public class ManagerPage extends JFrame implements ActionListener 
 {
-    private JLabel titleLabel;
+    private EMSdataAccess database = new EMSdataAccess();
+    private JLabel titleLabel, welcomeLabel;
+    private JTable employeeTable;
+    private JScrollPane scrollPane;
     private JMenuBar menuBar = new JMenuBar();
     private JMenu menu1,menu2,menu3, menu4, menu5;
     
-
     public ManagerPage() 
     {
         setTitle("G2 Computer Services");
@@ -20,13 +23,21 @@ public class ManagerPage extends JFrame implements ActionListener
 
         titleLabel = new JLabel("Employee Management System");
         titleLabel.setFont(new Font("Open Sans", Font.BOLD, 25));
-        titleLabel.setBounds(180, 70, 400, 35);
+        titleLabel.setBounds(180, 30, 400, 35);
+        
+        welcomeLabel = new JLabel("Good Day!");
+        welcomeLabel.setFont(new Font("Open Sans", Font.PLAIN, 16));
+        welcomeLabel.setBounds(50, 80, 200, 30);
+
+        employeeTable = new JTable();
+        scrollPane = new JScrollPane(employeeTable);
+        scrollPane.setBounds(50, 120, 640, 100);
         
         ImageIcon icon2 = new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/ems.png"));
-        Image Icon2 = icon2.getImage().getScaledInstance(550,350,Image.SCALE_DEFAULT);
+        Image Icon2 = icon2.getImage().getScaledInstance(640,450,Image.SCALE_DEFAULT);
         ImageIcon pic2 = new ImageIcon(Icon2);
         JLabel pics2 = new JLabel(pic2);
-        pics2.setBounds(100, 100, 550, 350);
+        pics2.setBounds(50, 225, 640, 450);
         
         menuBar.setBackground(Color.WHITE);
         
@@ -88,10 +99,18 @@ public class ManagerPage extends JFrame implements ActionListener
         
 
         add(titleLabel);
+        add(scrollPane);
+        add(welcomeLabel);
         add(pics2);
         setJMenuBar(menuBar);
 
         setVisible(true);
+        displayEmployeeList();
+    }
+    private void displayEmployeeList() 
+    {
+        DefaultTableModel model = database.getEmployeeTableModel();
+        employeeTable.setModel(model);
     }
  @Override
     public void actionPerformed(ActionEvent e)
@@ -116,7 +135,7 @@ public class ManagerPage extends JFrame implements ActionListener
         }
         else if (comnd.equals("Time Off"))
         {
-        
+            new TimeOff();
         }
         else if (comnd.equals("Expenses"))
         {
@@ -124,7 +143,7 @@ public class ManagerPage extends JFrame implements ActionListener
         }
         else if (comnd.equals("Performance Review"))
         {
-        
+            new PerformanceReview();
         }
         else if (comnd.equals("Log Out"))
         {
