@@ -15,6 +15,7 @@ public class WelcomePage extends JFrame implements ActionListener
                 setBounds(100, 100, 450, 300);
 		setLocationRelativeTo(null);
 		setLayout(null);
+                setResizable(false);
                 
                 TitleLabel = new JLabel("G2 COMPUTER SERVICES");
 		TitleLabel.setFont(new Font("Open Sans", Font.BOLD, 18));

@@ -26,6 +26,7 @@ public class LogInPage extends JFrame implements ActionListener
 		setBounds(100, 100, 450, 300);
 		setLocationRelativeTo(null);
 		setLayout(null);
+                setResizable(false);
 		
                 WelcomeText = new JLabel("G2 COMPUTER SERVICES");
 		WelcomeText.setFont(new Font("Open Sans", Font.BOLD, 17));

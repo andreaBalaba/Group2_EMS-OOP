@@ -22,6 +22,7 @@ public class UpdateEmployeeDetails extends JFrame implements ActionListener
         setBounds(100, 100, 400, 450);
         setLocationRelativeTo(null);
         setLayout(null);
+        setResizable(false);
 
         titleLabel = new JLabel("Update Employee Details");
         titleLabel.setFont(new Font("Open Sans", Font.BOLD, 18));
@@ -137,9 +138,9 @@ public class UpdateEmployeeDetails extends JFrame implements ActionListener
         }
     }
     
-    private Employee displayEmployeeDetails(String employeeId) 
+    private GetSetEmployee displayEmployeeDetails(String employeeId) 
     {
-        Employee employee = database.displayEmployeeDetails(employeeId);
+        GetSetEmployee employee = database.displayEmployeeDetails(employeeId);
         
         if (employee != null) 
         {

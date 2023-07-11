@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.*;
 import com.toedter.calendar.JDateChooser;
 import java.util.*;
-import java.util.List;
 
 public class AddEmployee extends JFrame implements ActionListener
 {       
@@ -16,7 +15,6 @@ public class AddEmployee extends JFrame implements ActionListener
     private JComboBox tfHE;
     private JButton SubmitButton, BackButton;
     private JDateChooser dcDoH;
-    private List<String> existingEmployeeIds;
         
     public AddEmployee () 
     {
@@ -24,6 +22,7 @@ public class AddEmployee extends JFrame implements ActionListener
         setBounds(100, 100, 750, 550);
         setLocationRelativeTo(null);
         setLayout(null);
+        setResizable(false);
         
         
         addEmpHeader = new JLabel("New Employee Details");
@@ -44,10 +43,10 @@ public class AddEmployee extends JFrame implements ActionListener
         
         tfname = new JTextField();
 	tfname.setFont(new Font("Open Sans", Font.PLAIN, 12));
-	tfname.setBounds(150, 150, 150, 28);
+	tfname.setBounds(160, 150, 150, 28);
         
         newEmpAge = new JLabel("Age: ");
-        newEmpAge.setBounds(370, 147, 150, 30);
+        newEmpAge.setBounds(360, 147, 150, 30);
         newEmpAge.setFont(new Font("Open Sans", Font.PLAIN, 15));
         
         tfage = new JTextField();
@@ -59,11 +58,11 @@ public class AddEmployee extends JFrame implements ActionListener
         newEmpDoH.setFont(new Font("Open Sans", Font.PLAIN, 15));
         
         dcDoH = new JDateChooser();
-        dcDoH.setBounds(150, 200, 150, 28);
+        dcDoH.setBounds(160, 200, 150, 28);
         dcDoH.setBackground(Color.DARK_GRAY);
         
         newEmpEmail = new JLabel("Email: ");
-        newEmpEmail.setBounds(370, 197, 150, 30);
+        newEmpEmail.setBounds(360, 197, 150, 30);
         newEmpEmail.setFont(new Font("Open Sans", Font.PLAIN, 15));
         
         tfEmail = new JTextField();
@@ -76,10 +75,10 @@ public class AddEmployee extends JFrame implements ActionListener
         
         tfAddress = new JTextField();
 	tfAddress.setFont(new Font("Open Sans", Font.PLAIN, 12));
-	tfAddress.setBounds(150, 250, 150, 28);
+	tfAddress.setBounds(160, 250, 150, 28);
         
         newEmppn = new JLabel("Phone No.: ");
-        newEmppn.setBounds(370, 247, 150, 30);
+        newEmppn.setBounds(360, 247, 150, 30);
         newEmppn.setFont(new Font("Open Sans", Font.PLAIN, 15));
         
         tfpn = new JTextField();
@@ -93,11 +92,11 @@ public class AddEmployee extends JFrame implements ActionListener
         String newEmployeeId = database.getNextEmployeeId();
         tfID = new JTextField(newEmployeeId);
 	tfID.setFont(new Font("Open Sans", Font.PLAIN, 12));
-	tfID.setBounds(150, 300, 150, 28);
+	tfID.setBounds(160, 300, 150, 28);
         tfID.setEditable(false);
         
         newEmpHE = new JLabel("Education Attainment: ");
-        newEmpHE.setBounds(370, 297, 170, 30);
+        newEmpHE.setBounds(360, 297, 170, 30);
         newEmpHE.setFont(new Font("Open Sans", Font.PLAIN, 15));
         
         String eduAt[] = {"Please select...","Elementary", "High School Undergraduate", "High School Graduate", 
@@ -114,10 +113,10 @@ public class AddEmployee extends JFrame implements ActionListener
         
         tfPos = new JTextField();
 	tfPos.setFont(new Font("Open Sans", Font.PLAIN, 12));
-	tfPos.setBounds(150, 350, 150, 28);
+	tfPos.setBounds(160, 350, 150, 28);
         
         newEmpSalary = new JLabel("Salary: ");
-        newEmpSalary.setBounds(370, 347, 150, 30);
+        newEmpSalary.setBounds(360, 347, 150, 30);
         newEmpSalary.setFont(new Font("Open Sans", Font.PLAIN, 15));
         
         tfSalary = new JTextField();
@@ -176,7 +175,7 @@ public class AddEmployee extends JFrame implements ActionListener
         
         setVisible(true);
         
-        existingEmployeeIds = database.retrieveExistingEmployeeIds();
+        database.retrieveExistingEmployeeIds();
         
     }
 
@@ -199,7 +198,7 @@ public class AddEmployee extends JFrame implements ActionListener
         int salary = Integer.parseInt(tfSalary.getText());
         String department = tfDep.getText();
 
-        Employee employee = new Employee(name, age, dateOfHired, email, address, phone, employeeId, education, position, salary, department);
+        GetSetEmployee employee = new GetSetEmployee(name, age, dateOfHired, email, address, phone, employeeId, education, position, salary, department);
 
         boolean success = database.addEmployee(employee);
 

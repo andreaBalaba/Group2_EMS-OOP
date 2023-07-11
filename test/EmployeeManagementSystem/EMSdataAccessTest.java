@@ -92,7 +92,7 @@ public class EMSdataAccessTest {
         Object employee = null;
         EMSdataAccess instance = new EMSdataAccess();
         boolean expResult = false;
-        boolean result = instance.addEmployee((Employee) employee);
+        boolean result = instance.addEmployee((GetSetEmployee) employee);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

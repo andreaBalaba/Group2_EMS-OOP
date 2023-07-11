@@ -20,6 +20,7 @@ public class ManagerPage extends JFrame implements ActionListener
         setBounds(100, 100, 750, 550);
         setLocationRelativeTo(null);
         setLayout(null);
+        setResizable(false);
 
         titleLabel = new JLabel("Employee Management System");
         titleLabel.setFont(new Font("Open Sans", Font.BOLD, 25));
@@ -71,15 +72,18 @@ public class ManagerPage extends JFrame implements ActionListener
         
         menu4 = new JMenu("Review");
         menu4.setFont(new Font("Open Sans", Font.PLAIN, 14));
-        JMenuItem menuItem7 = new JMenuItem("Performance Review");
+        JMenuItem menuItem7 = new JMenuItem("Performance Review Form");
+        JMenuItem menuItem8 = new JMenuItem("List of Reviews");
         menuItem7.setFont(new Font("Open Sans", Font.PLAIN, 12));
+        menuItem8.setFont(new Font("Open Sans", Font.PLAIN, 12));
         menuItem7.addActionListener(this);
+        menuItem8.addActionListener(this);
         
         menu5 = new JMenu("Exit");
         menu5.setFont(new Font("Open Sans", Font.PLAIN, 14));
-        JMenuItem menuItem8 = new JMenuItem("Log Out");
-        menuItem8.setFont(new Font("Open Sans", Font.PLAIN, 12));
-        menuItem8.addActionListener(this);
+        JMenuItem menuItem9 = new JMenuItem("Log Out");
+        menuItem9.setFont(new Font("Open Sans", Font.PLAIN, 12));
+        menuItem9.addActionListener(this);
         
         
         menu1.add(menuItem1);
@@ -89,7 +93,8 @@ public class ManagerPage extends JFrame implements ActionListener
         menu3.add(menuItem5);
         menu3.add(menuItem6);
         menu4.add(menuItem7);
-        menu5.add(menuItem8);
+        menu4.add(menuItem8);
+        menu5.add(menuItem9);
         
         menuBar.add(menu1);
         menuBar.add(menu2);
@@ -141,9 +146,13 @@ public class ManagerPage extends JFrame implements ActionListener
         {
         
         }
-        else if (comnd.equals("Performance Review"))
+        else if (comnd.equals("Performance Review Form"))
         {
             new PerformanceReview();
+        }
+        else if (comnd.equals("List of Reviews"))
+        {
+            new ManagerVUDReview();
         }
         else if (comnd.equals("Log Out"))
         {

@@ -2,7 +2,7 @@ package EmployeeManagementSystem;
 
 import java.util.*;
 
-public class Employee 
+public class GetSetEmployee 
 {
     private String name;
     private int age;
@@ -15,8 +15,27 @@ public class Employee
     private String position;
     private int salary;
     private String department;
+    private Date date;
+    private String manager;
+    private boolean workToFullPotential;
+    private boolean workConsistency;
+    private boolean qualityOfWork;
+    private boolean goodCommunication;
+    private boolean takesInitiative;
+    private boolean creativity;
+    private boolean reliability;
+    private boolean productivity;
+    private boolean technicalSkills;
+    private boolean efficiency;
+    private boolean teamwork;
+    private boolean leadership;
+    private boolean independentWork;
+    private boolean punctuality;
+    private String overallReview;
+    private String areaOfImprovement;
+    private String comment;
 
-    public Employee(String name, int age, Date dateOfHired, String email, String address, String phone, String employeeId, String education, String position, int salary, String department) 
+    public GetSetEmployee(String name, int age, Date dateOfHired, String email, String address, String phone, String employeeId, String education, String position, int salary, String department) 
     {
         this.name = name;
         this.age = age;
@@ -31,7 +50,7 @@ public class Employee
         this.department = department;
     }
     
-    public Employee(String name, int age, String department, String position, int salary, String address, String email, String phone)
+    public GetSetEmployee(String name, int age, String department, String position, int salary, String address, String email, String phone)
     {
         this.name = name;
         this.age = age;
@@ -42,6 +61,64 @@ public class Employee
         this.email = email;
         this.phone = phone;
         
+    }
+    
+    public GetSetEmployee(String name, String position, String manager, Date date, String department, String employeeId, boolean workToFullPotential, boolean workConsistency,
+                               boolean qualityOfWork, boolean goodCommunication, boolean takesInitiative, boolean creativity, boolean reliability, boolean productivity, boolean technicalSkills, 
+                               boolean efficiency, boolean teamwork, boolean leadership, boolean independentWork, boolean punctuality, String areaOfImprovement, String comment, String overallReview)
+    {
+        this.name = name;
+        this.position = position;
+        this.manager = manager;
+        this.date = date;
+        this.department = department;
+        this.employeeId = employeeId;
+        this.workToFullPotential = workToFullPotential;
+        this.workConsistency = workConsistency;
+        this.qualityOfWork = qualityOfWork;
+        this.goodCommunication = goodCommunication;
+        this.takesInitiative = takesInitiative;
+        this.creativity = creativity;
+        this.reliability = reliability;
+        this.productivity = productivity;
+        this.technicalSkills = technicalSkills;
+        this.efficiency = efficiency;
+        this.teamwork = teamwork;
+        this.leadership = leadership;
+        this.independentWork = independentWork;
+        this.punctuality = punctuality;
+        this.areaOfImprovement = areaOfImprovement;
+        this.comment = comment;
+        this.overallReview = overallReview;
+  
+    }
+    
+    public GetSetEmployee(String employeeId, String name, String position, String manager, Date date, String department, boolean workToFullPotential, boolean workConsistency, boolean qualityOfWork, boolean goodCommunication, boolean takesInitiative, boolean creativity, boolean reliability, boolean productivity, boolean technicalSkills, boolean efficiency, boolean teamwork, boolean leadership, boolean independentWork, boolean punctuality, String areaOfImprovement, String comment, String overallReview)
+    {
+        this.employeeId = employeeId;
+        this.name = name;
+        this.position = position;
+        this.manager = manager;
+        this.date = date;
+        this.department = department;
+        this.workToFullPotential = workToFullPotential;
+        this.workConsistency = workConsistency;
+        this.qualityOfWork = qualityOfWork;
+        this.goodCommunication = goodCommunication;
+        this.takesInitiative = takesInitiative;
+        this.creativity = creativity;
+        this.reliability = reliability;
+        this.productivity = productivity;
+        this.technicalSkills = technicalSkills;
+        this.efficiency = efficiency;
+        this.teamwork = teamwork;
+        this.leadership = leadership;
+        this.independentWork = independentWork;
+        this.punctuality = punctuality;
+        this.areaOfImprovement = areaOfImprovement;
+        this.comment = comment;
+        this.overallReview = overallReview;
+  
     }
     
     public String getName() 
@@ -72,6 +149,16 @@ public class Employee
     public void setDateOfHired(Date dateOfHired) 
     {
         this.dateOfHired = dateOfHired;
+    }
+    
+    public Date getDate() 
+    {
+        return date;
+    }
+
+    public void setDate(Date date) 
+    {
+        this.date = date;
     }
 
     public String getEmail() 
@@ -152,5 +239,185 @@ public class Employee
     public void setDepartment(String department) 
     {
         this.department = department;
+    }
+    
+    public String getManager() 
+    {
+        return manager;
+    }
+
+    public void setManager(String manager) 
+    {
+        this.manager = manager;
+    }
+    
+    public boolean isWorkToFullPotential() 
+    {
+        return workToFullPotential;
+    }
+
+    public void setWorkToFullPotential(boolean workToFullPotential) 
+    {
+        this.workToFullPotential = workToFullPotential;
+    }
+
+    public boolean isWorkConsistency() 
+    {
+        return workConsistency;
+    }
+
+    public void setWorkConsistency(boolean workConsistency) 
+    {
+        this.workConsistency = workConsistency;
+    }
+
+    public boolean isQualityOfWork() 
+    {
+        return qualityOfWork;
+    }
+
+    public void setQualityOfWork(boolean qualityOfWork) 
+    {
+        this.qualityOfWork = qualityOfWork;
+    }
+    
+    public boolean isGoodCommunication() 
+    {
+        return goodCommunication;
+    }
+
+    public void setGoodCommunication(boolean goodCommunication) 
+    {
+        this.goodCommunication = goodCommunication;
+    }
+
+    public boolean isTakesInitiative() 
+    {
+        return takesInitiative;
+    }
+
+    public void setTakesInitiative(boolean takesInitiative) 
+    {
+        this.takesInitiative = takesInitiative;
+    }
+
+    public boolean isCreativity() 
+    {
+        return creativity;
+    }
+
+    public void setCreativity(boolean creativity) 
+    {
+        this.creativity = creativity;
+    }
+    
+    public boolean isReliability() 
+    {
+        return reliability;
+    }
+
+    public void setReliability(boolean reliability) 
+    {
+        this.reliability = reliability;
+    }
+
+    public boolean isProductivity() 
+    {
+        return productivity;
+    }
+
+    public void setProductivity(boolean productivity) 
+    {
+        this.productivity = productivity;
+    }
+
+    public boolean isTechnicalSkills() 
+    {
+        return technicalSkills;
+    }
+
+    public void setTechnicalSkills(boolean technicalSkills) 
+    {
+        this.technicalSkills = technicalSkills;
+    }
+
+    public boolean isEfficiency() 
+    {
+        return efficiency;
+    }
+
+    public void setEfficiency(boolean efficiency) 
+    {
+        this.efficiency = efficiency;
+    }
+    
+    public boolean isTeamwork() 
+    {
+        return teamwork;
+    }
+
+    public void setTeamwork(boolean teamwork) 
+    {
+        this.teamwork = teamwork;
+    }
+
+    public boolean isLeadership() 
+    {
+        return leadership;
+    }
+
+    public void setLeadership(boolean leadership) 
+    {
+        this.leadership = leadership;
+    }
+
+    public boolean isIndependentWork() 
+    {
+        return independentWork;
+    }
+
+    public void setIndependentWork(boolean independentWork) 
+    {
+        this.independentWork = independentWork;
+    }
+
+    public boolean isPunctuality() 
+    {
+        return punctuality;
+    }
+
+    public void setPunctuality(boolean punctuality) 
+    {
+        this.punctuality = punctuality;
+    }
+    
+    public String getAreaOfImprovement() 
+    {
+        return areaOfImprovement;
+    }
+
+    public void setAreaOfImprovement(String areaOfImprovement) 
+    {
+        this.areaOfImprovement = areaOfImprovement;
+    }
+
+    public String getComment() 
+    {
+        return comment;
+    }
+
+    public void setComment(String comment) 
+    {
+        this.comment = comment;
+    }
+    
+    public String getOverallReview() 
+    {
+        return overallReview;
+    }
+
+    public void setOverallReview(String overallReview) 
+    {
+        this.overallReview = overallReview;
     }
 }

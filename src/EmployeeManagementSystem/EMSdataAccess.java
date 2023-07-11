@@ -3,6 +3,7 @@ package EmployeeManagementSystem;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -125,7 +126,7 @@ public class EMSdataAccess
         return nextEmployeeId;
     }
 
-    public boolean addEmployee(Employee employee) 
+    public boolean addEmployee(GetSetEmployee employee) 
     {
         try 
         {
@@ -184,7 +185,85 @@ public class EMSdataAccess
 
         return employeeIds;
     }
+
+    public List<String> getDistinctEmployeeIds() 
+    {
+        List<String> employeeIds = new ArrayList<>();
+
+        try 
+        {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT DISTINCT employee_id FROM performance_review;");
+
+            while (resultSet.next()) 
+            {
+                String employeeId = resultSet.getString("employee_id");
+                employeeIds.add(employeeId);
+            }
+
+            resultSet.close();
+            statement.close();
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+
+        return employeeIds;
+    }
     
+    public GetSetEmployee getEmployeeReview(String employeeId) 
+    {
+        GetSetEmployee review = null;
+
+        try 
+        {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM performance_review WHERE employee_id = ?");
+            statement.setString(1, employeeId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) 
+            {
+                String name = resultSet.getString("name");
+                String position = resultSet.getString("position");
+                String manager = resultSet.getString("manager");
+                Date date = resultSet.getDate("date");
+                String department = resultSet.getString("department");
+                boolean workToFullPotential = resultSet.getBoolean("work_to_full_potential");
+                boolean workConsistency = resultSet.getBoolean("work_consistency");
+                boolean qualityOfWork = resultSet.getBoolean("quality_of_work");
+                boolean goodCommunication = resultSet.getBoolean("good_communication");
+                boolean takesInitiative = resultSet.getBoolean("takes_initiative");
+                boolean creativity = resultSet.getBoolean("creativity");
+                boolean reliability = resultSet.getBoolean("reliability");
+                boolean productivity = resultSet.getBoolean("productivity");
+                boolean technicalSkills = resultSet.getBoolean("technical_skills");
+                boolean efficiency = resultSet.getBoolean("efficiency");
+                boolean teamwork = resultSet.getBoolean("teamwork");
+                boolean leadership = resultSet.getBoolean("leadership");
+                boolean independentWork = resultSet.getBoolean("independent_work");
+                boolean punctuality = resultSet.getBoolean("punctuality");
+                String areaOfImprovement = resultSet.getString("area_of_improvement");
+                String comment = resultSet.getString("comment");
+                String overallReview = resultSet.getString("overall_review");
+
+                review = new GetSetEmployee(employeeId, name, position, manager, date, department, workToFullPotential,
+                    workConsistency, qualityOfWork, goodCommunication, takesInitiative, creativity, reliability,
+                    productivity, technicalSkills, efficiency, teamwork, leadership, independentWork, punctuality,
+                    areaOfImprovement, comment, overallReview);
+            }
+
+            resultSet.close();
+            statement.close();
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+
+        return review;
+    }
+
     public List<String> getEmployeeList() 
     {
         List<String> employeeList = new ArrayList<>();
@@ -213,10 +292,9 @@ public class EMSdataAccess
     return employeeList;
     }
 
-   
-    public Employee displayEmployeeDetails(String employeeId) 
+    public GetSetEmployee displayEmployeeDetails(String employeeId) 
     {
-        Employee employee = null;
+        GetSetEmployee employee = null;
             try 
             {
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM employeeData WHERE employeeId = ?");
@@ -236,9 +314,14 @@ public class EMSdataAccess
                     String education = resultSet.getString("education");
                     Date dateOfHired = resultSet.getDate("dateOfHired");
 
-                    employee = new Employee(name, age, department, position, salary, address, email, phone);
+                    GetSetEmployee review = getEmployeeReview(employeeId);
+                    String overallReview = (review != null) ? review.getOverallReview() : "";
+
+                    
+                    employee = new GetSetEmployee(name, age, department, position, salary, address, email, phone);
                     employee.setEducation(education);
                     employee.setDateOfHired(dateOfHired);
+                    employee.setOverallReview(overallReview);
 
                 } 
                 else 
@@ -255,6 +338,56 @@ public class EMSdataAccess
         }
             
         return employee;
+    }
+    
+    public boolean savePerformanceReview(GetSetEmployee employee) 
+    {
+        try 
+        {
+        
+            String sql = "INSERT INTO performance_review (name, position, manager, date, department, employee_id, " +
+                "work_to_full_potential, work_consistency, quality_of_work, good_communication, " +
+                "takes_initiative, creativity, reliability, productivity, technical_skills, efficiency, " +
+                "teamwork, leadership, independent_work, punctuality, area_of_improvement, comment, overall_review) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setString(1, employee.getName());
+            statement.setString(2, employee.getPosition());
+            statement.setString(3, employee.getManager());
+            statement.setDate(4, new java.sql.Date(employee.getDate().getTime()));
+            statement.setString(5, employee.getDepartment());
+            statement.setString(6, employee.getEmployeeId());
+            statement.setBoolean(7, employee.isWorkToFullPotential());
+            statement.setBoolean(8, employee.isWorkConsistency());
+            statement.setBoolean(9, employee.isQualityOfWork());
+            statement.setBoolean(10, employee.isGoodCommunication());
+            statement.setBoolean(11, employee.isTakesInitiative());
+            statement.setBoolean(12, employee.isCreativity());
+            statement.setBoolean(13, employee.isReliability());
+            statement.setBoolean(14, employee.isProductivity());
+            statement.setBoolean(15, employee.isTechnicalSkills());
+            statement.setBoolean(16, employee.isEfficiency());
+            statement.setBoolean(17, employee.isTeamwork());
+            statement.setBoolean(18, employee.isLeadership());
+            statement.setBoolean(19, employee.isIndependentWork());
+            statement.setBoolean(20, employee.isPunctuality());
+            statement.setString(21, employee.getAreaOfImprovement());
+            statement.setString(22, employee.getComment());
+            statement.setString(23, employee.getOverallReview());
+
+            statement.executeUpdate();
+
+            statement.close();
+
+            return true;
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean updateEmployeeDetails(String employeeId, String name, String age, String department, String position,
@@ -349,7 +482,89 @@ public class EMSdataAccess
             return false;
         }
     }
-    
+   
+    public boolean updateReviewData(GetSetEmployee review) 
+    {
+        try 
+        {
+            PreparedStatement updateStatement = connection.prepareStatement(
+                "UPDATE performance_review SET name = ?, position = ?, manager = ?, date = ?, department = ?, " +
+                "work_to_full_potential = ?, work_consistency = ?, quality_of_work = ?, good_communication = ?, " +
+                "takes_initiative = ?, creativity = ?, reliability = ?, productivity = ?, " +
+                "technical_skills = ?, efficiency = ?, teamwork = ?, leadership = ?, " +
+                "independent_work = ?, punctuality = ?, area_of_improvement = ?, comment = ?, overall_review = ? " +
+                "WHERE employee_id = ?");
+
+            updateStatement.setString(1, review.getName());
+            updateStatement.setString(2, review.getPosition());
+            updateStatement.setString(3, review.getManager());
+            updateStatement.setDate(4, new java.sql.Date(review.getDate().getTime()));
+            updateStatement.setString(5, review.getDepartment());
+            updateStatement.setBoolean(6, review.isWorkToFullPotential());
+            updateStatement.setBoolean(7, review.isWorkConsistency());
+            updateStatement.setBoolean(8, review.isQualityOfWork());
+            updateStatement.setBoolean(9, review.isGoodCommunication());
+            updateStatement.setBoolean(10, review.isTakesInitiative());
+            updateStatement.setBoolean(11, review.isCreativity());
+            updateStatement.setBoolean(12, review.isReliability());
+            updateStatement.setBoolean(13, review.isProductivity());
+            updateStatement.setBoolean(14, review.isTechnicalSkills());
+            updateStatement.setBoolean(15, review.isEfficiency());
+            updateStatement.setBoolean(16, review.isTeamwork());
+            updateStatement.setBoolean(17, review.isLeadership());
+            updateStatement.setBoolean(18, review.isIndependentWork());
+            updateStatement.setBoolean(19, review.isPunctuality());
+            updateStatement.setString(20, review.getAreaOfImprovement());
+            updateStatement.setString(21, review.getComment());
+            updateStatement.setString(22, review.getOverallReview());
+            updateStatement.setString(23, review.getEmployeeId());
+
+            int rowsAffected = updateStatement.executeUpdate();
+
+            if (rowsAffected > 0) 
+            {
+                System.out.println("Update successful.");
+                return true; 
+            } 
+            else 
+            {
+            System.out.println("Failed to update employee data.");
+            }
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+        return false; 
+
+    }
+
+    public boolean deleteReviewData(String employeeId) 
+    {
+        try 
+        {
+            PreparedStatement deleteStatement = connection.prepareStatement(
+                "DELETE FROM performance_review WHERE employee_id = ?");
+            deleteStatement.setString(1, employeeId);
+            int rowsAffected = deleteStatement.executeUpdate();
+
+                if (rowsAffected > 0) 
+                {
+                    System.out.println("Employee data for " + employeeId + " deleted successfully.");
+                    return true; 
+                } 
+                else 
+                {
+                    System.out.println("Failed to delete employee data.");
+                }
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+        return false; 
+    }
+
     public void closeConnection() 
     {
         try 

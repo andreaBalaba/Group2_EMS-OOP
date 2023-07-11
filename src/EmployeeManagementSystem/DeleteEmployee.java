@@ -21,6 +21,7 @@ public class DeleteEmployee extends JFrame implements ActionListener
         setBounds(100, 100, 750, 550);
         setLocationRelativeTo(null);
         setLayout(null);
+        setResizable(false);
 
         deleteEmpHeader = new JLabel("Delete Employee Information");
         deleteEmpHeader.setFont(new Font("Open Sans", Font.BOLD, 25));

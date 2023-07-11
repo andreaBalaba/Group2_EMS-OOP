@@ -21,6 +21,7 @@ public class SearchEmployee extends JFrame implements ActionListener {
         setBounds(100, 100, 300, 335);
         setLocationRelativeTo(null);
         setLayout(null);
+        setResizable(false);
 
         titleLabel = new JLabel("Search Employee");
         titleLabel.setFont(new Font("Open Sans", Font.BOLD, 16));
@@ -64,7 +65,7 @@ public class SearchEmployee extends JFrame implements ActionListener {
 
         if (!employeeId.isEmpty()) 
         {
-            Employee employee = database.displayEmployeeDetails(employeeId);
+            GetSetEmployee employee = database.displayEmployeeDetails(employeeId);
 
             if (employee != null) 
             {
