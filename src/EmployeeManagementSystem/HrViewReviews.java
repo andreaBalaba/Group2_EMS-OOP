@@ -10,12 +10,11 @@ import java.util.List;
 public class HrViewReviews extends JFrame implements ActionListener
 {
     private EMSdataAccess database = new EMSdataAccess();
-    private JTextField jTextName, jTextPos, jTextMan, jTextDep;
-    private JComboBox employeeIdComboBox, overallResultComboBox;
+    private JTextField jTextName, jTextPos, jTextMan, jTextDep, jTextDate, overallResultComboBox;
+    private JComboBox employeeIdComboBox;
     private JButton backButton;
     private JLabel NameLabel, PosLabel;
     private JCheckBox WFP, WC, QW, Comm, TakeIni, CRTVY, PRDTVY, TechSkl, Effy, TMW, Leader, IndepWk, Rlbty, Puntly;  
-    private JDateChooser jTextDate;
     private JTextArea Improve, Comment;
     
     public HrViewReviews()
@@ -86,10 +85,10 @@ public class HrViewReviews extends JFrame implements ActionListener
         DateLabel.setBounds(350, 100, 200, 20);
         con.add(DateLabel);
 
-        jTextDate = new JDateChooser();
+        jTextDate = new JTextField();
         jTextDate.setFont(new Font("Open Sans", Font.PLAIN, 13));
         jTextDate.setBounds(450, 100, 220, 20);
-        jTextDate.setEnabled(false);
+        jTextDate.setEditable(false);
         con.add(jTextDate);
 
         JLabel DepLabel = new JLabel();
@@ -226,11 +225,10 @@ public class HrViewReviews extends JFrame implements ActionListener
         reslbl.setBounds(235, 550, 220, 20);
         con.add(reslbl);
 
-        String result[] = { "Please select...", "Excellent", "Good", "Average", "Below Average" };
-        overallResultComboBox = new JComboBox(result);
+        overallResultComboBox = new JTextField();
         overallResultComboBox.setFont(new Font("Open Sans", Font.PLAIN, 13));
         overallResultComboBox.setBounds(335, 550, 150, 20);
-        overallResultComboBox.setEnabled(false);
+        overallResultComboBox.setEditable(false);
         overallResultComboBox.setBackground(Color.LIGHT_GRAY);
         overallResultComboBox.setFocusable(false);
         con.add(overallResultComboBox);
@@ -245,7 +243,7 @@ public class HrViewReviews extends JFrame implements ActionListener
         
         backButton = new JButton("Back");
         backButton.setFont(new Font("Open Sans", Font.BOLD, 13));
-        backButton.setBounds(315, 590, 90, 30);
+        backButton.setBounds(320, 590, 90, 30);
         backButton.setBackground(Color.GRAY);
         backButton.setForeground(Color.WHITE);
         backButton.setFocusable(false);
@@ -284,7 +282,7 @@ public class HrViewReviews extends JFrame implements ActionListener
                 jTextName.setText(review.getName());
                 jTextPos.setText(review.getPosition());
                 jTextMan.setText(review.getManager());
-                jTextDate.setDate(review.getDate());
+                jTextDate.setText(review.getDate().toString());
                 jTextDep.setText(review.getDepartment());
                 WFP.setSelected(review.isWorkToFullPotential());
                 WC.setSelected(review.isWorkConsistency());
@@ -302,16 +300,8 @@ public class HrViewReviews extends JFrame implements ActionListener
                 Puntly.setSelected(review.isPunctuality());
                 Improve.setText(review.getAreaOfImprovement());
                 Comment.setText(review.getComment());
-
-                String overallReview = review.getOverallReview();
-                    if (overallReview != null && !overallReview.isEmpty()) 
-                    {
-                        overallResultComboBox.setSelectedItem(overallReview);
-                    } 
-                    else 
-                    {
-                        overallResultComboBox.setSelectedIndex(0);
-                    }
+                overallResultComboBox.setText(review.getOverallReview());
+                
             } 
             else 
             {
@@ -324,7 +314,7 @@ public class HrViewReviews extends JFrame implements ActionListener
         jTextName.setText("");
         jTextPos.setText("");
         jTextMan.setText("");
-        jTextDate.setDate(null);
+        jTextDate.setText("");
         jTextDep.setText("");
         WFP.setSelected(false);
         WC.setSelected(false);
@@ -342,7 +332,7 @@ public class HrViewReviews extends JFrame implements ActionListener
         Puntly.setSelected(false);
         Improve.setText("");
         Comment.setText("");
-        overallResultComboBox.setSelectedIndex(0);
+        overallResultComboBox.setText("");
     }
     
     @Override
@@ -356,6 +346,7 @@ public class HrViewReviews extends JFrame implements ActionListener
         else if (e.getSource() == backButton) 
         {
             dispose();
+            new HrPage();
         }
     }
 }

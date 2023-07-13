@@ -34,6 +34,23 @@ public class GetSetEmployee
     private String overallReview;
     private String areaOfImprovement;
     private String comment;
+    private int requestId;
+    private int totalHours;
+    private Date dateOfAbsenceFrom;
+    private Date dateOfAbsenceTo;
+    private boolean vacation;
+    private boolean medicalLeave;
+    private boolean juryDuty;
+    private boolean personalLeave;
+    private boolean familyReasons;
+    private boolean toVote;
+    private boolean bereavement;
+    private boolean timeOffWithoutPay;
+    private String reasonForRequest;
+    private String employeeSignature;
+    private Date requestDate;
+    private String status;
+
 
     public GetSetEmployee(String name, int age, Date dateOfHired, String email, String address, String phone, String employeeId, String education, String position, int salary, String department) 
     {
@@ -119,6 +136,11 @@ public class GetSetEmployee
         this.comment = comment;
         this.overallReview = overallReview;
   
+    }
+    
+    public GetSetEmployee()
+    {
+       
     }
     
     public String getName() 
@@ -419,5 +441,163 @@ public class GetSetEmployee
     public void setOverallReview(String overallReview) 
     {
         this.overallReview = overallReview;
+    }
+    
+    public int getRequestId() 
+    {
+        return requestId;
+    }
+
+    public void setRequestId(int requestId) 
+    {
+        this.requestId = requestId;
+    }
+    
+    public int getTotalHours() 
+    {
+        return totalHours;
+    }
+
+    public void setTotalHours(int totalHours) 
+    {
+        this.totalHours = totalHours;
+    }
+
+    public Date getDateOfAbsenceFrom() 
+    {
+        return dateOfAbsenceFrom;
+    }
+
+    public void setDateOfAbsenceFrom(Date dateOfAbsenceFrom) 
+    {
+        this.dateOfAbsenceFrom = dateOfAbsenceFrom;
+    }
+
+    public Date getDateOfAbsenceTo() 
+    {
+        return dateOfAbsenceTo;
+    }
+
+    public void setDateOfAbsenceTo(Date dateOfAbsenceTo) 
+    {
+        this.dateOfAbsenceTo = dateOfAbsenceTo;
+    }
+    
+    public boolean isVacation() {
+        return vacation;
+    }
+
+    public void setVacation(boolean vacation) 
+    {
+        this.vacation = vacation;
+    }
+
+    public boolean isMedicalLeave() 
+    {
+        return medicalLeave;
+    }
+
+    public void setMedicalLeave(boolean medicalLeave) 
+    {
+        this.medicalLeave = medicalLeave;
+    }
+
+    public boolean isJuryDuty() 
+    {
+        return juryDuty;
+    }
+
+    public void setJuryDuty(boolean juryDuty) 
+    {
+        this.juryDuty = juryDuty;
+    }
+    
+    public boolean isPersonalLeave() 
+    {
+        return personalLeave;
+    }
+
+    public void setPersonalLeave(boolean personalLeave) 
+    {
+        this.personalLeave = personalLeave;
+    }
+
+    public boolean isFamilyReasons() 
+    {
+        return familyReasons;
+    }
+
+    public void setFamilyReasons(boolean familyReasons) 
+    {
+        this.familyReasons = familyReasons;
+    }
+
+    public boolean isToVote() 
+    {
+        return toVote;
+    }
+
+    public void setToVote(boolean toVote) 
+    {
+        this.toVote = toVote;
+    }
+
+    public boolean isBereavement() 
+    {
+        return bereavement;
+    }
+
+    public void setBereavement(boolean bereavement) 
+    {
+        this.bereavement = bereavement;
+    }
+    
+    public boolean isTimeOffWithoutPay() 
+    {
+        return timeOffWithoutPay;
+    }
+
+    public void setTimeOffWithoutPay(boolean timeOffWithoutPay) 
+    {
+        this.timeOffWithoutPay = timeOffWithoutPay;
+    }
+
+    public String getReasonForRequest() 
+    {
+        return reasonForRequest;
+    }
+
+    public void setReasonForRequest(String reasonForRequest) 
+    {
+        this.reasonForRequest = reasonForRequest;
+    }
+
+    public String getEmployeeSignature() 
+    {
+        return employeeSignature;
+    }
+
+    public void setEmployeeSignature(String employeeSignature) {
+        this.employeeSignature = employeeSignature;
+    }
+
+    public Date getRequestDate() 
+    {
+        return requestDate;
+    }
+
+    public void setRequestDate(Date requestDate) 
+    {
+        this.requestDate = requestDate;
+    }
+    
+    public String getStatus() 
+    {
+        return status;
+    }
+
+    public void setStatus(String status) 
+    {
+        this.status = status;
     }
 }

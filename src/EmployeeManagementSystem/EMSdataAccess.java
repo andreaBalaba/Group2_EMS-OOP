@@ -324,10 +324,6 @@ public class EMSdataAccess
                     employee.setOverallReview(overallReview);
 
                 } 
-                else 
-                {
-                    System.out.println("Employee not found.");
-                }
 
             resultSet.close();
             statement.close();
@@ -523,13 +519,8 @@ public class EMSdataAccess
 
             if (rowsAffected > 0) 
             {
-                System.out.println("Update successful.");
                 return true; 
             } 
-            else 
-            {
-            System.out.println("Failed to update employee data.");
-            }
         } 
         catch (SQLException e) 
         {
@@ -550,12 +541,8 @@ public class EMSdataAccess
 
                 if (rowsAffected > 0) 
                 {
-                    System.out.println("Employee data for " + employeeId + " deleted successfully.");
                     return true; 
-                } 
-                else 
-                {
-                    System.out.println("Failed to delete employee data.");
+                
                 }
         } 
         catch (SQLException e) 
@@ -563,6 +550,105 @@ public class EMSdataAccess
             e.printStackTrace();
         }
         return false; 
+    }
+    
+    public Vector<Vector<Object>> getTimeOffRequests() 
+    {
+        Vector<Vector<Object>> data = new Vector<>();
+
+        try 
+        {
+            Statement stmt = connection.createStatement();
+            String query = "SELECT request_id, employee_name, department, request_date, status FROM time_off_request";
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) 
+            {
+                Vector<Object> row = new Vector<>();
+                row.add(rs.getInt("request_id"));
+                row.add(rs.getString("employee_name"));
+                row.add(rs.getString("department"));
+                row.add(rs.getDate("request_date"));
+                row.add(rs.getString("status"));
+                data.add(row);
+            }
+
+        rs.close();
+        stmt.close();
+
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+
+        return data;
+    }
+
+    public Vector<Object> getTimeOffRequestById(int requestId) 
+    {
+        Vector<Object> rowData = new Vector<>();
+
+        try 
+        {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM time_off_request WHERE request_id = ?");
+            statement.setInt(1, requestId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) 
+            {
+                rowData.add(resultSet.getInt("request_id"));
+                rowData.add(resultSet.getString("employee_name"));
+                rowData.add(resultSet.getString("department"));
+                rowData.add(resultSet.getString("manager"));
+                rowData.add(resultSet.getString("employee_id"));
+                rowData.add(resultSet.getInt("total_hours"));
+                rowData.add(resultSet.getDate("date_of_absence_from"));
+                rowData.add(resultSet.getDate("date_of_absence_to"));
+                rowData.add(resultSet.getBoolean("vacation"));
+                rowData.add(resultSet.getBoolean("medical_leave"));
+                rowData.add(resultSet.getBoolean("jury_duty"));
+                rowData.add(resultSet.getBoolean("personal_leave"));
+                rowData.add(resultSet.getBoolean("family_reasons"));
+                rowData.add(resultSet.getBoolean("to_vote"));
+                rowData.add(resultSet.getBoolean("bereavement"));
+                rowData.add(resultSet.getBoolean("time_off_without_pay"));
+                rowData.add(resultSet.getString("reason_for_request"));
+                rowData.add(resultSet.getString("employee_signature"));
+                rowData.add(resultSet.getDate("request_date"));
+                rowData.add(resultSet.getString("status"));
+            }
+            resultSet.close();
+            statement.close();
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+
+        return rowData;
+    }
+
+    public boolean updateTimeOffRequestStatus(int requestId, String status) 
+    {
+        try 
+        {
+            String query = "UPDATE time_off_request SET status = ? WHERE request_id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, status);
+            statement.setInt(2, requestId);
+        
+            int rowsAffected = statement.executeUpdate();
+            statement.close();
+        
+        
+            return rowsAffected > 0;
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public void closeConnection() 

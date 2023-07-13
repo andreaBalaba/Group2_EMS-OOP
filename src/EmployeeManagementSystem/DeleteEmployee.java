@@ -77,6 +77,7 @@ public class DeleteEmployee extends JFrame implements ActionListener
     {
         DefaultTableModel model = database.getEmployeeTableModel();
         employeeTable.setModel(model);
+        employeeTable.setEnabled(false);
     }
     
 

@@ -115,6 +115,7 @@ public class HrPage extends JFrame implements ActionListener
     {
         DefaultTableModel model = database.getEmployeeTableModel();
         employeeTable.setModel(model);
+        employeeTable.setEnabled(false);
     }
  @Override
     public void actionPerformed(ActionEvent e)
@@ -130,16 +131,19 @@ public class HrPage extends JFrame implements ActionListener
         }
         else if (comnd.equals("Update Employee Details"))
         {
-            new UpdateEmployeeDetails();
+            dispose();
+            new HrUpdateEmployeeDetails();
             
         }
         else if (comnd.equals("Delete Employee"))
-        {
+        {   
             new DeleteEmployee();
         }
         else if (comnd.equals("Time Off"))
         {
-            new TimeOff();
+            dispose();
+            HrTimeOffRequestList htor = new HrTimeOffRequestList();
+            htor.setVisible(true);
         }
         else if (comnd.equals("Expenses"))
         {
@@ -151,6 +155,7 @@ public class HrPage extends JFrame implements ActionListener
         }
         else if (comnd.equals("View Reviews"))
         {
+            dispose();
             new HrViewReviews();
         }
         else if (comnd.equals("Log Out"))

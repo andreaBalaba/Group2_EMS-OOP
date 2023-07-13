@@ -7,6 +7,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class ManagerPage extends JFrame implements ActionListener 
 {
+
     private EMSdataAccess database = new EMSdataAccess();
     private JLabel titleLabel, welcomeLabel;
     private JTable employeeTable;
@@ -116,6 +117,7 @@ public class ManagerPage extends JFrame implements ActionListener
     {
         DefaultTableModel model = database.getEmployeeTableModel();
         employeeTable.setModel(model);
+        employeeTable.setEnabled(false);
     }
  @Override
     public void actionPerformed(ActionEvent e)
@@ -131,16 +133,19 @@ public class ManagerPage extends JFrame implements ActionListener
         }
         else if (comnd.equals("Update Employee Details"))
         {
-            new UpdateEmployeeDetails();
+            dispose();
+            new ManUpdateEmployeeDetails();
             
         }
         else if (comnd.equals("Delete Employee"))
-        {
+        {   
             new DeleteEmployee();
         }
         else if (comnd.equals("Time Off"))
         {
-            new TimeOff();
+            dispose();
+            ManTimeOffRequestList tor = new ManTimeOffRequestList();
+            tor.setVisible(true);
         }
         else if (comnd.equals("Expenses"))
         {

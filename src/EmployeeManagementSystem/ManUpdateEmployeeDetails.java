@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 
-public class HrUpdateEmployeeDetails extends JFrame implements ActionListener 
+public class ManUpdateEmployeeDetails extends JFrame implements ActionListener 
 {
     
     private EMSdataAccess database = new EMSdataAccess();
@@ -16,7 +16,7 @@ public class HrUpdateEmployeeDetails extends JFrame implements ActionListener
     private JButton updateButton, cancelButton;
     private JComboBox<String> employeeIdChoice;
 
-    public HrUpdateEmployeeDetails() 
+    public ManUpdateEmployeeDetails() 
     {
         setTitle("Update Employee Details");
         setBounds(100, 100, 400, 450);
@@ -201,7 +201,7 @@ public class HrUpdateEmployeeDetails extends JFrame implements ActionListener
         else if (e.getSource() == cancelButton) 
         {
             dispose();
-            new HrPage();
+            new ManagerPage();
         }
   }
 }

@@ -4,19 +4,23 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class HrTimeOff extends JFrame implements ActionListener
+public class ManTimeOff extends JFrame implements ActionListener
 {
+    private EMSdataAccess database = new EMSdataAccess();
     private JLabel Title, EMPINFOTitle, Name, DPT, Man, DAF, to, TAR, RFTR, IRAE, ES, Date, employid, ToH;
     private JTextField NameLABEL, DPTLABEL, ManLABEL, DAFLABEL, toLABEL, TARLABEL, ESLABEL, DateLABEL, employidtf, ToHtf;
     private JCheckBox VCN, ML, JD, PL, FR, TV, BMT, TOWP;
     private JTextArea RFTRAREA;
-    private JButton Back;
+    private JButton Approve, Deny, Back;
     private JScrollPane scrollPane;
     private GetSetEmployee employee;
-
-    public HrTimeOff(GetSetEmployee employee) 
+    private String updatedStatus;
+   
+    
+    public ManTimeOff(GetSetEmployee employee) 
     {
         this.employee = employee;
+        
         
         setTitle("Employee Request Time Off");
         setBounds(100,100,750,550);
@@ -25,6 +29,7 @@ public class HrTimeOff extends JFrame implements ActionListener
     
         JPanel con = new JPanel();
         con.setLayout(null);
+        
         con.setPreferredSize(new Dimension(600,600));
         scrollPane = new JScrollPane(con);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -36,7 +41,6 @@ public class HrTimeOff extends JFrame implements ActionListener
         Title.setFont(new Font("Open Sans",Font.BOLD,23));
         Title.setBounds(150,20,500,30);
         con.add(Title);
-    
     
         EMPINFOTitle = new JLabel();
         EMPINFOTitle.setText("EMPLOYEE INFORMATION");
@@ -102,8 +106,8 @@ public class HrTimeOff extends JFrame implements ActionListener
         ToHtf = new JTextField();
         ToHtf.setFont(new Font("Open Sans", Font.PLAIN,13));
         ToHtf.setText(String.valueOf(employee.getTotalHours()));
-        ToHtf.setEditable(false);
         ToHtf.setBounds(520,120,100,20);
+        ToHtf.setEditable(false);
         con.add(ToHtf); 
    
         JLabel DA = new JLabel();
@@ -134,8 +138,8 @@ public class HrTimeOff extends JFrame implements ActionListener
         toLABEL = new JTextField();
         toLABEL.setFont(new Font("Open Sans", Font.PLAIN,13));
         toLABEL.setText(employee.getDateOfAbsenceTo().toString());
-        toLABEL.setEditable(false);
         toLABEL.setBounds(460,210,215,20);
+        toLABEL.setEditable(false);
         con.add(toLABEL);
    
         TAR = new JLabel();
@@ -200,6 +204,7 @@ public class HrTimeOff extends JFrame implements ActionListener
         TOWP.setEnabled(false);
         con.add(TOWP);  
   
+  
         RFTR = new JLabel();
         RFTR.setText("REASON FOR THE TIME OFF REQUEST  ");
         RFTR.setFont(new Font("Open Sans",Font.BOLD,14));
@@ -246,9 +251,29 @@ public class HrTimeOff extends JFrame implements ActionListener
         DateLABEL.setBounds(480,480,195,20);
         con.add(DateLABEL);
         
+        Approve = new JButton("Approve");
+        Approve.setFont(new Font("Open Sans", Font.BOLD, 12));
+        Approve.setBounds(195, 540, 90, 30);
+        Approve.setBackground(Color.GRAY);
+        Approve.setForeground(Color.WHITE);
+        Approve.setFocusable(false);
+        Approve.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        Approve.addActionListener(this);
+        con.add(Approve);
+        
+        Deny = new JButton("Deny");
+        Deny.setFont(new Font("Open Sans", Font.BOLD, 12));
+        Deny.setBounds(315, 540, 90, 30);
+        Deny.setBackground(Color.GRAY);
+        Deny.setForeground(Color.WHITE);
+        Deny.setFocusable(false);
+        Deny.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        Deny.addActionListener(this);
+        con.add(Deny);
+        
         Back = new JButton("Back");
         Back.setFont(new Font("Open Sans", Font.BOLD, 13));
-        Back.setBounds(320, 540, 90, 30);
+        Back.setBounds(435, 540, 90, 30);
         Back.setBackground(Color.GRAY);
         Back.setForeground(Color.WHITE);
         Back.setFocusable(false);
@@ -256,17 +281,45 @@ public class HrTimeOff extends JFrame implements ActionListener
         Back.addActionListener(this);
         con.add(Back);
    
-        
+    }
+    public String getUpdatedStatus() {
+    return updatedStatus;
+    }
+    
+    private void handleApproval() {
+        try {
+            employee.setStatus("Approved");
+            updatedStatus = "Approved";
+            database.updateTimeOffRequestStatus(employee.getRequestId(), updatedStatus);
+            JOptionPane.showMessageDialog(this, "Time Off request approved.", "Approval", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Failed to update status: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void handleDenial() {
+        try {
+            employee.setStatus("Denied");
+            updatedStatus = "Denied";
+            database.updateTimeOffRequestStatus(employee.getRequestId(), updatedStatus);
+            JOptionPane.showMessageDialog(this, "Time Off request denied.", "Denied", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Failed to update status: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     @Override
     public void actionPerformed(ActionEvent e) 
-    {
-        if (e.getSource() == Back) 
-        {
+    {  if (e.getSource() == Approve) {
+            handleApproval();
+        } else if (e.getSource() == Deny) {
+            handleDenial();
+        } else if (e.getSource() == Back) {
             dispose();
-            HrTimeOffRequestList timeOffRequestList = new HrTimeOffRequestList();
+            ManTimeOffRequestList timeOffRequestList = new ManTimeOffRequestList();
             timeOffRequestList.setVisible(true);
         }
-   }
+    }
 }
