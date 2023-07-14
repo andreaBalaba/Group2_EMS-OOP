@@ -7,7 +7,7 @@ import java.awt.event.*;
 public class LogInPage extends JFrame implements ActionListener
 {  
     private EMSdataAccess database = new EMSdataAccess();
-    private JLabel Email, Password, WelcomeText;
+    private JLabel Email, Password, QuoteText;;
     private JTextField TEmail;
     private JPasswordField passwordField;
     private JButton LogInButton, BackButton;
@@ -23,41 +23,42 @@ public class LogInPage extends JFrame implements ActionListener
                 this.accountType = accountType;
                 
                 setTitle("Log In");
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 750, 550);
 		setLocationRelativeTo(null);
 		setLayout(null);
-                setResizable(false);
+                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-                WelcomeText = new JLabel("G2 COMPUTER SERVICES");
-		WelcomeText.setFont(new Font("Open Sans", Font.BOLD, 17));
-		WelcomeText.setBounds(50, 40, 222, 18);
+                QuoteText = new JLabel();
+		QuoteText.setFont(new Font("Courier New", Font.PLAIN, 20));
+		QuoteText.setBounds(20, 250  , 400, 200);
+                QuoteText.setText("<HTML>\"True leadership lies in guiding others to success. In ensuring that everyone is performing at their best, doing the work they are pledged to do, and doing it well. \" - Bill Owens</HTML>");
 		
-                ImageIcon icon1 = new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/logIn.png"));
-                Image Icon1 = icon1.getImage().getScaledInstance(125,125,Image.SCALE_DEFAULT);
+                ImageIcon icon1 = new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/g2TAFF.png"));
+                Image Icon1 = icon1.getImage().getScaledInstance(700,150,Image.SCALE_DEFAULT);
                 ImageIcon pic1 = new ImageIcon(Icon1);
                 JLabel pics1 = new JLabel(pic1);
-                pics1.setBounds(280, 70, 125, 125);
+                pics1.setBounds(10, 10, 700, 150);
 	
 		TEmail = new JTextField();
 		TEmail.setFont(new Font("Open Sans", Font.PLAIN, 11));
-		TEmail.setBounds(130, 90, 130, 23);
+		TEmail.setBounds(550, 250, 130, 23);
 		
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Open Sans", Font.PLAIN, 11));
-		passwordField.setBounds(130, 124, 130, 23);
+		passwordField.setBounds(550, 300, 130, 23);
 		
 		Email = new JLabel("Email:");
-		Email.setFont(new Font("Open Sans", Font.PLAIN, 13));
-		Email.setBounds(50, 89, 37, 23);
+		Email.setFont(new Font("Open Sans", Font.BOLD, 13));
+		Email.setBounds(500, 250, 50, 23);
 		
 		Password = new JLabel("Password:");
-		Password.setFont(new Font("Open Sans", Font.PLAIN, 13));
-		Password.setBounds(50, 125, 61, 19);
+		Password.setFont(new Font("Open Sans", Font.BOLD, 13));
+		Password.setBounds(470, 300, 100, 19);
 		
 		LogInButton = new JButton("Log In");
 		LogInButton.setFont(new Font("Open Sans", Font.BOLD, 13));
-		LogInButton.setBounds(50, 182, 80, 30);
-                LogInButton.setBackground(Color.GRAY);
+		LogInButton.setBounds(470, 350, 210, 30);
+                LogInButton.setBackground(Color.DARK_GRAY);
                 LogInButton.setForeground(Color.WHITE);
                 LogInButton.setFocusable(false);
                 LogInButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -65,14 +66,14 @@ public class LogInPage extends JFrame implements ActionListener
 		
 		BackButton = new JButton("Back");
 		BackButton.setFont(new Font("Open Sans", Font.BOLD, 13));
-		BackButton.setBounds(178, 182, 80, 30);
-                BackButton.setBackground(Color.GRAY);
+		BackButton.setBounds(503, 400, 150, 30);
+                BackButton.setBackground(Color.DARK_GRAY);
                 BackButton.setForeground(Color.WHITE);
                 BackButton.setFocusable(false);
                 BackButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		BackButton.addActionListener(this);
                 
-		add(WelcomeText);
+		add(QuoteText);
 		add(TEmail);
 		add(passwordField);
 		add(Email);

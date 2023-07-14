@@ -7,7 +7,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class ManagerPage extends JFrame implements ActionListener 
 {
-
     private EMSdataAccess database = new EMSdataAccess();
     private JLabel titleLabel, welcomeLabel;
     private JTable employeeTable;
@@ -17,11 +16,12 @@ public class ManagerPage extends JFrame implements ActionListener
     
     public ManagerPage() 
     {
-        setTitle("G2 Computer Services");
+        setTitle("GLOBAL 2TAFF");
         setBounds(100, 100, 750, 550);
         setLocationRelativeTo(null);
         setLayout(null);
         setResizable(false);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         titleLabel = new JLabel("Employee Management System");
         titleLabel.setFont(new Font("Open Sans", Font.BOLD, 25));
@@ -42,7 +42,6 @@ public class ManagerPage extends JFrame implements ActionListener
         pics2.setBounds(50, 225, 640, 450);
         
         menuBar.setBackground(Color.WHITE);
-        
         
         menu1 = new JMenu("Profile");
         menu1.setFont(new Font("Open Sans", Font.PLAIN, 14));
@@ -149,7 +148,7 @@ public class ManagerPage extends JFrame implements ActionListener
         }
         else if (comnd.equals("Expenses"))
         {
-        
+            new Expenses();
         }
         else if (comnd.equals("Performance Review Form"))
         {
