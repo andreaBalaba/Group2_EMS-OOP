@@ -8,7 +8,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 public class WelcomePage extends JFrame implements ActionListener 
 {
 	private JLabel TitleLabel, WelcomeText, Direction1;
-	private JButton ManagerButton, HRButton;
+	private JButton ManagerButton, HRButton, EmployeeButton;
     
     public WelcomePage()
     {                           
@@ -17,8 +17,6 @@ public class WelcomePage extends JFrame implements ActionListener
 		setLocationRelativeTo(null);
 		setLayout(null);
                 setDefaultCloseOperation(EXIT_ON_CLOSE);
-                
-                
                 
                 TitleLabel = new JLabel("GLOBAL 2TAFF");
 		TitleLabel.setFont(new Font("Mistral", Font.BOLD, 40));
@@ -48,7 +46,16 @@ public class WelcomePage extends JFrame implements ActionListener
                 HRButton.setForeground(Color.WHITE);
                 HRButton.setFocusable(false);
                 HRButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		HRButton.addActionListener(this);               
+		HRButton.addActionListener(this);      
+                
+                EmployeeButton = new JButton("Employee");
+		EmployeeButton.setFont(new Font("Georgia", Font.BOLD, 13));
+		EmployeeButton.setBounds(570, 350, 110, 30);
+                EmployeeButton.setBackground(Color.DARK_GRAY);
+                EmployeeButton.setForeground(Color.WHITE);
+                EmployeeButton.setFocusable(false);
+                EmployeeButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		EmployeeButton.addActionListener(this); 
                 
                 ImageIcon icon3 = new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/g2logo.png"));
                 Image Icon3 = icon3.getImage().getScaledInstance(500,500,Image.SCALE_DEFAULT);
@@ -62,8 +69,10 @@ public class WelcomePage extends JFrame implements ActionListener
 		add(Direction1);
 		add(ManagerButton);
 		add(HRButton);
+                add(EmployeeButton);
                 add(pics3);
                             
+                
                 setVisible(true);
     }
   @Override
@@ -79,6 +88,11 @@ public class WelcomePage extends JFrame implements ActionListener
      {   
          dispose(); 
          new LogInPage("HR Staff");
+     }
+     else if(e.getSource() == EmployeeButton)
+     {   
+         dispose(); 
+         new LogInPage("Employee");
      }
  }
 

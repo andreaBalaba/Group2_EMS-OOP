@@ -3,174 +3,157 @@ package EmployeeManagementSystem;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.ImageIcon;
 
-public class HrPage extends JFrame implements ActionListener 
-{
-    private EMSdataAccess database = new EMSdataAccess();
-    private JLabel titleLabel, welcomeLabel;
-    private JTable employeeTable;
-    private JScrollPane scrollPane;
-    private JMenuBar menuBar = new JMenuBar();
-    private JMenu menu1,menu2,menu3, menu4, menu5;
+public class HrPage extends JFrame implements ActionListener{
     
-    public HrPage() 
-    {
-        setTitle("GLOBAL 2TAFF");
+    private JButton emplist,reqlist, expe, update, manage, prefrv, refr, acc;
+    private JLabel nemplist, nreqlist, nexpe, nupd, nman, npref ;
+    
+    public HrPage() {
+        setTitle("HR STAFF");
         setBounds(100, 100, 750, 550);
         setLocationRelativeTo(null);
         setLayout(null);
         setResizable(false);
+        setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        titleLabel = new JLabel("Employee Management System");
-        titleLabel.setFont(new Font("Open Sans", Font.BOLD, 25));
-        titleLabel.setBounds(180, 30, 400, 35);
+        emplist = new JButton ( );
+        emplist.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/employ list.png")));
+        emplist.setBounds(100, 80, 150, 150);
+        emplist.setBackground(Color.white);
+        emplist.addActionListener(this);
+        add(emplist);
         
-        welcomeLabel = new JLabel("Good Day!");
-        welcomeLabel.setFont(new Font("Open Sans", Font.PLAIN, 16));
-        welcomeLabel.setBounds(50, 80, 200, 30);
-
-        employeeTable = new JTable();
-        scrollPane = new JScrollPane(employeeTable);
-        scrollPane.setBounds(50, 120, 640, 100);
+        reqlist = new JButton ();
+        reqlist.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/request.png")));
+        reqlist.setBounds(100, 280, 150, 150);
+        reqlist.setBackground(Color.white);
+        reqlist.addActionListener(this);
+        add(reqlist);
         
-        ImageIcon icon2 = new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/ems.png"));
-        Image Icon2 = icon2.getImage().getScaledInstance(640,450,Image.SCALE_DEFAULT);
-        ImageIcon pic2 = new ImageIcon(Icon2);
-        JLabel pics2 = new JLabel(pic2);
-        pics2.setBounds(50, 225, 640, 450);
+        update = new JButton ();
+        update.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/update emp.png")));
+        update.setBounds(300, 80, 150, 150);
+        update.setBackground(Color.white);
+        update.addActionListener(this);
+        add(update);
+  
+        expe = new JButton ();
+        expe.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/expenses.png")));
+        expe.setBounds(300, 280,150, 150);
+        expe.setBackground(Color.white);
+        expe.addActionListener(this);
+        add(expe);
         
-        menuBar.setBackground(Color.WHITE);
+        manage = new JButton ();
+        manage.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/manage emp.png")));
+        manage.setBounds(500, 80, 150, 150);
+        manage.setBackground(Color.white);
+        manage.addActionListener(this);
+        add(manage);
+  
+        prefrv = new JButton ();
+        prefrv.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/perfor rv.png")));
+        prefrv.setBounds(500, 280,150, 150);
+        prefrv.setBackground(Color.white);
+        prefrv.addActionListener(this);
+        add(prefrv);
+         
+        nemplist = new JLabel ("EMPLOYEE LISTS");
+        nemplist.setFont(new Font("Mistral", Font.BOLD, 30));
+        nemplist.setBounds(85, 230, 200, 30);
+        add(nemplist);
         
-        menu1 = new JMenu("Profile");
-        menu1.setFont(new Font("Open Sans", Font.PLAIN, 14));
-        JMenuItem menuItem1 = new JMenuItem("Add New Employee Profile");
-        JMenuItem menuItem2 = new JMenuItem("View Profile");
-        menuItem1.setFont(new Font("Open Sans", Font.PLAIN, 12));
-        menuItem2.setFont(new Font("Open Sans", Font.PLAIN, 12));
-        menuItem1.addActionListener(this);
-        menuItem2.addActionListener(this);
-       
-        menu2 = new JMenu("Manage");
-        menu2.setFont(new Font("Open Sans", Font.PLAIN, 14));
-        JMenuItem menuItem3 = new JMenuItem("Update Employee Details");
-        JMenuItem menuItem4 = new JMenuItem("Delete Employee");
-        menuItem3.setFont(new Font("Open Sans", Font.PLAIN, 12));
-        menuItem4.setFont(new Font("Open Sans", Font.PLAIN, 12));
-        menuItem3.addActionListener(this);
-        menuItem4.addActionListener(this);
+        nreqlist = new JLabel ("REQUEST LISTS");
+        nreqlist.setFont(new Font("Mistral", Font.BOLD, 30));
+        nreqlist.setBounds(100, 430, 200, 30);
+        add(nreqlist);
         
-        menu3 = new JMenu("Request");
-        menu3.setFont(new Font("Open Sans", Font.PLAIN, 14));
-        JMenuItem menuItem5 = new JMenuItem("Time Off");
-        JMenuItem menuItem6 = new JMenuItem("Expenses");
-        menuItem5.setFont(new Font("Open Sans", Font.PLAIN, 12));
-        menuItem6.setFont(new Font("Open Sans", Font.PLAIN, 12));
-        menuItem5.addActionListener(this);
-        menuItem6.addActionListener(this);
+        nupd = new JLabel ("UPDATE");
+        nupd.setFont(new Font("Mistral", Font.BOLD, 30));
+        nupd.setBounds(335, 230, 200, 30);
+        add(nupd);
         
-        menu4 = new JMenu("Review");
-        menu4.setFont(new Font("Open Sans", Font.PLAIN, 14));
-        JMenuItem menuItem7 = new JMenuItem("Performance Review Form");
-        JMenuItem menuItem8 = new JMenuItem("View Reviews");
-        menuItem7.setFont(new Font("Open Sans", Font.PLAIN, 12));
-        menuItem8.setFont(new Font("Open Sans", Font.PLAIN, 12));
-        menuItem7.addActionListener(this);
-        menuItem8.addActionListener(this);
+        nexpe = new JLabel ("EXPENSES");
+        nexpe.setFont(new Font("Mistral", Font.BOLD, 30));
+        nexpe.setBounds(325, 430, 200, 30);
+        add(nexpe);
         
-        menu5 = new JMenu("Exit");
-        menu5.setFont(new Font("Open Sans", Font.PLAIN, 14));
-        JMenuItem menuItem9 = new JMenuItem("Log Out");
-        menuItem9.setFont(new Font("Open Sans", Font.PLAIN, 12));
-        menuItem9.addActionListener(this);
+        nman = new JLabel ("MANAGE");
+        nman.setFont(new Font("Mistral", Font.BOLD, 30));
+        nman.setBounds(530, 230, 200, 30);
+        add(nman);
         
+        npref = new JLabel ("PERFORMANCE");
+        npref.setFont(new Font("Mistral", Font.BOLD, 30));
+        npref.setBounds(490, 430, 200, 30);
+        add(npref);
         
-        menu1.add(menuItem1);
-        menu1.add(menuItem2);
-        menu2.add(menuItem3);
-        menu2.add(menuItem4);
-        menu3.add(menuItem5);
-        menu3.add(menuItem6);
-        menu4.add(menuItem7);
-        menu4.add(menuItem8);
-        menu5.add(menuItem9);
+	refr = new JButton("Refresh");
+	refr.setFont(new Font("Open Sans", Font.BOLD, 15));
+	refr.setBounds(10, 10, 100, 20);
+        refr.setBackground(Color.DARK_GRAY);
+        refr.setForeground(Color.WHITE);
+        refr.setFocusable(false);
+        refr.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        refr.addActionListener(this);
+        add(refr);
         
-        menuBar.add(menu1);
-        menuBar.add(menu2);
-        menuBar.add(menu3);
-        menuBar.add(menu4);
-        menuBar.add(menu5);
+        acc = new JButton("Account");
+	acc.setFont(new Font("Open Sans", Font.BOLD, 15));
+	acc.setBounds(620, 10, 100, 20);
+        acc.setBackground(Color.DARK_GRAY);
+        acc.setForeground(Color.WHITE);
+        acc.setFocusable(false);
+        acc.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        acc.addActionListener(this);
+        add(acc);
         
-
-        add(titleLabel);
-        add(scrollPane);
-        add(welcomeLabel);
-        add(pics2);
-        setJMenuBar(menuBar);
-
-        setVisible(true);
-        displayEmployeeList();
+        validate();
+        
     }
-    private void displayEmployeeList() 
-    {
-        DefaultTableModel model = database.getEmployeeTableModel();
-        employeeTable.setModel(model);
-        employeeTable.setEnabled(false);
+    
+    public void disposeFrame() {
+        dispose();
     }
- @Override
-    public void actionPerformed(ActionEvent e)
-    {
-     String comnd = e.getActionCommand();
-        if (comnd.equals("Add New Employee Profile"))
-        {   
-            new AddEmployee();
-        }
-        else if (comnd.equals("View Profile"))
-        {
-            new SearchEmployee();
-        }
-        else if (comnd.equals("Update Employee Details"))
-        {
+    //emplist,reqlist, expe, update, manage, prefrv, refr, acc;
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == emplist) {
             dispose();
-            new HrUpdateEmployeeDetails();
-            
+            new ForManagerEmployList();
         }
-        else if (comnd.equals("Delete Employee"))
-        {   
-            new DeleteEmployee();
-        }
-        else if (comnd.equals("Time Off"))
-        {
+        else if (e.getSource() == reqlist) {
             dispose();
-            HrTimeOffRequestList htor = new HrTimeOffRequestList();
-            htor.setVisible(true);
+            HrTimeOffRequestList tor = new HrTimeOffRequestList();
+            tor.setVisible(true);
         }
-        else if (comnd.equals("Expenses"))
-        {
+        else if (e.getSource() == expe) {
+            dispose();
             new Expenses();
         }
-        else if (comnd.equals("Performance Review Form"))
-        {
-            new PerformanceReview();
+        else if (e.getSource() == update) {
+            new HrUpdateEmployeeDetails();
         }
-        else if (comnd.equals("View Reviews"))
-        {
+        else if (e.getSource() == manage) {
             dispose();
-            new HrViewReviews();
+            //new ForManagerEmployList();
         }
-        else if (comnd.equals("Log Out"))
-        {
+        else if (e.getSource() == prefrv) {
             dispose();
-            SwingUtilities.invokeLater(new Runnable() 
-            {
-            @Override
-                 public void run() 
-                 {
-                     new WelcomePage();
-                }
-            });
+            //new ForManagerEmployList();
         }
-     
+        else if (e.getSource() == refr) {
+            dispose();
+            new HrPage();
+        }
+        else if (e.getSource() == acc) {
+          
+            HrManagerAccount hrmacc = new HrManagerAccount();
+            hrmacc.show(acc, 0, acc.getHeight());
+            
+        }
     }
 }

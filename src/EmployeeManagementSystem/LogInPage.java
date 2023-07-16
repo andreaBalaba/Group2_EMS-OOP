@@ -125,6 +125,19 @@ public class LogInPage extends JFrame implements ActionListener
                                             "Log In Error", JOptionPane.ERROR_MESSAGE);
                                  }
                              } 
+                             else if (accountType.equals("Employee") && domain.equalsIgnoreCase("employee.com")) 
+                             {
+                                 if (database.validateHRStaffCredentials(email, password)) 
+                                 {
+                                    dispose();
+                                    new EmployeePage();
+                                 } 
+                                 else 
+                                 {
+                                    JOptionPane.showMessageDialog(null, "Invalid email or password.", 
+                                            "Log In Error", JOptionPane.ERROR_MESSAGE);
+                                 }
+                             } 
                              else 
                              {
                                      JOptionPane.showMessageDialog(null, "Invalid email or password.",

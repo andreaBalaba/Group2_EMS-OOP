@@ -8,7 +8,7 @@ import com.toedter.calendar.JDateChooser;
 public class Expenses extends JFrame implements ActionListener
 {
        // private final Container c;
-	private final JLabel title, name, empid, email, reqdate, projname, phase, phasedate, expense, amount, notes;
+	private JLabel title, name, empid, email, reqdate, projname, phase, phasedate, expense, amount, notes;
 	private final JTextField tname, empidt, emailt, projnamet, expenses, amounts;
         private final JRadioButton phase1, phase2, phase3, phase4, phase5;
         private final JTextArea notess, tout;
@@ -22,10 +22,8 @@ public class Expenses extends JFrame implements ActionListener
 	setBounds(100, 100, 750, 550);
         setLocationRelativeTo(null);
         setLayout(null);
+        setResizable(false);
 	setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-//		c = getContentPane();
-//		c.setLayout(null);
 
 		title = new JLabel("Employee Request Expenses");
 		title.setFont(new Font("Mistral", Font.BOLD, 50));
@@ -39,7 +37,7 @@ public class Expenses extends JFrame implements ActionListener
 
 		tname = new JTextField();
 		tname.setFont(new Font("Open Sans", Font.PLAIN, 15));
-		tname.setBounds(150, 80, 200, 20);
+		tname.setBounds(160, 80, 200, 20);
 		add(tname);
 
 		empid = new JLabel("Employee ID:");
@@ -49,7 +47,7 @@ public class Expenses extends JFrame implements ActionListener
 
 		empidt = new JTextField();
 		empidt.setFont(new Font("Open Sans", Font.PLAIN, 15));
-		empidt.setBounds(150, 110, 200, 20);
+		empidt.setBounds(160, 110, 200, 20);
 		add(empidt);
 
 		email = new JLabel("Email:");
@@ -59,7 +57,7 @@ public class Expenses extends JFrame implements ActionListener
                 
                 emailt = new JTextField();
 		emailt.setFont(new Font("Open Sans", Font.PLAIN, 15));
-		emailt.setBounds(150, 140, 200, 20);
+		emailt.setBounds(160, 140, 200, 20);
 		add(emailt);
 
 		reqdate = new JLabel("Request Date:");
@@ -68,7 +66,7 @@ public class Expenses extends JFrame implements ActionListener
 		add(reqdate);
                 
                 rqD = new JDateChooser();
-                rqD.setBounds(150, 170, 200, 20);
+                rqD.setBounds(160, 170, 200, 20);
                 rqD.setBackground(Color.DARK_GRAY);
                 add(rqD);
 
@@ -79,77 +77,77 @@ public class Expenses extends JFrame implements ActionListener
                                  
                 projnamet = new JTextField();
 		projnamet.setFont(new Font("Arial", Font.PLAIN, 15));
-		projnamet.setBounds(150, 200, 200, 20);
+		projnamet.setBounds(160, 200, 200, 20);
 		add(projnamet);
                 
                 phase = new JLabel("What is the current phase of the project?");
-		phase.setFont(new Font("Arial", Font.PLAIN, 15));
-		phase.setBounds(10, 00, 250, 15);
-		add(phase);
+                phase.setFont(new Font("Arial", Font.PLAIN, 15));
+                phase.setBounds(10, 230, 300, 20);
+                add(phase);
                 
                 phase1 = new JRadioButton("Initiation");
                 phase1.setFont(new Font("Arial", Font.PLAIN, 12));
                 phase1.setSelected(false);
-                phase1.setBounds(10, 280, 100, 15);
+                phase1.setBounds(10, 250, 100, 15);
                 add(phase1);
                 
                 phase2 = new JRadioButton("Planning");
                 phase2.setFont(new Font("Arial", Font.PLAIN, 12));
                 phase2.setSelected(false);
-                phase2.setBounds(10, 300, 100, 15);
+                phase2.setBounds(10, 270, 100, 15);
                 add(phase2);
                 
                 phase3 = new JRadioButton("Execution");
                 phase3.setFont(new Font("Arial", Font.PLAIN, 12));
                 phase3.setSelected(false);
-                phase3.setBounds(10, 320, 100, 15);
+                phase3.setBounds(10, 290, 100, 15);
                 add(phase3);
                 
                 phase4 = new JRadioButton("Performance/Monitoring");
                 phase4.setFont(new Font("Arial", Font.PLAIN, 12));
                 phase4.setSelected(false);
-                phase4.setBounds(10, 340, 200, 15);
+                phase4.setBounds(10, 310, 200, 15);
                 add(phase4);
                 
                 phase5 = new JRadioButton("Closure");
                 phase5.setFont(new Font("Arial", Font.PLAIN, 12));
                 phase5.setSelected(false);
-                phase5.setBounds(10, 360, 100, 15);
+                phase5.setBounds(10, 330, 100, 15);
                 add(phase5);
                 
                 phasedate = new JLabel("Phase End Date:");
 		phasedate.setFont(new Font("Arial", Font.PLAIN, 15));
-		phase.setBounds(10, 390, 100, 15);
+		phasedate.setBounds(10, 360, 200, 15);
 		add(phasedate);
                 
                 rqF = new JDateChooser();
-                rqF.setBounds(150, 390, 200, 20);
+                rqF.setBounds(160, 360, 200, 20);
                 rqF.setBackground(Color.DARK_GRAY);
                 add(rqF);
                 
-                expense = new JLabel("What is The Expense:");
+                expense = new JLabel("What is the Expense:");
 		expense.setFont(new Font("Arial", Font.PLAIN, 15));
-		expense.setBounds(10, 420, 100, 15);
+		expense.setBounds(10, 390, 200, 15);
 		add(expense);
                 
                 expenses = new JTextField();
 		expenses.setFont(new Font("Arial", Font.PLAIN, 15));
-		expenses.setBounds(150, 420, 200, 20);
+		expenses.setBounds(160, 390, 200, 20);
 		add(expenses);
                 
                 amount = new JLabel("Amount:");
 		amount.setFont(new Font("Arial", Font.PLAIN, 15));
-		amount.setBounds(150, 450, 200, 20);
+		amount.setBounds(10, 420, 200, 20);
 		add(amount);
                 
                 amounts = new JTextField();
 		amounts.setFont(new Font("Arial", Font.PLAIN, 15));
-		amounts.setBounds(150, 450, 200, 20);
+		amounts.setBounds(160, 420, 200, 20);
 		add(amounts);
                 
                 notes = new JLabel("Any notes:");
                 notes.setFont(new Font("Arial", Font.PLAIN, 15));
-                notes.setBounds(450, 60, 100, 15);
+                notes.setBounds(500, 60, 100, 15);
                 add(notes);
                 
                 notess = new JTextArea();
@@ -249,6 +247,11 @@ public class Expenses extends JFrame implements ActionListener
                         notess.setText(def);
 			tout.setText(def);
 			rqF.setCalendar(null);
+                        phase1.setSelected(false);
+                        phase2.setSelected(false);
+                        phase3.setSelected(false);
+                        phase4.setSelected(false);
+                        phase5.setSelected(false);
 		}
         
 	}
