@@ -123,7 +123,7 @@ public class HrPage extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == emplist) {
             dispose();
-            new ForManagerEmployList();
+            new ForHrEmployList();
         }
         else if (e.getSource() == reqlist) {
             dispose();
@@ -138,12 +138,12 @@ public class HrPage extends JFrame implements ActionListener{
             new HrUpdateEmployeeDetails();
         }
         else if (e.getSource() == manage) {
-            dispose();
-            //new ForManagerEmployList();
+            
+            new HrManageEmp();
         }
         else if (e.getSource() == prefrv) {
             dispose();
-            //new ForManagerEmployList();
+            new PerformanceReview();
         }
         else if (e.getSource() == refr) {
             dispose();
