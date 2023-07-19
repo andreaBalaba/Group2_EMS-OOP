@@ -170,7 +170,7 @@ public class Expenses extends JFrame implements ActionListener
                 
                 tout = new JTextArea();
                 tout.setFont(new Font("Arial", Font.PLAIN, 15));
-                tout.setBounds(400, 360, 300, 200);
+                tout.setBounds(400, 250, 300, 200);
                 tout.setLineWrap(true);
                 tout.setEditable(false);
                 add(tout);
@@ -199,34 +199,26 @@ public class Expenses extends JFrame implements ActionListener
 	{
 		if (e.getSource() == sub) {
 			String data1 = null;
-			String data
-					= " Name : "
-					+ tname.getText() + "\n"
-					+ " Employee ID : " 
-					+ empidt.getText() + "\n" 
-                                        + " Email : "
-                                        + emailt.getText() + "\n"
-                                        + "Request Date MM-DD-YYY : "
-                                        + rqD.getDate() + "\n"
-                                        + "Project Name : "
-                                        + projnamet.getText() + "\n"
-                                        + "Phase End Date MM-DD-YYY"
-                                        + rqF.getDate() + "\n"
+			String data     = "Name: " + tname.getText() + "\n"
+					+ "Employee ID : " + empidt.getText() + "\n" 
+                                        + "Email: " + emailt.getText() + "\n"
+                                        + "Request Date: " + rqD.getDate() + "\n"
+                                        + "Project Name: " + projnamet.getText() + "\n"
+                                        + "Phase End Date: " + rqF.getDate() + "\n"
                                         + expenses.getText() + "\n"
-                                        + "Amount : "
-                                        + amounts.getText() + "\n"
+                                        + "Amount: " + amounts.getText() + "\n"
                                         + "Any notes"
                                         + notess.getText() + "\n";
                                    if (phase1.isSelected())
-                                       data1 = " What is the current phase of the project? : Initiation";
+                                       data1 = "Current phase of the project: Initiation";
                                    if (phase2.isSelected())
-                                       data1 = "What is the current phase of the project? : Planing";
+                                       data1 = "Current phase of the project: Planing";
                                    if (phase3.isSelected())
-                                       data1 = "What is the current phase of the project? : Execution";
+                                       data1 = "Current phase of the project: Execution";
                                    if (phase4.isSelected())
-                                       data1 = "What is the current phase of the project? : Performance;Monitoring";
+                                       data1 = "Current phase of the project: Performance;Monitoring";
                                    if (phase5.isSelected())
-                                       data1 = "What is the current phase of the project? : Closure";
+                                       data1 = "Current phase of the project: Closure";
                                    
 				String data2 = "Reason for Request : " + projname.getText();
                                 String data3 = null;
