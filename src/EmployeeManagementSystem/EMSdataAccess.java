@@ -21,7 +21,7 @@ public class EMSdataAccess
         try 
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/group2_ems", "root", "balaba");
+            connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/group2_ems", "root", "Miyu@ki29");
             
         } 
         catch (ClassNotFoundException | SQLException e) 

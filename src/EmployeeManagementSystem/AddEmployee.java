@@ -204,7 +204,11 @@ public class AddEmployee extends JFrame implements ActionListener
 
         if (success)
         {
-            subResult.setText("New Employee is successfully added!");
+            //subResult.setText("New Employee is successfully added!");
+            int choice = JOptionPane.showConfirmDialog(this, "New Employee is successfully added!");
+            if (choice == JOptionPane.YES_OPTION) {
+                dispose();
+            }
         } 
         else 
         {
