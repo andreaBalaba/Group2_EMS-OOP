@@ -250,7 +250,7 @@ public class EmpExpenses extends JFrame implements ActionListener
                     String department = deptField.getText();
                     String projname = projnamet.getText();
                     Date dateEnd = rqF.getDate();
-                    String amount = amounts.getText();
+                    int amount = amounts.getText();
                     String anyNotes = notess.getText();
                     String summary = tout.getText();
                     
@@ -298,4 +298,3 @@ public class EmpExpenses extends JFrame implements ActionListener
         
 	}
     }
-

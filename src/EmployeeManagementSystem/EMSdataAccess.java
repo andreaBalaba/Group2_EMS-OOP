@@ -228,26 +228,26 @@ public class EMSdataAccess
         try 
         {
             PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO expense_request (name, employeeId, email, reqDate, projName, reqEndDate, dept, amount, notes, initiate, planning, execution, perform, closure, summary, status ) " +
-                "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending')");
+                " INSERT INTO expense_request (name, employeeId, email, department, reqDate, projName, reqEndDate, amount, notes, inititate, planning, execution, perform, closure, summary )" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending')");
             
             statement.setString(1, employee.getName());
             statement.setString(2, employee.getEmployeeId());
             statement.setString(3, employee.getEmail());
-            statement.setDate(4, new java.sql.Date(employee.getdateRequest().getTime()));
-            statement.setString(5, employee.getProjName());
-            statement.setDate(6, new java.sql.Date(employee.getdateEnd().getTime()));
-            statement.setString(7, employee.getDepartment());
-            statement.setString(8, employee.getAmount());
+            statement.setString(4, employee.getDepartment());
+            statement.setDate(5, new java.sql.Date(employee.getdateRequest().getTime()));
+            statement.setString(6, employee.getProjName());
+            statement.setDate(7, new java.sql.Date(employee.getdateEnd().getTime()));
+            statement.setInt(8, employee.getAmount());
             statement.setString(9, employee.getNotes());
-            statement.setBoolean(10, employee.isInitiation());
-            statement.setBoolean(11, employee.isPlanning());
-            statement.setBoolean(12, employee.isExecution());
-            statement.setBoolean(13, employee.isPerform());
-            statement.setBoolean(14, employee.isClosure());
-            statement.setString(15, employee.getSummary());
+            statement.setBoolean(8, employee.isInitiation());
+            statement.setBoolean(9, employee.isPlanning());
+            statement.setBoolean(10, employee.isExecution());
+            statement.setBoolean(11, employee.isPerform());
+            statement.setBoolean(12, employee.isClosure());
+            statement.setString(16, employee.getSummary());
+ 
             
-
             int rowsAffected = statement.executeUpdate();
             statement.close();
             

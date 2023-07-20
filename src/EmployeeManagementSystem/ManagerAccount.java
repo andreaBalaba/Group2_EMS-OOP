@@ -48,7 +48,7 @@ public class ManagerAccount extends JPopupMenu implements ActionListener{
             new SearchEmployee();
         }
         else if (e.getSource() == perfor) {
-            new PerformanceReview();
+            new ManagerVUDReview();
         }
     }
 }

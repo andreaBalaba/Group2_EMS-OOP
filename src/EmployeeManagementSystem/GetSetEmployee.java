@@ -54,7 +54,7 @@ public class GetSetEmployee
     private Date dateRequest;
     private String projname;
     private Date dateEnd;
-    private String amounts;
+    private int amounts;
     private String anyNotes;
     private boolean initiate;
     private boolean planning;
@@ -63,13 +63,13 @@ public class GetSetEmployee
     private boolean closure;
     private String summary;
     
-    public GetSetEmployee(String name, String employeeId, String email, Date dateRequest, String department, String projname, Date dateEnd, String amounts, String anyNotes, boolean initiate, boolean planning, boolean execution, boolean perform, boolean closure, String summary) {
-        this.name = name;
+    public GetSetEmployee(String name, String employeeId,String email, Date dateRequest,String department, String projname, Date dateEnd, int amounts, String anyNotes, boolean initiate,boolean  planning,boolean  execution,boolean  perform,boolean closure, String summary) {
         this.employeeId = employeeId;
+        this.name = name;
+        this.department = department;
         this.email = email;
         this.dateRequest = dateRequest;
         this.projname = projname;
-        this.department = department;
         this.dateEnd = dateEnd;
         this.amounts = amounts;
         this.anyNotes = anyNotes;
@@ -79,8 +79,8 @@ public class GetSetEmployee
         this.perform = perform;
         this.closure = closure;
         this.summary = summary;
-        
     }
+    
     
     public GetSetEmployee(String employeeId, String name, String department, String manager, int totalHours, Date dateOfAbsenceFrom, Date dateOfAbsenceTo, boolean vacation, boolean medicalLeave, boolean juryDuty, boolean personalLeave, boolean familyReasons, boolean toVote, boolean bereavement, boolean timeOffWithoutPay, Date requestDate, String reasonForRequest, String employeeSignature) {
         this.employeeId = employeeId;
@@ -261,12 +261,15 @@ public class GetSetEmployee
         this.projname = projname;
     }
      
-    public String getAmount() {
+    public int getAmount() 
+    {
         return amounts;
-    } 
-    public void setAmount(String amounts) {
+    }
+
+    public void getAmount(int amounts) 
+    {
         this.amounts = amounts;
-    } 
+    }
     
     public String getNotes() {
         return anyNotes;
