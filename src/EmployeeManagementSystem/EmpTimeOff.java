@@ -285,7 +285,7 @@ public class EmpTimeOff extends JFrame implements ActionListener{
             Date dateOfAbsenceTo = eDate.getDate();
             Date requestDate = cDate.getDate();
             String manager = ManLABEL.getText();
-            String reasonForRequest = RFTR.getText();
+            String reasonForRequest = RFTRAREA.getText();
             String employeeSignature = ESLABEL.getText();
             
             if(vacation) {VCN.getText();} 

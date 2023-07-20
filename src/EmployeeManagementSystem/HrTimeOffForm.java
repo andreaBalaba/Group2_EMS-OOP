@@ -298,14 +298,14 @@ public class HrTimeOffForm extends JFrame implements ActionListener{
     {
         if (e.getSource() == Submit) 
         {
-            boolean vcn = VCN.isSelected();
-            boolean ml = ML.isSelected();
-            boolean jd = JD.isSelected();
-            boolean pl = PL.isSelected();
-            boolean fr = FR.isSelected();
-            boolean tv = TV.isSelected();
-            boolean bmt = BMT.isSelected();
-            boolean towp = TOWP.isSelected();
+            boolean vacation = VCN.isSelected();
+            boolean medicalLeave = ML.isSelected();
+            boolean juryDuty = JD.isSelected();
+            boolean personalLeave = PL.isSelected();
+            boolean familyReasons = FR.isSelected();
+            boolean toVote = TV.isSelected();
+            boolean bereavement = BMT.isSelected();
+            boolean timeOffWithoutPay = TOWP.isSelected();
             
             String employeeId = employidtf.getText();
             String name = NameLABEL.getText();
@@ -315,19 +315,19 @@ public class HrTimeOffForm extends JFrame implements ActionListener{
             Date dateOfAbsenceTo = eDate.getDate();
             Date requestDate = cDate.getDate();
             String manager = ManLABEL.getText();
-            String reasonForRequest = RFTR.getText();
+            String reasonForRequest = RFTRAREA.getText();
             String employeeSignature = ESLABEL.getText();
             
-            if(vcn) {VCN.getText();}
-            if(ml) {ML.getText();}
-            if(jd) {JD.getText();}
-            if(pl) {PL.getText();}
-            if(fr) {FR.getText();}
-            if(tv) {TV.getText();}
-            if(bmt) {BMT.getText();}
-            if(towp) {TOWP.getText();}
+            if(vacation) {VCN.getText();} 
+            if(medicalLeave) {ML.getText();}
+            if(juryDuty) {JD.getText();}
+            if(personalLeave) {PL.getText();}
+            if(familyReasons) {FR.getText();}
+            if(toVote) {TV.getText();}
+            if(bereavement) {BMT.getText();}
+            if(timeOffWithoutPay) {TOWP.getText();}
             
-            GetSetEmployee employee = new GetSetEmployee( employeeId,  name,  department,  manager,  totalHours, dateOfAbsenceFrom, dateOfAbsenceTo, requestDate, reasonForRequest, employeeSignature);
+            GetSetEmployee employee = new GetSetEmployee( employeeId,  name,  department,  manager,  totalHours, dateOfAbsenceFrom, dateOfAbsenceTo, vacation, medicalLeave, juryDuty, personalLeave, familyReasons, toVote, bereavement, timeOffWithoutPay, requestDate, reasonForRequest, employeeSignature);
             
             boolean success = database.addEmployeeTime(employee); 
 

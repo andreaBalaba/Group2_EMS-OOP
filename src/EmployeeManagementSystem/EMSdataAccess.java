@@ -189,7 +189,7 @@ public class EMSdataAccess
             PreparedStatement statement = connection.prepareStatement(
                 "INSERT INTO time_off_request (employee_name, department, manager, employee_id, total_hours, date_of_absence_from, date_of_absence_to, vacation, medical_leave, \n" +
 "              jury_duty, personal_leave, family_reasons, to_vote, bereavement, time_off_without_pay, reason_for_request, employee_signature, request_date, status) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending')");
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending')");
             
             statement.setString(1, employee.getName());
             statement.setString(2, employee.getDepartment());
@@ -209,7 +209,7 @@ public class EMSdataAccess
             statement.setString(16, employee.getReasonForRequest());
             statement.setString(17, employee.getEmployeeSignature());
             statement.setDate(18, new java.sql.Date(employee.getRequestDate().getTime()));
-            
+            ///statement.setString(19, employee.getStatus());
             
             int rowsAffected = statement.executeUpdate();
             statement.close();
