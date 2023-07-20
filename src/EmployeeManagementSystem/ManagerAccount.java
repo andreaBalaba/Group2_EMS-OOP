@@ -4,18 +4,29 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class HrManagerAccount extends JPopupMenu implements ActionListener{
+public class ManagerAccount extends JPopupMenu implements ActionListener{
     
-    private JMenuItem logOut, searchProf;
+    private JMenuItem logOut, searchProf, perfor, perfor1;
     
-    public HrManagerAccount() {
+    public ManagerAccount() {
+        
+        perfor = new JMenuItem("Performance");
+        perfor.addActionListener(this);
+        
+        perfor1 = new JMenuItem("Rate");
+        perfor1.addActionListener(this);
+        
+        
         searchProf = new JMenuItem("Search Profile");
         searchProf.addActionListener(this);
         
         logOut = new JMenuItem("Log Out");
         logOut.addActionListener(this);
         
+        
         add(searchProf);
+        add(perfor);
+        add(perfor1);
         add(logOut);
         
     }
@@ -32,9 +43,6 @@ public class HrManagerAccount extends JPopupMenu implements ActionListener{
             else if (topLevelContainer instanceof HrPage) {
                 ((HrPage) topLevelContainer).disposeFrame();
             }
-             else if (topLevelContainer instanceof ForManagerEmployList) {
-                ((ForManagerEmployList) topLevelContainer).dispose();
-            }
              else if (topLevelContainer instanceof ForHrEmployList) {
                 ((ForHrEmployList) topLevelContainer).dispose();
             }
@@ -45,6 +53,12 @@ public class HrManagerAccount extends JPopupMenu implements ActionListener{
         
         else if (e.getSource() == searchProf) {
             new SearchEmployee();
+        }
+        else if (e.getSource() == perfor) {
+            new ManagerVUDReview();
+        }
+        else if (e.getSource() == perfor1) {
+            new PerformanceReview();
         }
     }
 }

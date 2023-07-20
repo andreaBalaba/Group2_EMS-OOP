@@ -7,8 +7,8 @@ import javax.swing.ImageIcon;
 
 public class EmployeePage extends JFrame implements ActionListener{
     
-    private JButton vprof, req, exps, refr, acc;
-    private JLabel vwprof, vreq, vexps;
+    private JButton req, exps, refr, acc;
+    private JLabel vreq, vexps;
     
     public EmployeePage() {
         setTitle("EMPLOYEE");
@@ -19,40 +19,28 @@ public class EmployeePage extends JFrame implements ActionListener{
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        vprof = new JButton ( );
-        vprof.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/view profile.png")));
-        vprof.setBounds(100, 150, 150, 150);
-        vprof.setBackground(Color.white);
-        vprof.addActionListener(this);
-        add(vprof);
-        
         req = new JButton ();
-        req.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/request.png")));
-        req.setBounds(300, 150, 150, 150);
+        req.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/Time off.png")));
+        req.setBounds(150, 150, 150, 150);
         req.setBackground(Color.white);
         req.addActionListener(this);
         add(req);
 
         exps = new JButton ();
         exps.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/expenses.png")));
-        exps.setBounds(500, 150, 150, 150);
+        exps.setBounds(440, 150, 150, 150);
         exps.setBackground(Color.white);
         exps.addActionListener(this);
         add(exps);
         
-        vwprof = new JLabel ("VIEW PROFILE");
-        vwprof.setFont(new Font("Mistral", Font.BOLD, 30));
-        vwprof.setBounds(100, 300, 200, 30);
-        add(vwprof);
-        
-        vreq = new JLabel ("REQUEST");
-        vreq.setFont(new Font("Mistral", Font.BOLD, 30));
-        vreq.setBounds(330, 300, 200, 30);
+        vreq = new JLabel ("TIME OFF");
+        vreq.setFont(new Font("Open Sans", Font.BOLD, 20));
+        vreq.setBounds(180, 300, 250, 20);
         add(vreq);
         
         vexps = new JLabel ("EXPENSES");
-        vexps.setFont(new Font("Mistral", Font.BOLD, 30));
-        vexps.setBounds(520, 300, 200, 30);
+        vexps.setFont(new Font("Open Sans", Font.BOLD, 20));
+        vexps.setBounds(460, 300, 250, 20);
         add(vexps);
         
 	refr = new JButton("Refresh");
@@ -86,14 +74,11 @@ public class EmployeePage extends JFrame implements ActionListener{
     }
     
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == vprof) {
-            
-        }
-        else if (e.getSource() == req) {
-            
+        if (e.getSource() == req) {
+            new ChooseEmpId();
         }
         else if (e.getSource() == exps) {
-            new Expenses();
+            new EmpExpenses();
         }
         else if (e.getSource() == refr) {
             dispose();

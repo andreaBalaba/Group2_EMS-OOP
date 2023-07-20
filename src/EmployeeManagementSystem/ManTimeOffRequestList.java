@@ -21,6 +21,7 @@ public class ManTimeOffRequestList extends JFrame implements ActionListener, Mou
         setBounds(100, 100, 750, 550);
         setLocationRelativeTo(null);
         setResizable(false);
+        setVisible(true);
 
         JPanel panel = new JPanel();
         panel.setLayout(null);

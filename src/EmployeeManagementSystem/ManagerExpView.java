@@ -7,17 +7,17 @@ import java.util.Date;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
-public class HrTimeOffRequestList extends JFrame implements ActionListener, MouseListener
+public class ManagerExpView extends JFrame implements ActionListener, MouseListener
 {
     private JLabel Direc;
-    private JTable requestTable;
+    private JTable expenseTable;
     private JButton backButton;
     private EMSdataAccess database = new EMSdataAccess();
     
-    public HrTimeOffRequestList()
+    public ManagerExpView()
     {
 
-        setTitle("Time Off Request List");
+        setTitle("Expense List");
         setBounds(100, 100, 750, 550);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -33,7 +33,7 @@ public class HrTimeOffRequestList extends JFrame implements ActionListener, Mous
         columnNames.add("Date");
         columnNames.add("Status");
         
-        Vector<Vector<Object>> data = database.getTimeOffRequests();
+        Vector<Vector<Object>> data = database.getExpenseRequests();
         
         DefaultTableModel model = new DefaultTableModel(data, columnNames) 
         {
@@ -44,10 +44,10 @@ public class HrTimeOffRequestList extends JFrame implements ActionListener, Mous
             }
         };
         
-        requestTable = new JTable(model);
-        requestTable.setEnabled(false);
-        requestTable.addMouseListener(this);
-        JScrollPane scrollPane = new JScrollPane(requestTable);
+        expenseTable = new JTable(model);
+        expenseTable.setEnabled(false);
+        expenseTable.addMouseListener(this);
+        JScrollPane scrollPane = new JScrollPane(expenseTable);
         scrollPane.setBounds(50, 80, 630, 350);
         panel.add(scrollPane);
         
@@ -71,56 +71,56 @@ public class HrTimeOffRequestList extends JFrame implements ActionListener, Mous
         
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) 
     {
         if (e.getSource() == backButton) 
         {
             dispose();
-            new HrPage();
+            new ManagerPage();
         }
     }
     
     @Override
     public void mouseClicked(MouseEvent e) 
     {
-        if (e.getSource() == requestTable) 
+        if (e.getSource() == expenseTable) 
         {
-            int row = requestTable.rowAtPoint(e.getPoint());
-            int col = requestTable.columnAtPoint(e.getPoint());
+            int row = expenseTable.rowAtPoint(e.getPoint());
+            int col = expenseTable.columnAtPoint(e.getPoint());
             
             if (col == 0) 
             {
-                int requestId = Integer.parseInt(requestTable.getValueAt(row, 0).toString());
-                Vector<Object> rowData = database.getTimeOffRequestById(requestId);
+                int requestId = Integer.parseInt(expenseTable.getValueAt(row, 0).toString());
+                Vector<Object> rowData = database.getExpenseRequestById(requestId);
 
                 if (rowData != null) 
                 {
 
                     GetSetEmployee employee = new GetSetEmployee();
+                    
                     employee.setRequestId((int) rowData.get(0));
                     employee.setName(rowData.get(1).toString());
-                    employee.setDepartment(rowData.get(2).toString());
-                    employee.setManager(rowData.get(3).toString());
-                    employee.setEmployeeId(rowData.get(4).toString());
-                    employee.setTotalHours((int) rowData.get(5));
-                    employee.setDateOfAbsenceFrom((Date) rowData.get(6));
-                    employee.setDateOfAbsenceTo((Date) rowData.get(7));
-                    employee.setVacation((boolean) rowData.get(8));
-                    employee.setMedicalLeave((boolean) rowData.get(9));
-                    employee.setJuryDuty((boolean) rowData.get(10));
-                    employee.setPersonalLeave((boolean) rowData.get(11));
-                    employee.setFamilyReasons((boolean) rowData.get(12));
-                    employee.setToVote((boolean) rowData.get(13));
-                    employee.setBereavement((boolean) rowData.get(14));
-                    employee.setTimeOffWithoutPay((boolean) rowData.get(15));
-                    employee.setReasonForRequest(rowData.get(16).toString());
-                    employee.setEmployeeSignature(rowData.get(17).toString());
-                    employee.setRequestDate((Date) rowData.get(18));
-                    employee.setStatus(rowData.get(19).toString());
+                    employee.setEmployeeId(rowData.get(2).toString());
+                    employee.setEmail(rowData.get(3).toString());
+                    employee.setdateRequest((Date) rowData.get(4));
+                    employee.setProjName(rowData.get(5).toString());
+                    employee.setdateEnd((Date) rowData.get(6));
+                    employee.setDepartment(rowData.get(7).toString());
+                    employee.setAmount(rowData.get(8).toString());
+                    employee.setNotes(rowData.get(9).toString());
+                    employee.setInitiation((boolean) rowData.get(10));
+                    employee.setPlanning((boolean) rowData.get(11));
+                    employee.setExecution((boolean) rowData.get(12));
+                    employee.setPerform((boolean) rowData.get(13));
+                    employee.setClosure((boolean) rowData.get(14));
+                    employee.setSummary(rowData.get(15).toString());
+                    employee.setStatus(rowData.get(16).toString());
+                    
                         
-                            HrTimeOff timeOffForm = new HrTimeOff(employee);
-                            timeOffForm.setVisible(true);
+                            ManConfirmExp expenseForm = new ManConfirmExp(employee);
+                            expenseForm.setVisible(true);
                             
                     dispose();
                 }

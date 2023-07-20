@@ -27,7 +27,7 @@ public class ManagerPage extends JFrame implements ActionListener{
         add(hrlist);
         
         emplist = new JButton ();
-        emplist.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/employ list.png")));
+        emplist.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/update emp.png")));
         emplist.setBounds(440, 100, 150, 150);
         emplist.setBackground(Color.white);
         emplist.addActionListener(this);
@@ -47,24 +47,24 @@ public class ManagerPage extends JFrame implements ActionListener{
         expe.addActionListener(this);
         add(expe);
         
-        nhrlist = new JLabel ("HR LISTS");
-        nhrlist.setFont(new Font("Mistral", Font.BOLD, 30));
-        nhrlist.setBounds(180, 250, 200, 30);
+        nhrlist = new JLabel ("EMPLOYEE LISTS");
+        nhrlist.setFont(new Font("Open Sans", Font.BOLD, 20));
+        nhrlist.setBounds(140, 250, 250, 20);
         add(nhrlist);
         
-        nemplist = new JLabel ("EMPLOYEE LISTS");
-        nemplist.setFont(new Font("Mistral", Font.BOLD, 30));
-        nemplist.setBounds(425, 250, 200, 30);
+        nemplist = new JLabel ("UPDATE EMPLOYEE");
+        nemplist.setFont(new Font("Open Sans", Font.BOLD, 20));
+        nemplist.setBounds(425, 250, 250, 20);
         add(nemplist);
         
         nreqlist = new JLabel ("REQUEST LISTS");
-        nreqlist.setFont(new Font("Mistral", Font.BOLD, 30));
-        nreqlist.setBounds(150, 450, 200, 30);
+        nreqlist.setFont(new Font("Open Sans", Font.BOLD, 20));
+        nreqlist.setBounds(145, 450, 250, 20);
         add(nreqlist);
         
         nexpe = new JLabel ("EXPENSES");
-        nexpe.setFont(new Font("Mistral", Font.BOLD, 30));
-        nexpe.setBounds(460, 450, 200, 30);
+        nexpe.setFont(new Font("Open Sans", Font.BOLD, 20));
+        nexpe.setBounds(460, 450, 250, 20);
         add(nexpe);
         
 	refr = new JButton("Refresh");
@@ -102,13 +102,15 @@ public class ManagerPage extends JFrame implements ActionListener{
             new ForManagerHrLists();
         }
         else if (e.getSource() == emplist) {
-            dispose();
-            new ForManagerEmployList();
+            new ManUpdateEmployeeDetails();
         }
         else if (e.getSource() == reqlist) {
             dispose();
-            ManTimeOffRequestList tor = new ManTimeOffRequestList();
-            tor.setVisible(true);
+            new ManTimeOffRequestList();
+        }
+        else if(e.getSource() == expe) {
+            dispose();
+            new ManagerExpView();
         }
         else if (e.getSource() == refr) {
             dispose();
@@ -116,8 +118,8 @@ public class ManagerPage extends JFrame implements ActionListener{
         }
         else if (e.getSource() == acc) {
           
-            HrManagerAccount hrmacc = new HrManagerAccount();
-            hrmacc.show(acc, 0, acc.getHeight());
+            ManagerAccount macc = new ManagerAccount();
+            macc.show(acc, 0, acc.getHeight());
             
         }
     }
