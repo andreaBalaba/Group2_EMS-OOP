@@ -108,14 +108,18 @@ public class ManagerPage extends JFrame implements ActionListener{
             dispose();
             new ManTimeOffRequestList();
         }
+        else if(e.getSource() == expe) {
+            dispose();
+            new ManagerExpView();
+        }
         else if (e.getSource() == refr) {
             dispose();
             new ManagerPage();
         }
         else if (e.getSource() == acc) {
           
-            HrManagerAccount hrmacc = new HrManagerAccount();
-            hrmacc.show(acc, 0, acc.getHeight());
+            ManagerAccount macc = new ManagerAccount();
+            macc.show(acc, 0, acc.getHeight());
             
         }
     }

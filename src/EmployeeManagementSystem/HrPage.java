@@ -145,13 +145,15 @@ public class HrPage extends JFrame implements ActionListener{
             dispose();
             new PerformanceReview();
         }
+        
+        
         else if (e.getSource() == refr) {
             dispose();
             new HrPage();
         }
         else if (e.getSource() == acc) {
           
-            HrManagerAccount hrmacc = new HrManagerAccount();
+            HrAccount hrmacc = new HrAccount();
             hrmacc.show(acc, 0, acc.getHeight());
             
         }

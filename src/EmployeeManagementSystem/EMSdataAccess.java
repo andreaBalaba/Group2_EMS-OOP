@@ -209,8 +209,45 @@ public class EMSdataAccess
             statement.setString(16, employee.getReasonForRequest());
             statement.setString(17, employee.getEmployeeSignature());
             statement.setDate(18, new java.sql.Date(employee.getRequestDate().getTime()));
-            ///statement.setString(19, employee.getStatus());
             
+            
+            int rowsAffected = statement.executeUpdate();
+            statement.close();
+            
+            return rowsAffected > 0;
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean addExpense(GetSetEmployee employee) 
+    {
+        try 
+        {
+            PreparedStatement statement = connection.prepareStatement(
+                "INSERT INTO expense_request (name, employeeId, email, reqDate, projName, reqEndDate, dept, amount, notes, initiate, planning, execution, perform, closure, summary, status ) " +
+                "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending')");
+            
+            statement.setString(1, employee.getName());
+            statement.setString(2, employee.getEmployeeId());
+            statement.setString(3, employee.getEmail());
+            statement.setDate(4, new java.sql.Date(employee.getdateRequest().getTime()));
+            statement.setString(5, employee.getProjName());
+            statement.setDate(6, new java.sql.Date(employee.getdateEnd().getTime()));
+            statement.setString(7, employee.getDepartment());
+            statement.setString(8, employee.getAmount());
+            statement.setString(9, employee.getNotes());
+            statement.setBoolean(10, employee.isInitiation());
+            statement.setBoolean(11, employee.isPlanning());
+            statement.setBoolean(12, employee.isExecution());
+            statement.setBoolean(13, employee.isPerform());
+            statement.setBoolean(14, employee.isClosure());
+            statement.setString(15, employee.getSummary());
+            
+
             int rowsAffected = statement.executeUpdate();
             statement.close();
             
@@ -647,6 +684,39 @@ public class EMSdataAccess
 
         return data;
     }
+    
+        public Vector<Vector<Object>> getExpenseRequests() 
+    {
+        Vector<Vector<Object>> data = new Vector<>();
+
+        try 
+        {
+            Statement stmt = connection.createStatement();
+            String query = "SELECT request_id, name, reqdate, status FROM expense_request";
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) 
+            {
+                Vector<Object> row = new Vector<>();
+                row.add(rs.getInt("request_id"));
+                row.add(rs.getString("name"));
+                row.add(rs.getString("department"));
+                row.add(rs.getDate("reqdate"));
+                row.add(rs.getString("status"));
+                data.add(row);
+            }
+
+        rs.close();
+        stmt.close();
+
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+
+        return data;
+    }
 
     public Vector<Object> getTimeOffRequestById(int requestId) 
     {
@@ -691,12 +761,74 @@ public class EMSdataAccess
 
         return rowData;
     }
+    
+    public Vector<Object> getExpenseRequestById(int requestId) 
+    {
+        Vector<Object> rowData = new Vector<>();
+
+        try 
+        {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM expense_request WHERE request_id = ?");
+            statement.setInt(1, requestId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) 
+            {
+                rowData.add(resultSet.getInt("request_id"));
+                rowData.add(resultSet.getString("name"));
+                rowData.add(resultSet.getString("employeeId"));
+                rowData.add(resultSet.getInt("email"));
+                rowData.add(resultSet.getDate("reqDate"));
+                rowData.add(resultSet.getString("projName"));
+                rowData.add(resultSet.getString("department"));
+                rowData.add(resultSet.getDate("reqEndDate"));
+                rowData.add(resultSet.getString("amount"));
+                rowData.add(resultSet.getString("notes"));
+                rowData.add(resultSet.getBoolean("initiate"));
+                rowData.add(resultSet.getBoolean("planning"));
+                rowData.add(resultSet.getBoolean("execution"));
+                rowData.add(resultSet.getBoolean("perform"));
+                rowData.add(resultSet.getBoolean("closure"));
+                rowData.add(resultSet.getString("summary"));
+                rowData.add(resultSet.getString("status"));
+            }
+            resultSet.close();
+            statement.close();
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+
+        return rowData;
+    }
 
     public boolean updateTimeOffRequestStatus(int requestId, String status) 
     {
         try 
         {
             String query = "UPDATE time_off_request SET status = ? WHERE request_id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, status);
+            statement.setInt(2, requestId);
+        
+            int rowsAffected = statement.executeUpdate();
+            statement.close();
+        
+        
+            return rowsAffected > 0;
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean updateExpenseRequestStatus(int requestId, String status) 
+    {
+        try 
+        {
+            String query = "UPDATE expense_request SET status = ? WHERE request_id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, status);
             statement.setInt(2, requestId);

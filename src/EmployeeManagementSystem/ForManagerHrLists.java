@@ -78,7 +78,7 @@ public class ForManagerHrLists extends JFrame implements ActionListener {
         }
         else if (e.getSource() == acc) {
           
-            HrManagerAccount hracc = new HrManagerAccount();
+            HrAccount hracc = new HrAccount();
             hracc.show(acc, 0, acc.getHeight());
             
         }

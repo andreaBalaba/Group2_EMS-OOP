@@ -4,19 +4,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class HrManagerAccount extends JPopupMenu implements ActionListener{
+public class HrAccount extends JPopupMenu implements ActionListener{
     
-    private JMenuItem logOut, searchProf;
+    private JMenuItem logOut, searchProf, timeoff;
     
-    public HrManagerAccount() {
+    public HrAccount() {
         searchProf = new JMenuItem("Search Profile");
         searchProf.addActionListener(this);
         
         logOut = new JMenuItem("Log Out");
         logOut.addActionListener(this);
         
+        timeoff = new JMenuItem("Time Off");
+        timeoff.addActionListener(this);
+        
+        
         add(searchProf);
         add(logOut);
+        add(timeoff);
         
     }
     
@@ -42,6 +47,10 @@ public class HrManagerAccount extends JPopupMenu implements ActionListener{
         
         else if (e.getSource() == searchProf) {
             new SearchEmployee();
+        }
+        
+        else if (e.getSource() == timeoff) {
+            new ChooseEmpId();
         }
     }
 }

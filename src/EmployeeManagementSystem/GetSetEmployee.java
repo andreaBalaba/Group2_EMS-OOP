@@ -51,6 +51,36 @@ public class GetSetEmployee
     private Date requestDate;
     private String status;
     private String login, passWord;
+    private Date dateRequest;
+    private String projname;
+    private Date dateEnd;
+    private String amounts;
+    private String anyNotes;
+    private boolean initiate;
+    private boolean planning;
+    private boolean execution;
+    private boolean perform;
+    private boolean closure;
+    private String summary;
+    
+    public GetSetEmployee(String name, String employeeId, String email, Date dateRequest, String department, String projname, Date dateEnd, String amounts, String anyNotes, boolean initiate, boolean planning, boolean execution, boolean perform, boolean closure, String summary) {
+        this.name = name;
+        this.employeeId = employeeId;
+        this.email = email;
+        this.dateRequest = dateRequest;
+        this.projname = projname;
+        this.department = department;
+        this.dateEnd = dateEnd;
+        this.amounts = amounts;
+        this.anyNotes = anyNotes;
+        this.initiate = initiate;
+        this.planning = planning;
+        this.execution = execution;
+        this.perform = perform;
+        this.closure = closure;
+        this.summary = summary;
+        
+    }
     
     public GetSetEmployee(String employeeId, String name, String department, String manager, int totalHours, Date dateOfAbsenceFrom, Date dateOfAbsenceTo, boolean vacation, boolean medicalLeave, boolean juryDuty, boolean personalLeave, boolean familyReasons, boolean toVote, boolean bereavement, boolean timeOffWithoutPay, Date requestDate, String reasonForRequest, String employeeSignature) {
         this.employeeId = employeeId;
@@ -168,6 +198,101 @@ public class GetSetEmployee
     public GetSetEmployee()
     {
        
+    }
+    public String getSummary() {
+        return summary;
+    }
+    public void setSummary(String summary) {
+        this.summary = summary;
+    } 
+    
+    public boolean isInitiation() 
+    {
+        return initiate;
+    }
+
+    public void setInitiation(boolean initiate) 
+    {
+        this.initiate = initiate;
+    }
+    
+    public boolean isPlanning() 
+    {
+        return planning;
+    }
+
+    public void setPlanning(boolean planning) 
+    {
+        this.planning = planning;
+    }
+    public boolean isExecution() 
+    {
+        return execution;
+    }
+
+    public void setExecution(boolean execution) 
+    {
+        this.execution = execution;
+    }
+    public boolean isPerform() 
+    {
+        return perform;
+    }
+
+    public void setPerform(boolean perform) 
+    {
+        this.perform = perform;
+    }
+    public boolean isClosure() 
+    {
+        return closure;
+    }
+
+    public void setClosure(boolean closure) 
+    {
+        this.closure = closure;
+    }
+    
+    public String getProjName() {
+        return projname;
+    } 
+    
+     public void setProjName(String projname) {
+        this.projname = projname;
+    }
+     
+    public String getAmount() {
+        return amounts;
+    } 
+    public void setAmount(String amounts) {
+        this.amounts = amounts;
+    } 
+    
+    public String getNotes() {
+        return anyNotes;
+    } 
+    public void setNotes(String anyNotes) {
+        this.anyNotes = anyNotes;
+    } 
+    
+    
+    public Date getdateRequest() 
+    {
+        return dateRequest;
+    }
+
+    public void setdateRequest(Date dateRequest) 
+    {
+        this.dateRequest = dateRequest;
+    }
+    public Date getdateEnd() 
+    {
+        return dateEnd;
+    }
+
+    public void setdateEnd(Date dateEnd) 
+    {
+        this.dateEnd = dateEnd;
     }
     
     public String getLogIn() {
