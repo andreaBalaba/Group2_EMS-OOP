@@ -32,9 +32,6 @@ public class HrManagerAccount extends JPopupMenu implements ActionListener{
             else if (topLevelContainer instanceof HrPage) {
                 ((HrPage) topLevelContainer).disposeFrame();
             }
-             else if (topLevelContainer instanceof ForManagerEmployList) {
-                ((ForManagerEmployList) topLevelContainer).dispose();
-            }
              else if (topLevelContainer instanceof ForHrEmployList) {
                 ((ForHrEmployList) topLevelContainer).dispose();
             }

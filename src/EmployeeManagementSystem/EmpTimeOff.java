@@ -1,28 +1,34 @@
 package EmployeeManagementSystem;
 
+import com.toedter.calendar.JDateChooser;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Date;
 import javax.swing.*;
 
-public class HrTimeOff extends JFrame implements ActionListener
-{
+public class EmpTimeOff extends JFrame implements ActionListener{
+    private EMSdataAccess database = new EMSdataAccess();
     private JLabel Title, EMPINFOTitle, Name, DPT, Man, DAF, to, TAR, RFTR, IRAE, ES, Date, employid, ToH;
     private JTextField NameLABEL, DPTLABEL, ManLABEL, DAFLABEL, toLABEL, TARLABEL, ESLABEL, DateLABEL, employidtf, ToHtf;
     private JCheckBox VCN, ML, JD, PL, FR, TV, BMT, TOWP;
     private JTextArea RFTRAREA;
-    private JButton Back;
+    private JButton Back, Submit;
     private JScrollPane scrollPane;
-    private GetSetEmployee employee;
-
-    public HrTimeOff(GetSetEmployee employee) 
-    {
-        this.employee = employee;
+    private JDateChooser sDate, eDate, cDate;
+    private String employeeId;
+    
+    
+    
+    public EmpTimeOff(String employeeId) {
+        
+        this.employeeId = employeeId;
         
         setTitle("Employee Request Time Off");
         setBounds(100,100,750,550);
         setLocationRelativeTo(null);
         setResizable(false);
-    
+        setVisible(true);
+        
         JPanel con = new JPanel();
         con.setLayout(null);
         con.setPreferredSize(new Dimension(600,600));
@@ -30,27 +36,26 @@ public class HrTimeOff extends JFrame implements ActionListener
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(600,400));        
         getContentPane().add(scrollPane);
-    
+        
         Title = new JLabel();
         Title.setText("EMPLOYEE TIME OFF REQUEST FORM");
         Title.setFont(new Font("Open Sans",Font.BOLD,23));
         Title.setBounds(150,20,500,30);
         con.add(Title);
     
-    
         EMPINFOTitle = new JLabel();
         EMPINFOTitle.setText("EMPLOYEE INFORMATION");
         EMPINFOTitle.setFont(new Font("Open Sans",Font.BOLD,14));
         EMPINFOTitle.setBounds(50,80,500,30);
         con.add(EMPINFOTitle);
-   
+        
         Name = new JLabel();
         Name.setText("Name: ");
         Name.setFont(new Font("Open Sans", Font.PLAIN,13));
         Name.setBounds(50,115,170,30);
         con.add(Name);
    
-        NameLABEL = new JTextField(employee.getName());
+        NameLABEL = new JTextField();
         NameLABEL.setFont(new Font("Open Sans", Font.PLAIN,13));
         NameLABEL.setBounds(100,120,250,20);
         NameLABEL.setEditable(false);
@@ -61,9 +66,8 @@ public class HrTimeOff extends JFrame implements ActionListener
         DPT.setFont(new Font("Open Sans", Font.PLAIN,13));
         DPT.setBounds(50,175,520,30);
         con.add(DPT);
-   
-   
-        DPTLABEL = new JTextField(employee.getDepartment());
+  
+        DPTLABEL = new JTextField();
         DPTLABEL.setFont(new Font("Open Sans", Font.PLAIN,13));
         DPTLABEL.setBounds(135,180,215,20);
         DPTLABEL.setEditable(false);
@@ -75,10 +79,9 @@ public class HrTimeOff extends JFrame implements ActionListener
         Man.setBounds(50,205,520,30);
         con.add(Man);
    
-        ManLABEL = new JTextField(employee.getManager());
+        ManLABEL = new JTextField();
         ManLABEL.setFont(new Font("Open Sans", Font.PLAIN,13));
         ManLABEL.setBounds(120,210,230,20);
-        ManLABEL.setEditable(false);
         con.add(ManLABEL);
         
         employid = new JLabel();
@@ -87,7 +90,7 @@ public class HrTimeOff extends JFrame implements ActionListener
         employid.setBounds(50,145,520,30);
         con.add(employid);
    
-        employidtf = new JTextField(employee.getEmployeeId());
+        employidtf = new JTextField();
         employidtf.setFont(new Font("Open Sans", Font.PLAIN,13));
         employidtf.setBounds(140,150,210,20);
         employidtf.setEditable(false);
@@ -101,8 +104,6 @@ public class HrTimeOff extends JFrame implements ActionListener
    
         ToHtf = new JTextField();
         ToHtf.setFont(new Font("Open Sans", Font.PLAIN,13));
-        ToHtf.setText(String.valueOf(employee.getTotalHours()));
-        ToHtf.setEditable(false);
         ToHtf.setBounds(520,120,100,20);
         con.add(ToHtf); 
    
@@ -117,13 +118,11 @@ public class HrTimeOff extends JFrame implements ActionListener
         DAF.setFont(new Font("Open Sans", Font.PLAIN,13));
         DAF.setBounds(425,175,520,30);
         con.add(DAF);
-   
-        DAFLABEL = new JTextField();
-        DAFLABEL.setFont(new Font("Open Sans", Font.PLAIN,13));
-        DAFLABEL.setText(employee.getDateOfAbsenceFrom().toString());
-        DAFLABEL.setEditable(false);
-        DAFLABEL.setBounds(475,180,200,20);
-        con.add(DAFLABEL);
+        
+        sDate = new JDateChooser();
+        sDate.setBounds(475,180,200,20);
+        sDate.setBackground(Color.DARK_GRAY);
+        con.add(sDate);
    
         to = new JLabel();
         to.setText("To: ");
@@ -131,12 +130,10 @@ public class HrTimeOff extends JFrame implements ActionListener
         to.setBounds(425,205,90,30);
         con.add(to);
    
-        toLABEL = new JTextField();
-        toLABEL.setFont(new Font("Open Sans", Font.PLAIN,13));
-        toLABEL.setText(employee.getDateOfAbsenceTo().toString());
-        toLABEL.setEditable(false);
-        toLABEL.setBounds(460,210,215,20);
-        con.add(toLABEL);
+        eDate = new JDateChooser();
+        eDate.setBounds(460,210,215,20);
+        eDate.setBackground(Color.DARK_GRAY);
+        con.add(eDate);
    
         TAR = new JLabel();
         TAR.setText("TYPE OF ABSENCE");
@@ -147,57 +144,41 @@ public class HrTimeOff extends JFrame implements ActionListener
         VCN = new JCheckBox("Vacation");
         VCN.setBounds(50,275,150,30);
         VCN.setFont(new Font("Open Sans",Font.PLAIN,13));
-        VCN.setSelected(employee.isVacation());
-        VCN.setEnabled(false);
         con.add(VCN);
    
         ML = new JCheckBox("Medical Leave");
         ML.setBounds(50,300,150,30);
         ML.setFont(new Font("Open Sans",Font.PLAIN,13));
-        ML.setSelected(employee.isMedicalLeave());
-        ML.setEnabled(false);
         con.add(ML);
   
         JD = new JCheckBox("Jury Duty");
         JD.setBounds(50,325,150,30);
         JD.setFont(new Font("Open Sans",Font.PLAIN,13));
-        JD.setSelected(employee.isJuryDuty());
-        JD.setEnabled(false);
         con.add(JD);
           
         PL = new JCheckBox("Personal Leave");
         PL.setBounds(240,275,150,30);
         PL.setFont(new Font("Open Sans",Font.PLAIN,13));
-        PL.setSelected(employee.isPersonalLeave());
-        PL.setEnabled(false);
         con.add(PL); 
   
         FR = new JCheckBox("Family Reasons");
         FR.setBounds(240,300,150,30);
         FR.setFont(new Font("Open Sans",Font.PLAIN,13));
-        FR.setSelected(employee.isFamilyReasons());
-        FR.setEnabled(false);
         con.add(FR);    
 
         TV = new JCheckBox("To Vote");
         TV.setBounds(240,325,150,30);
         TV.setFont(new Font("Open Sans",Font.PLAIN,13));
-        TV.setSelected(employee.isToVote());
-        TV.setEnabled(false);
         con.add(TV); 
           
         BMT = new JCheckBox("Bereavement");
         BMT.setBounds(440,275,150,30);
         BMT.setFont(new Font("Open Sans",Font.PLAIN,13));
-        BMT.setSelected(employee.isBereavement());
-        BMT.setEnabled(false);
         con.add(BMT); 
   
         TOWP = new JCheckBox("Time off Without Pay");
         TOWP.setBounds(440,300,180,30);
         TOWP.setFont(new Font("Open Sans",Font.PLAIN,13));
-        TOWP.setSelected(employee.isTimeOffWithoutPay());
-        TOWP.setEnabled(false);
         con.add(TOWP);  
   
         RFTR = new JLabel();
@@ -209,8 +190,6 @@ public class HrTimeOff extends JFrame implements ActionListener
         RFTRAREA = new JTextArea();
         RFTRAREA.setBounds(50,390,620,60);
         RFTRAREA.setFont(new Font("Open Sans",Font.PLAIN,13));
-        RFTRAREA.setText(employee.getReasonForRequest());
-        RFTRAREA.setEditable(false);
         RFTRAREA.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         con.add(RFTRAREA);
   
@@ -228,8 +207,6 @@ public class HrTimeOff extends JFrame implements ActionListener
    
         ESLABEL = new JTextField();
         ESLABEL.setFont(new Font("Open Sans", Font.PLAIN,13));
-        ESLABEL.setText(employee.getEmployeeSignature());
-        ESLABEL.setEditable(false);
         ESLABEL.setBounds(190,481,195,20);
         con.add(ESLABEL);
    
@@ -238,35 +215,108 @@ public class HrTimeOff extends JFrame implements ActionListener
         Date.setFont(new Font("Open Sans", Font.BOLD,13));
         Date.setBounds(430,475,520,30);
         con.add(Date);
-   
-        DateLABEL = new JTextField();
-        DateLABEL.setFont(new Font("Open Sans", Font.PLAIN,13));
-        DateLABEL.setText(employee.getRequestDate().toString());
-        DateLABEL.setEditable(false);
-        DateLABEL.setBounds(480,480,195,20);
-        con.add(DateLABEL);
+        
+        cDate = new JDateChooser();
+        cDate.setBounds(480,480,195,20);
+        cDate.setBackground(Color.DARK_GRAY);
+        con.add(cDate);
         
         Back = new JButton("Back");
         Back.setFont(new Font("Open Sans", Font.BOLD, 13));
-        Back.setBounds(320, 540, 90, 30);
+        Back.setBounds(400, 540, 90, 30);
         Back.setBackground(Color.GRAY);
         Back.setForeground(Color.WHITE);
         Back.setFocusable(false);
         Back.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         Back.addActionListener(this);
         con.add(Back);
-   
+        
+        Submit = new JButton("Submit");
+        Submit.setFont(new Font("Open Sans", Font.BOLD, 13));
+        Submit.setBounds(200, 540, 90, 30);
+        Submit.setBackground(Color.GRAY);
+        Submit.setForeground(Color.WHITE);
+        Submit.setFocusable(false);
+        Submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        Submit.addActionListener(this);
+        con.add(Submit);
+        
+        displayProfile();
         
     }
     
-    @Override
+    private void displayProfile() 
+    {
+    
+        GetSetEmployee employee = database.displayEmployeeDetails(employeeId);
+
+        if (employee != null) 
+        {
+            employidtf.setText(employeeId);
+            NameLABEL.setText(employee.getName());
+            DPTLABEL.setText(employee.getDepartment());
+        } 
+        else 
+        {
+            JOptionPane.showMessageDialog(null, "Employee not found!", "Error", JOptionPane.ERROR_MESSAGE);
+            dispose();
+        }
+        
+    }
+    
     public void actionPerformed(ActionEvent e) 
     {
-        if (e.getSource() == Back) 
+        if (e.getSource() == Submit) 
         {
+            boolean vacation = VCN.isSelected();
+            boolean medicalLeave = ML.isSelected();
+            boolean juryDuty = JD.isSelected();
+            boolean personalLeave = PL.isSelected();
+            boolean familyReasons = FR.isSelected();
+            boolean toVote = TV.isSelected();
+            boolean bereavement = BMT.isSelected();
+            boolean timeOffWithoutPay = TOWP.isSelected();
+            
+            String employeeId = employidtf.getText();
+            String name = NameLABEL.getText();
+            String department = DPTLABEL.getText();
+            int totalHours = Integer.parseInt(ToHtf.getText());
+            Date dateOfAbsenceFrom = sDate.getDate();
+            Date dateOfAbsenceTo = eDate.getDate();
+            Date requestDate = cDate.getDate();
+            String manager = ManLABEL.getText();
+            String reasonForRequest = RFTR.getText();
+            String employeeSignature = ESLABEL.getText();
+            
+            if(vacation) {VCN.getText();} 
+            if(medicalLeave) {ML.getText();}
+            if(juryDuty) {JD.getText();}
+            if(personalLeave) {PL.getText();}
+            if(familyReasons) {FR.getText();}
+            if(toVote) {TV.getText();}
+            if(bereavement) {BMT.getText();}
+            if(timeOffWithoutPay) {TOWP.getText();}
+            
+            GetSetEmployee employee = new GetSetEmployee( employeeId,  name,  department,  manager,  totalHours, dateOfAbsenceFrom, dateOfAbsenceTo, vacation, medicalLeave, juryDuty, personalLeave, familyReasons, toVote, bereavement, timeOffWithoutPay, requestDate, reasonForRequest, employeeSignature);
+            
+            boolean success = database.addEmployeeTime(employee); 
+
+        if (success)
+        {
+           
+            JOptionPane.showMessageDialog(this, "Submitted successfully");
             dispose();
-            HrTimeOffRequestList timeOffRequestList = new HrTimeOffRequestList();
-            timeOffRequestList.setVisible(true);
+            
+        } 
+        else 
+        {
+            JOptionPane.showMessageDialog(this, "Sorry, failed to submit request. Please try again.");
+            
+        }
+            
+        }
+        else if (e.getSource() == Back) {
+            dispose();
         }
    }
 }

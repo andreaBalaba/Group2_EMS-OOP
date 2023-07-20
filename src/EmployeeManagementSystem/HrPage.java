@@ -62,33 +62,33 @@ public class HrPage extends JFrame implements ActionListener{
         add(prefrv);
          
         nemplist = new JLabel ("EMPLOYEE LISTS");
-        nemplist.setFont(new Font("Mistral", Font.BOLD, 30));
-        nemplist.setBounds(85, 230, 200, 30);
+        nemplist.setFont(new Font("Open Sans", Font.BOLD, 20));
+        nemplist.setBounds(85, 230, 250, 20);
         add(nemplist);
         
         nreqlist = new JLabel ("REQUEST LISTS");
-        nreqlist.setFont(new Font("Mistral", Font.BOLD, 30));
-        nreqlist.setBounds(100, 430, 200, 30);
+        nreqlist.setFont(new Font("Open Sans", Font.BOLD, 20));
+        nreqlist.setBounds(100, 430, 250, 20);
         add(nreqlist);
         
         nupd = new JLabel ("UPDATE");
-        nupd.setFont(new Font("Mistral", Font.BOLD, 30));
-        nupd.setBounds(335, 230, 200, 30);
+        nupd.setFont(new Font("Open Sans", Font.BOLD, 20));
+        nupd.setBounds(335, 230, 250, 20);
         add(nupd);
         
         nexpe = new JLabel ("EXPENSES");
-        nexpe.setFont(new Font("Mistral", Font.BOLD, 30));
-        nexpe.setBounds(325, 430, 200, 30);
+        nexpe.setFont(new Font("Open Sans", Font.BOLD, 20));
+        nexpe.setBounds(325, 430, 250, 20);
         add(nexpe);
         
         nman = new JLabel ("MANAGE");
-        nman.setFont(new Font("Mistral", Font.BOLD, 30));
-        nman.setBounds(530, 230, 200, 30);
+        nman.setFont(new Font("Open Sans", Font.BOLD, 20));
+        nman.setBounds(530, 230, 250, 20);
         add(nman);
         
         npref = new JLabel ("PERFORMANCE");
-        npref.setFont(new Font("Mistral", Font.BOLD, 30));
-        npref.setBounds(490, 430, 200, 30);
+        npref.setFont(new Font("Open Sans", Font.BOLD, 20));
+        npref.setBounds(490, 430, 250, 20);
         add(npref);
         
 	refr = new JButton("Refresh");
@@ -132,7 +132,7 @@ public class HrPage extends JFrame implements ActionListener{
         }
         else if (e.getSource() == expe) {
             dispose();
-            new Expenses();
+            new HrExpenses();
         }
         else if (e.getSource() == update) {
             new HrUpdateEmployeeDetails();

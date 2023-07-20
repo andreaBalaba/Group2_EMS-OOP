@@ -158,6 +158,71 @@ public class EMSdataAccess
         }
     }
     
+    public boolean addEmployeelogin(GetSetEmployee employeelogin) 
+    {
+        try 
+        {
+            PreparedStatement statement = connection.prepareStatement(
+                "INSERT INTO logIndata (email, password) " +
+                "VALUES (?, ?)");
+            
+            statement.setString(1, employeelogin.getLogIn());
+            statement.setString(2, employeelogin.getPass());
+           
+
+            int rowsAffected = statement.executeUpdate();
+            statement.close();
+            
+            return rowsAffected > 0;
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean addEmployeeTime(GetSetEmployee employee) 
+    {
+        try 
+        {
+            PreparedStatement statement = connection.prepareStatement(
+                "INSERT INTO time_off_request (employee_name, department, manager, employee_id, total_hours, date_of_absence_from, date_of_absence_to, vacation, medical_leave, \n" +
+"              jury_duty, personal_leave, family_reasons, to_vote, bereavement, time_off_without_pay, reason_for_request, employee_signature, request_date, status) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending')");
+            
+            statement.setString(1, employee.getName());
+            statement.setString(2, employee.getDepartment());
+            statement.setString(3, employee.getManager());
+            statement.setString(4, employee.getEmployeeId());
+            statement.setInt(5, employee.getTotalHours());
+            statement.setDate(6, new java.sql.Date(employee.getDateOfAbsenceFrom().getTime()));
+            statement.setDate(7, new java.sql.Date(employee.getDateOfAbsenceTo().getTime()));
+            statement.setBoolean(8, employee.isVacation());
+            statement.setBoolean(9, employee.isMedicalLeave());
+            statement.setBoolean(10, employee.isJuryDuty());
+            statement.setBoolean(11, employee.isPersonalLeave());
+            statement.setBoolean(12, employee.isFamilyReasons());
+            statement.setBoolean(13, employee.isToVote());
+            statement.setBoolean(14, employee.isBereavement());
+            statement.setBoolean(15, employee.isTimeOffWithoutPay());
+            statement.setString(16, employee.getReasonForRequest());
+            statement.setString(17, employee.getEmployeeSignature());
+            statement.setDate(18, new java.sql.Date(employee.getRequestDate().getTime()));
+            
+            
+            int rowsAffected = statement.executeUpdate();
+            statement.close();
+            
+            return rowsAffected > 0;
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
     public List<String> populateEmployeeIds() 
     {
         List<String> employeeIds = new ArrayList<>();
@@ -461,11 +526,9 @@ public class EMSdataAccess
     }
     
     public boolean deleteEmployee(String employeeId) 
-    {
-           
+    {    
         try 
-        {
-            
+        {   
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM employeeData WHERE employeeId = ?");
             preparedStatement.setString(1, employeeId);
 

@@ -15,7 +15,7 @@ public class PerformanceReview extends JFrame implements ActionListener
     private JCheckBox WFP, WC, QW, Comm, TakeIni, CRTVY, PRDTVY, TechSkl, Effy, TMW, Leader, IndepWk, Rlbty, Puntly;   
     private JScrollPane scrollPane;
     private JTextArea Improve,Comment;
-    private JButton Submit, Clear;
+    private JButton Submit, Clear, Back;
     private JDateChooser jTextDate;
     private JComboBox overallResultComboBox;
     
@@ -231,7 +231,7 @@ public class PerformanceReview extends JFrame implements ActionListener
         Submit = new JButton();
         Submit.setText("SUBMIT");
         Submit.setFont(new Font("Open Sans", Font.BOLD,13));
-        Submit.setBounds(260, 590, 90, 30);
+        Submit.setBounds(200, 590, 90, 30);
         Submit.setBackground(Color.GRAY);
         Submit.setForeground(Color.WHITE);
         Submit.setFocusable(false);
@@ -242,13 +242,24 @@ public class PerformanceReview extends JFrame implements ActionListener
         Clear = new JButton();
         Clear.setText("CLEAR");
         Clear.setFont(new Font("Open Sans", Font.BOLD,13));
-        Clear.setBounds(370, 590, 90, 30);
+        Clear.setBounds(300, 590, 90, 30);
         Clear.setBackground(Color.GRAY);
         Clear.setForeground(Color.WHITE);
         Clear.setFocusable(false);
         Clear.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         Clear.addActionListener(this);
         con.add(Clear);
+        
+        Back = new JButton();
+        Back.setText("BACK");
+        Back.setFont(new Font("Open Sans", Font.BOLD,13));
+        Back.setBounds(400, 590, 90, 30);
+        Back.setBackground(Color.GRAY);
+        Back.setForeground(Color.WHITE);
+        Back.setFocusable(false);
+        Back.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        Back.addActionListener(this);
+        con.add(Back);
             
         setVisible(true);
     }
@@ -351,6 +362,10 @@ public class PerformanceReview extends JFrame implements ActionListener
         else if (e.getSource() == Clear) 
         {
             clearReviewData();
+        }
+        else if (e.getSource() == Back) {
+            dispose();
+            new HrPage();
         }
     }
 }

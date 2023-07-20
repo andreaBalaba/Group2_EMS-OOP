@@ -5,27 +5,27 @@ import java.awt.*;
 import java.awt.event.*;
 import com.toedter.calendar.JDateChooser;
 
-public class Expenses extends JFrame implements ActionListener
+public class HrExpenses extends JFrame implements ActionListener
 {
        // private final Container c;
-	private JLabel title, name, empid, email, reqdate, projname, phase, phasedate, expense, amount, notes;
-	private final JTextField tname, empidt, emailt, projnamet, expenses, amounts;
+	private JLabel title, name, empid, email, reqdate, projname, phase, phasedate, amount, notes;
+	private final JTextField tname, empidt, emailt, projnamet, amounts;
         private final JRadioButton phase1, phase2, phase3, phase4, phase5;
         private final JTextArea notess, tout;
-	private final JButton sub, reset;
+	private final JButton sub, reset, back;
         private final JLabel pol1, pol2;
         private JDateChooser rqD, rqF;
+        private JScrollPane scrollPane;
         
-    public Expenses() 
+    public HrExpenses() 
     {
-        setTitle("Employee Request Expenses");
+        setTitle("Hr Request Expenses");
 	setBounds(100, 100, 750, 550);
         setLocationRelativeTo(null);
         setLayout(null);
         setResizable(false);
-	setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		title = new JLabel("Employee Request Expenses");
+		title = new JLabel("Hr Request Expenses");
 		title.setFont(new Font("Mistral", Font.BOLD, 50));
 		title.setBounds(150, 10, 500, 50);
 		add(title);
@@ -125,24 +125,14 @@ public class Expenses extends JFrame implements ActionListener
                 rqF.setBackground(Color.DARK_GRAY);
                 add(rqF);
                 
-                expense = new JLabel("What is the Expense:");
-		expense.setFont(new Font("Arial", Font.PLAIN, 15));
-		expense.setBounds(10, 390, 200, 15);
-		add(expense);
-                
-                expenses = new JTextField();
-		expenses.setFont(new Font("Arial", Font.PLAIN, 15));
-		expenses.setBounds(160, 390, 200, 20);
-		add(expenses);
-                
                 amount = new JLabel("Amount:");
 		amount.setFont(new Font("Arial", Font.PLAIN, 15));
-		amount.setBounds(10, 420, 200, 20);
+		amount.setBounds(10, 390, 200, 15);
 		add(amount);
                 
                 amounts = new JTextField();
 		amounts.setFont(new Font("Arial", Font.PLAIN, 15));
-		amounts.setBounds(160, 420, 200, 20);
+		amounts.setBounds(160, 390, 200, 20);
 		add(amounts);
                 
                 notes = new JLabel("Any notes:");
@@ -152,21 +142,27 @@ public class Expenses extends JFrame implements ActionListener
                 
                 notess = new JTextArea();
                 notess.setFont(new Font("Arial", Font.PLAIN, 12));
-                notess.setBounds(400, 80, 300, 200);
+                notess.setBounds(400, 80, 300, 150);
                 notess.setLineWrap(true);
                 add(notess);
 
 		sub = new JButton("Submit");
 		sub.setFont(new Font("Arial", Font.PLAIN, 15));
-                sub.setBounds(250, 480, 100, 20);
+                sub.setBounds(300, 480, 100, 20);
 		sub.addActionListener(this);
 		add(sub);
 
 		reset = new JButton("Reset");
 		reset.setFont(new Font("Arial", Font.PLAIN, 15));
-                reset.setBounds(400, 480, 100, 20);
+                reset.setBounds(450, 480, 100, 20);
 		reset.addActionListener(this);
 		add(reset);
+                
+                back = new JButton("Back");
+		back.setFont(new Font("Arial", Font.PLAIN, 15));
+                back.setBounds(150, 480, 100, 20);
+		back.addActionListener(this);
+		add(back);
                 
                 tout = new JTextArea();
                 tout.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -174,6 +170,11 @@ public class Expenses extends JFrame implements ActionListener
                 tout.setLineWrap(true);
                 tout.setEditable(false);
                 add(tout);
+                
+                scrollPane = new JScrollPane(tout);
+                scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                scrollPane.setPreferredSize(new Dimension(600,400));        
+                getContentPane().add(scrollPane);
              
                 pol1 = new JLabel("");
                 pol1.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -200,15 +201,13 @@ public class Expenses extends JFrame implements ActionListener
 		if (e.getSource() == sub) {
 			String data1 = null;
 			String data     = "Name: " + tname.getText() + "\n"
-					+ "Employee ID : " + empidt.getText() + "\n" 
+					+ "Employee ID: " + empidt.getText() + "\n" 
                                         + "Email: " + emailt.getText() + "\n"
                                         + "Request Date: " + rqD.getDate() + "\n"
                                         + "Project Name: " + projnamet.getText() + "\n"
                                         + "Phase End Date: " + rqF.getDate() + "\n"
-                                        + expenses.getText() + "\n"
                                         + "Amount: " + amounts.getText() + "\n"
-                                        + "Any notes"
-                                        + notess.getText() + "\n";
+                                        + "Any notes: " + notess.getText() + "\n";
                                    if (phase1.isSelected())
                                        data1 = "Current phase of the project: Initiation";
                                    if (phase2.isSelected())
@@ -220,7 +219,7 @@ public class Expenses extends JFrame implements ActionListener
                                    if (phase5.isSelected())
                                        data1 = "Current phase of the project: Closure";
                                    
-				String data2 = "Reason for Request : " + projname.getText();
+				String data2 = "Reason for Request: " + projname.getText() + "\n";
                                 String data3 = null;
 				tout.setText(data + data1 + data2 + data3);
 				tout.setEditable(false);
@@ -234,7 +233,6 @@ public class Expenses extends JFrame implements ActionListener
                         emailt.setText(def);
                         rqD.setCalendar(null);
 			projnamet.setText(def);
-                        expenses.setText(def);
                         amounts.setText(def);
                         notess.setText(def);
 			tout.setText(def);
@@ -245,6 +243,11 @@ public class Expenses extends JFrame implements ActionListener
                         phase4.setSelected(false);
                         phase5.setSelected(false);
 		}
+                
+                else if (e.getSource() == back) {
+                    dispose();
+                    new HrPage();
+                }
         
 	}
     }

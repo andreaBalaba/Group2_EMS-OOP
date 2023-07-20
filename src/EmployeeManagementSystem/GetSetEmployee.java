@@ -50,6 +50,33 @@ public class GetSetEmployee
     private String employeeSignature;
     private Date requestDate;
     private String status;
+    private String login, passWord;
+    
+    public GetSetEmployee(String employeeId, String name, String department, String manager, int totalHours, Date dateOfAbsenceFrom, Date dateOfAbsenceTo, boolean vacation, boolean medicalLeave, boolean juryDuty, boolean personalLeave, boolean familyReasons, boolean toVote, boolean bereavement, boolean timeOffWithoutPay, Date requestDate, String reasonForRequest, String employeeSignature) {
+        this.employeeId = employeeId;
+        this.name = name;
+        this.department = department;
+        this.manager = manager;
+        this.totalHours = totalHours;
+        this.dateOfAbsenceFrom = dateOfAbsenceFrom;
+        this.dateOfAbsenceTo = dateOfAbsenceTo;
+        this.requestDate = requestDate;
+        this.reasonForRequest = reasonForRequest;
+        this.employeeSignature = employeeSignature;
+        this.vacation = vacation;
+        this.medicalLeave = medicalLeave;
+        this.juryDuty = juryDuty;
+        this.personalLeave = personalLeave;
+        this.familyReasons = familyReasons;
+        this.toVote = toVote;
+        this.bereavement = bereavement;
+        this.timeOffWithoutPay = timeOffWithoutPay;
+    }
+    
+    public GetSetEmployee(String login, String passWord) {
+        this.login = login;
+        this.passWord = passWord;
+    }
 
 
     public GetSetEmployee(String name, int age, Date dateOfHired, String email, String address, String phone, String employeeId, String education, String position, int salary, String department) 
@@ -141,6 +168,14 @@ public class GetSetEmployee
     public GetSetEmployee()
     {
        
+    }
+    
+    public String getLogIn() {
+        return login;
+    }
+    
+     public String getPass() {
+        return passWord;
     }
     
     public String getName() 

@@ -9,10 +9,10 @@ import java.util.*;
 public class AddEmployee extends JFrame implements ActionListener
 {       
     private EMSdataAccess database = new EMSdataAccess();
-    private JLabel addEmpHeader, newEmpName, newEmpAge, newEmpDoH, newEmpSalary, newEmpDep;
-    private JLabel newEmpAddress, newEmppn, newEmpEmail, newEmpHE, newEmpID, newEmpPos, subResult;
-    private JTextField tfname, tfage, tfSalary, tfAddress, tfpn, tfEmail, tfID, tfPos, tfDep;
-    private JComboBox tfHE;
+    private JLabel addEmpHeader, newEmpName, newEmpAge, newEmpDoH, newEmpSalary, newEmpDep, toLogIn;
+    private JLabel newEmpAddress, newEmppn, newEmpEmail, newEmpHE, newEmpID, newEmpPos, subResult, pass;
+    private JTextField tfname, tfage, tfSalary, tfAddress, tfpn, tfEmail, tfID, tfPos, tfDep, acc, passField;
+    private JComboBox tfHE, tLgN;
     private JButton SubmitButton, BackButton;
     private JDateChooser dcDoH;
         
@@ -31,11 +31,26 @@ public class AddEmployee extends JFrame implements ActionListener
         
         newEmpDep = new JLabel("Department:");
         newEmpDep.setFont(new Font("Open Sans", Font.PLAIN, 15));
-        newEmpDep.setBounds(250, 87, 150, 30);
+        newEmpDep.setBounds(50, 87, 150, 30);
         
         tfDep = new JTextField();
 	tfDep.setFont(new Font("Open Sans", Font.PLAIN, 12));
-	tfDep.setBounds(360, 90, 150, 28);
+	tfDep.setBounds(160, 90, 150, 28);
+        
+        toLogIn = new JLabel("Account: ");
+        toLogIn.setBounds(360, 87, 170, 30);
+        toLogIn.setFont(new Font("Open Sans", Font.PLAIN, 15));
+        
+        acc = new JTextField();
+	acc.setFont(new Font("Open Sans", Font.PLAIN, 12));
+	acc.setBounds(530, 90, 55, 28);
+        
+        String tLIn[] = {"Please select...","@hr.com", "@employee.com"};
+        tLgN = new JComboBox(tLIn);
+	tLgN.setFont(new Font("Open Sans", Font.PLAIN, 12));
+	tLgN.setBounds(585, 90, 95, 28);
+        tLgN.setBackground(Color.LIGHT_GRAY);
+        tLgN.setFocusable(false);
         
         newEmpName = new JLabel("Name: ");
         newEmpName.setBounds(50, 147, 150, 30);
@@ -45,13 +60,13 @@ public class AddEmployee extends JFrame implements ActionListener
 	tfname.setFont(new Font("Open Sans", Font.PLAIN, 12));
 	tfname.setBounds(160, 150, 150, 28);
         
-        newEmpAge = new JLabel("Age: ");
-        newEmpAge.setBounds(360, 147, 150, 30);
-        newEmpAge.setFont(new Font("Open Sans", Font.PLAIN, 15));
+        pass = new JLabel("Password: ");
+        pass.setBounds(360, 147, 150, 30);
+        pass.setFont(new Font("Open Sans", Font.PLAIN, 15));
         
-        tfage = new JTextField();
-	tfage.setFont(new Font("Open Sans", Font.PLAIN, 12));
-	tfage.setBounds(530, 150, 150, 28);
+        passField = new JTextField();
+	passField.setFont(new Font("Open Sans", Font.PLAIN, 12));
+	passField.setBounds(530, 150, 150, 28);
         
         newEmpDoH = new JLabel("Date of Hired: ");
         newEmpDoH.setBounds(50, 197, 150, 30);
@@ -69,13 +84,13 @@ public class AddEmployee extends JFrame implements ActionListener
 	tfEmail.setFont(new Font("Open Sans", Font.PLAIN, 12));
 	tfEmail.setBounds(530, 200, 150, 28);
         
-        newEmpAddress = new JLabel("Address: ");
-        newEmpAddress.setBounds(50, 247, 150, 30);
-        newEmpAddress.setFont(new Font("Open Sans", Font.PLAIN, 15));
+        newEmpAge = new JLabel("Age: ");
+        newEmpAge.setBounds(50, 247, 150, 30);
+        newEmpAge.setFont(new Font("Open Sans", Font.PLAIN, 15));
         
-        tfAddress = new JTextField();
-	tfAddress.setFont(new Font("Open Sans", Font.PLAIN, 12));
-	tfAddress.setBounds(160, 250, 150, 28);
+        tfage = new JTextField();
+	tfage.setFont(new Font("Open Sans", Font.PLAIN, 12));
+	tfage.setBounds(160, 250, 150, 28);
         
         newEmppn = new JLabel("Phone No.: ");
         newEmppn.setBounds(360, 247, 150, 30);
@@ -114,6 +129,14 @@ public class AddEmployee extends JFrame implements ActionListener
         tfPos = new JTextField();
 	tfPos.setFont(new Font("Open Sans", Font.PLAIN, 12));
 	tfPos.setBounds(160, 350, 150, 28);
+        
+        newEmpAddress = new JLabel("Address: ");
+        newEmpAddress.setBounds(50, 390, 150, 30);
+        newEmpAddress.setFont(new Font("Open Sans", Font.PLAIN, 15));
+        
+        tfAddress = new JTextField();
+	tfAddress.setFont(new Font("Open Sans", Font.PLAIN, 12));
+	tfAddress.setBounds(160, 390, 150, 28);
         
         newEmpSalary = new JLabel("Salary: ");
         newEmpSalary.setBounds(360, 347, 150, 30);
@@ -172,6 +195,11 @@ public class AddEmployee extends JFrame implements ActionListener
         add(BackButton);
         add(newEmpDep);
         add(tfDep);
+        add(tLgN);
+        add(toLogIn);
+        add(acc);
+        add(pass);
+        add(passField);
         
         setVisible(true);
         
@@ -186,6 +214,8 @@ public class AddEmployee extends JFrame implements ActionListener
      
      if (e.getSource() == SubmitButton) 
      { 
+         
+         
         String name = tfname.getText();
         int age = Integer.parseInt(tfage.getText());
         Date dateOfHired = dcDoH.getDate();
@@ -197,24 +227,29 @@ public class AddEmployee extends JFrame implements ActionListener
         String position = tfPos.getText();
         int salary = Integer.parseInt(tfSalary.getText());
         String department = tfDep.getText();
+        
+        String login = acc.getText() + (String) tLgN.getSelectedItem();
+        String passWord = passField.getText();
+        
+        GetSetEmployee employeelogin = new GetSetEmployee(login, passWord);
 
         GetSetEmployee employee = new GetSetEmployee(name, age, dateOfHired, email, address, phone, employeeId, education, position, salary, department);
 
-        boolean success = database.addEmployee(employee);
+        boolean success = database.addEmployee(employee) && database.addEmployeelogin(employeelogin); 
 
         if (success)
         {
-            //subResult.setText("New Employee is successfully added!");
-            int choice = JOptionPane.showConfirmDialog(this, "New Employee is successfully added!");
-            if (choice == JOptionPane.YES_OPTION) {
-                dispose();
-            }
+           
+            JOptionPane.showMessageDialog(this, "New Employee is successfully added!");
+            dispose();
+            
         } 
         else 
         {
-            subResult.setText("Sorry, failed to add new employee.");
+            JOptionPane.showConfirmDialog(this, "Sorry, failed to add new employee.");
             
         }
+        
     } 
     else if (e.getSource() == BackButton) 
     {

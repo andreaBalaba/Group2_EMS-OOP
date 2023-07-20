@@ -29,8 +29,8 @@ public class ManTimeOff extends JFrame implements ActionListener
     
         JPanel con = new JPanel();
         con.setLayout(null);
-        
         con.setPreferredSize(new Dimension(600,600));
+        
         scrollPane = new JScrollPane(con);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(600,400));        

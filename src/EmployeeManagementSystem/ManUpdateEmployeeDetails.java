@@ -201,7 +201,6 @@ public class ManUpdateEmployeeDetails extends JFrame implements ActionListener
         else if (e.getSource() == cancelButton) 
         {
             dispose();
-            new ManagerPage();
         }
   }
 }
