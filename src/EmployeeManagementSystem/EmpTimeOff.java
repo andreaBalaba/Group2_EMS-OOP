@@ -233,7 +233,7 @@ public class EmpTimeOff extends JFrame implements ActionListener{
         
         Submit = new JButton("Submit");
         Submit.setFont(new Font("Open Sans", Font.BOLD, 13));
-        Submit.setBounds(200, 540, 90, 30);
+        Submit.setBounds(230, 540, 90, 30);
         Submit.setBackground(Color.GRAY);
         Submit.setForeground(Color.WHITE);
         Submit.setFocusable(false);

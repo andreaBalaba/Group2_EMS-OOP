@@ -23,7 +23,7 @@ public class ChooseEmpId extends JFrame implements ActionListener {
         setLayout(null);
         setResizable(false);
 
-        titleLabel = new JLabel("Choose your Employee ID");
+        titleLabel = new JLabel("Your Employee ID");
         titleLabel.setFont(new Font("Open Sans", Font.BOLD, 16));
         titleLabel.setBounds(75, 20, 200, 30);
 
