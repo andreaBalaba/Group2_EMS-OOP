@@ -396,7 +396,14 @@ public class ManagerVUDReview extends JFrame implements ActionListener
         if (e.getSource() == employeeIdComboBox) 
         {
             String selectedEmployeeId = employeeIdComboBox.getSelectedItem().toString();
-            displayReviewData(selectedEmployeeId);
+            if (selectedEmployeeId != null && !selectedEmployeeId.isEmpty()) 
+            {
+                displayReviewData(selectedEmployeeId);
+            } 
+            else 
+            {
+                clearReviewData();
+            }
         }  
         else if (e.getSource() == updateButton) 
         {
