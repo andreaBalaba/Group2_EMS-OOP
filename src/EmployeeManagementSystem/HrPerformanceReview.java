@@ -365,6 +365,7 @@ public class HrPerformanceReview extends JFrame implements ActionListener
         }
         else if (e.getSource() == Back) {
             dispose();
+            new HrPage();
         }
     }
 }
