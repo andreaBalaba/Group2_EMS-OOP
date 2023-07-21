@@ -231,7 +231,7 @@ public class HrPerformanceReview extends JFrame implements ActionListener
         Submit = new JButton();
         Submit.setText("SUBMIT");
         Submit.setFont(new Font("Open Sans", Font.BOLD,13));
-        Submit.setBounds(220, 590, 90, 30);
+        Submit.setBounds(180, 590, 90, 30);
         Submit.setBackground(Color.GRAY);
         Submit.setForeground(Color.WHITE);
         Submit.setFocusable(false);
@@ -253,7 +253,7 @@ public class HrPerformanceReview extends JFrame implements ActionListener
         Back = new JButton();
         Back.setText("BACK");
         Back.setFont(new Font("Open Sans", Font.BOLD,13));
-        Back.setBounds(420, 590, 90, 30);
+        Back.setBounds(460, 590, 90, 30);
         Back.setBackground(Color.GRAY);
         Back.setForeground(Color.WHITE);
         Back.setFocusable(false);
