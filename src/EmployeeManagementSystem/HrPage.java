@@ -149,7 +149,7 @@ public class HrPage extends JFrame implements ActionListener{
         }
         else if (e.getSource() == prefrv) {
             dispose();
-            new PerformanceReview();
+            new HrPerformanceReview();
         }
         
         

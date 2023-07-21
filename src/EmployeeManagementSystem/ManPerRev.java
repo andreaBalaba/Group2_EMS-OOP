@@ -6,7 +6,7 @@ import java.awt.event.*;
 import java.util.Date;
 import javax.swing.*;
 
-public class HrPerformanceReview extends JFrame implements ActionListener
+public class ManPerRev extends JFrame implements ActionListener
 {
     private EMSdataAccess database = new EMSdataAccess();
     private JTextField jTextName, jTextPos, jTextMan, jTextDep, jTextID; 
@@ -19,7 +19,7 @@ public class HrPerformanceReview extends JFrame implements ActionListener
     private JDateChooser jTextDate;
     private JComboBox overallResultComboBox;
     
-    public HrPerformanceReview() 
+    public ManPerRev() 
     {
         setTitle("Performance Review");
         setBounds(100, 100, 750, 550);
@@ -365,7 +365,7 @@ public class HrPerformanceReview extends JFrame implements ActionListener
         }
         else if (e.getSource() == Back) {
             dispose();
-            new HrPage();
+            new ManagerPage();
         }
     }
 }

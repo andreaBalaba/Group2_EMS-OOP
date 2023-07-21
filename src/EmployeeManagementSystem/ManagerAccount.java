@@ -59,7 +59,7 @@ public class ManagerAccount extends JPopupMenu implements ActionListener{
             new ManagerVUDReview();
         }
         else if (e.getSource() == perfor1) {
-            new PerformanceReview();
+            new ManPerRev();
         }
     }
 }
