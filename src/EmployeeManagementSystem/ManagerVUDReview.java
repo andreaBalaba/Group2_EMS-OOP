@@ -408,7 +408,7 @@ public class ManagerVUDReview extends JFrame implements ActionListener
             } 
             else 
             {
-                JOptionPane.showMessageDialog(this, "Please select an employee ID to delete.", "Delete Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please select an employee ID to update.", "Delete Error", JOptionPane.ERROR_MESSAGE);
             }
         } 
         else if (e.getSource() == deleteButton) 
