@@ -25,7 +25,7 @@ public class EmpExpenses extends JFrame implements ActionListener
         setResizable(false);
         
 
-		title = new JLabel("Employee Request Expenses Form");
+		title = new JLabel("Employee Request Expenses");
 		title.setFont(new Font("Mistral", Font.BOLD, 50));
 		title.setBounds(140, 10, 500, 50);
 		add(title);
@@ -159,18 +159,30 @@ public class EmpExpenses extends JFrame implements ActionListener
 		sub = new JButton("Submit");
 		sub.setFont(new Font("Arial", Font.PLAIN, 15));
                 sub.setBounds(180, 520, 100, 30);
+                sub.setBackground(Color.GRAY);
+                sub.setForeground(Color.WHITE);
+                sub.setFocusable(false);
+                sub.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		sub.addActionListener(this);
 		add(sub);
 
 		reset = new JButton("Reset");
 		reset.setFont(new Font("Arial", Font.PLAIN, 15));
                 reset.setBounds(325, 520, 100, 30);
+                reset.setBackground(Color.GRAY);
+                reset.setForeground(Color.WHITE);
+                reset.setFocusable(false);
+                reset.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		reset.addActionListener(this);
 		add(reset);
                 
                 back = new JButton("Back");
 		back.setFont(new Font("Arial", Font.PLAIN, 15));
                 back.setBounds(470, 520, 100, 30);
+                back.setBackground(Color.GRAY);
+                back.setForeground(Color.WHITE);
+                back.setFocusable(false);
+                back.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		back.addActionListener(this);
 		add(back);
                 
