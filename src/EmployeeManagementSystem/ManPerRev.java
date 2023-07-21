@@ -220,7 +220,7 @@ public class ManPerRev extends JFrame implements ActionListener
         reslbl.setBounds(235, 550, 220, 20);
         con.add(reslbl);
         
-        String result[] = {"Please select...","Exellent", "Good", "Average", "Below Average"};
+        String result[] = {"Please select...","Excellent", "Good", "Average", "Below Average"};
         overallResultComboBox = new JComboBox(result);
         overallResultComboBox.setFont(new Font("Open Sans", Font.PLAIN, 13));
         overallResultComboBox.setBounds(335, 550, 150, 20);

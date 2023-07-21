@@ -18,6 +18,7 @@ public class ManagerVUDReview extends JFrame implements ActionListener
     private JCheckBox WFP, WC, QW, Comm, TakeIni, CRTVY, PRDTVY, TechSkl, Effy, TMW, Leader, IndepWk, Rlbty, Puntly;  
     private JDateChooser jTextDate;
     private JTextArea Improve, Comment;
+    private boolean isDeletingReview = false;
     
     public ManagerVUDReview() 
     {
@@ -306,6 +307,7 @@ public class ManagerVUDReview extends JFrame implements ActionListener
             else 
             {
                 clearReviewData();
+                JOptionPane.showMessageDialog(this, "Review for the selected employee ID is deleted.", "Review Not Found", JOptionPane.WARNING_MESSAGE);
             }
     }
     
@@ -376,18 +378,37 @@ public class ManagerVUDReview extends JFrame implements ActionListener
 
     private boolean deleteReviewData(String employeeId) 
     {
-        boolean success = database.deleteReviewData(employeeId);
-            if (success) 
-            {
-                clearReviewData();
-                employeeIdComboBox.removeItem(employeeId);
-                JOptionPane.showMessageDialog(this, "Review deleted successfully.", "Delete Success", JOptionPane.INFORMATION_MESSAGE);
-            } 
-            else 
-            {
-                JOptionPane.showMessageDialog(this, "Failed to delete review.", "Delete Failed", JOptionPane.ERROR_MESSAGE);
-            }
-        return false;
+           if (isDeletingReview) 
+           {
+            return false; 
+           }
+            isDeletingReview = true;
+    
+           try 
+           {
+                boolean success = database.deleteReviewData(employeeId);
+                if (success) 
+                {
+                    clearReviewData();
+                    employeeIdComboBox.removeItem(employeeId);
+                    JOptionPane.showMessageDialog(this, "Review deleted successfully.", "Delete Success", JOptionPane.INFORMATION_MESSAGE);
+                } 
+                else 
+                {
+                    JOptionPane.showMessageDialog(this, "Failed to delete review.", "Delete Failed", JOptionPane.ERROR_MESSAGE);
+                }
+                return success;
+           } 
+           catch (NullPointerException e)
+           {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "All review is deleted. ", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+           } 
+           finally 
+           {
+                isDeletingReview = false; 
+           }
     }
 
     @Override
@@ -395,9 +416,9 @@ public class ManagerVUDReview extends JFrame implements ActionListener
     {
         if (e.getSource() == employeeIdComboBox) 
         {
-            String selectedEmployeeId = employeeIdComboBox.getSelectedItem().toString();
-            if (selectedEmployeeId != null && !selectedEmployeeId.isEmpty()) 
+            if (employeeIdComboBox.getSelectedIndex() != -1) 
             {
+                String selectedEmployeeId = employeeIdComboBox.getSelectedItem().toString();
                 displayReviewData(selectedEmployeeId);
             } 
             else 
