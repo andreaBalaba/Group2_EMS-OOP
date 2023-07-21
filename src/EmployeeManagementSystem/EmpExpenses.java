@@ -15,6 +15,7 @@ public class EmpExpenses extends JFrame implements ActionListener
 	private final JButton sub, reset, back;
         private final JLabel pol1, pol2;
         private JDateChooser rqD, rqF;
+        private JScrollPane scrollPane;
         
     public EmpExpenses() 
     {
@@ -23,179 +24,187 @@ public class EmpExpenses extends JFrame implements ActionListener
         setLocationRelativeTo(null);
         setLayout(null);
         setResizable(false);
+        
+        JPanel con = new JPanel();
+        con.setLayout(null);
+        con.setPreferredSize(new Dimension(600,550));
+        
+        scrollPane = new JScrollPane(con);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setPreferredSize(new Dimension(600,350));  
 
 		title = new JLabel("Employee Request Expenses Form");
 		title.setFont(new Font("Mistral", Font.BOLD, 50));
 		title.setBounds(140, 10, 500, 50);
-		add(title);
+		con.add(title);
 
 		name = new JLabel("Name:");
 		name.setFont(new Font("Open Sans", Font.PLAIN, 15));
 		name.setBounds(10, 80, 50, 15);
-		add(name);
+		con.add(name);
 
 		tname = new JTextField();
 		tname.setFont(new Font("Open Sans", Font.PLAIN, 15));
 		tname.setBounds(160, 80, 200, 20);
-		add(tname);
+		con.add(tname);
 
 		empid = new JLabel("Employee ID:");
 		empid.setFont(new Font("Open Sans", Font.PLAIN, 15));
 		empid.setBounds(10, 110, 100, 15);
-		add(empid);
+		con.add(empid);
 
 		empidt = new JTextField();
 		empidt.setFont(new Font("Open Sans", Font.PLAIN, 15));
 		empidt.setBounds(160, 110, 200, 20);
-		add(empidt);
+		con.add(empidt);
 
 		email = new JLabel("Email:");
 		email.setFont(new Font("Open Sans", Font.PLAIN, 15));
 		email.setBounds(10, 140, 100, 15);
-		add(email);
+		con.add(email);
                 
                 emailt = new JTextField();
 		emailt.setFont(new Font("Open Sans", Font.PLAIN, 15));
 		emailt.setBounds(160, 140, 200, 20);
-		add(emailt);
+		con.add(emailt);
 
 		reqdate = new JLabel("Request Date:");
 		reqdate.setFont(new Font("Arial", Font.PLAIN, 15));
 		reqdate.setBounds(10, 170, 100, 15);
-		add(reqdate);
+		con.add(reqdate);
                 
                 rqD = new JDateChooser();
                 rqD.setBounds(160, 170, 200, 20);
                 rqD.setBackground(Color.DARK_GRAY);
-                add(rqD);
+                con.add(rqD);
                 
                 dept = new JLabel("Department:");
 		dept.setFont(new Font("230", Font.PLAIN, 15));
 		dept.setBounds(10, 200, 100, 15);
-		add(dept);
+		con.add(dept);
                                  
                 deptField = new JTextField();
 		deptField.setFont(new Font("Arial", Font.PLAIN, 15));
 		deptField.setBounds(160, 200, 200, 20);
-		add(deptField);
+		con.add(deptField);
 
 		projname = new JLabel("Project Name:");
 		projname.setFont(new Font("Arial", Font.PLAIN, 15));
 		projname.setBounds(10, 240, 100, 15);
-		add(projname);
+		con.add(projname);
                                  
                 projnamet = new JTextField();
 		projnamet.setFont(new Font("Arial", Font.PLAIN, 15));
 		projnamet.setBounds(160, 240, 200, 20);
-		add(projnamet);
+		con.add(projnamet);
                 
                 phase = new JLabel("What is the current phase of the project?");
                 phase.setFont(new Font("Arial", Font.PLAIN, 15));
                 phase.setBounds(10, 270, 300, 20);
-                add(phase);
+                con.add(phase);
                 
                 phase1 = new JCheckBox("Initiation");
                 phase1.setFont(new Font("Arial", Font.PLAIN, 12));
                 phase1.setSelected(false);
                 phase1.setBounds(10, 290, 100, 15);
-                add(phase1);
+                con.add(phase1);
                 
                 phase2 = new JCheckBox("Planning");
                 phase2.setFont(new Font("Arial", Font.PLAIN, 12));
                 phase2.setSelected(false);
                 phase2.setBounds(10, 310, 100, 15);
-                add(phase2);
+                con.add(phase2);
                 
                 phase3 = new JCheckBox("Execution");
                 phase3.setFont(new Font("Arial", Font.PLAIN, 12));
                 phase3.setSelected(false);
                 phase3.setBounds(10, 330, 100, 15);
-                add(phase3);
+                con.add(phase3);
                 
                 phase4 = new JCheckBox("Performance/Monitoring");
                 phase4.setFont(new Font("Arial", Font.PLAIN, 12));
                 phase4.setSelected(false);
                 phase4.setBounds(10, 350, 200, 15);
-                add(phase4);
+                con.add(phase4);
                 
                 phase5 = new JCheckBox("Closure");
                 phase5.setFont(new Font("Arial", Font.PLAIN, 12));
                 phase5.setSelected(false);
                 phase5.setBounds(10, 370, 100, 15);
-                add(phase5);
+                con.add(phase5);
                 
                 phasedate = new JLabel("Phase End Date:");
 		phasedate.setFont(new Font("Arial", Font.PLAIN, 15));
 		phasedate.setBounds(10, 390, 200, 15);
-		add(phasedate);
+		con.add(phasedate);
                 
                 rqF = new JDateChooser();
                 rqF.setBounds(160, 390, 200, 20);
                 rqF.setBackground(Color.DARK_GRAY);
-                add(rqF);
+                con.add(rqF);
 
                 amount = new JLabel("Amount:");
 		amount.setFont(new Font("Arial", Font.PLAIN, 15));
 		amount.setBounds(10, 420, 200, 15);
-		add(amount);
+		con.add(amount);
                 
                 amounts = new JTextField();
 		amounts.setFont(new Font("Arial", Font.PLAIN, 15));
 		amounts.setBounds(160, 420, 200, 20);
-		add(amounts);
+		con.add(amounts);
                 
                 notes = new JLabel("Any notes:");
                 notes.setFont(new Font("Arial", Font.PLAIN, 15));
                 notes.setBounds(10, 450, 200, 20);
-                add(notes);
+                con.add(notes);
                 
                 notess = new JTextArea();
                 notess.setFont(new Font("Arial", Font.PLAIN, 12));
-                notess.setBounds(160, 450, 200, 20);
+                notess.setBounds(160, 450, 200, 40);
                 notess.setLineWrap(true);
-                add(notess);
+                con.add(notess);
 
 		sub = new JButton("Submit");
 		sub.setFont(new Font("Arial", Font.PLAIN, 15));
-                sub.setBounds(300, 480, 100, 20);
+                sub.setBounds(300, 500, 100, 20);
 		sub.addActionListener(this);
-		add(sub);
+		con.add(sub);
 
 		reset = new JButton("Reset");
 		reset.setFont(new Font("Arial", Font.PLAIN, 15));
-                reset.setBounds(450, 480, 100, 20);
+                reset.setBounds(450, 500, 100, 20);
 		reset.addActionListener(this);
-		add(reset);
+		con.add(reset);
                 
                 back = new JButton("Back");
 		back.setFont(new Font("Arial", Font.PLAIN, 15));
-                back.setBounds(150, 480, 100, 20);
+                back.setBounds(150, 500, 100, 20);
 		back.addActionListener(this);
-		add(back);
+		con.add(back);
                 
                 summary = new JLabel("Summary:");
                 summary.setFont(new Font("Arial", Font.PLAIN, 15));
                 summary.setBounds(520, 60, 200, 20);
-                add(summary);
+                con.add(summary);
                 
                 tout = new JTextArea();
                 tout.setFont(new Font("Arial", Font.PLAIN, 15));
                 tout.setBounds(400, 80, 300, 350);
                 tout.setLineWrap(true);
                 tout.setEditable(false);
-                add(tout);
+                con.add(tout);
              
                 pol1 = new JLabel("");
                 pol1.setFont(new Font("Arial", Font.PLAIN, 15));
                 pol1.setSize(400, 20);
                 pol1.setLocation(240, 700);
-                add(pol1);
+                con.add(pol1);
                 
                 pol2 = new JLabel("");
                 pol2.setFont(new Font("Arial", Font.PLAIN, 15));
                 pol2.setSize(400, 20);
                 pol2.setLocation(330, 500);
-                add(pol2);
+                con.add(pol2);
  
 		setVisible(true);
 	}
@@ -250,7 +259,7 @@ public class EmpExpenses extends JFrame implements ActionListener
                     String department = deptField.getText();
                     String projname = projnamet.getText();
                     Date dateEnd = rqF.getDate();
-                    int amount = amounts.getText();
+                    int amount = Integer.parseInt(amounts.getText());
                     String anyNotes = notess.getText();
                     String summary = tout.getText();
                     

@@ -1,6 +1,5 @@
 package EmployeeManagementSystem;
 
-import com.toedter.calendar.JDateChooser;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;

@@ -11,7 +11,6 @@ public class MainClass  {
         EventQueue.invokeLater (new Runnable (){
             @Override
             public void run(){
-                    new EMSdataAccess();
                     new WelcomePage();
                     
             }

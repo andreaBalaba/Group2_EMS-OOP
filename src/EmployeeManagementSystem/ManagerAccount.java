@@ -31,6 +31,7 @@ public class ManagerAccount extends JPopupMenu implements ActionListener{
         
     }
     
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == logOut) {
             

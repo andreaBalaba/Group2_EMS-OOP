@@ -21,7 +21,7 @@ public class EMSdataAccess
         try 
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/group2_ems", "root", "Miyu@ki29");
+            connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/group2_ems", "root", "balaba");
             
         } 
         catch (ClassNotFoundException | SQLException e) 
@@ -228,24 +228,24 @@ public class EMSdataAccess
         try 
         {
             PreparedStatement statement = connection.prepareStatement(
-                " INSERT INTO expense_request (name, employeeId, email, department, reqDate, projName, reqEndDate, amount, notes, inititate, planning, execution, perform, closure, summary )" +
+                " INSERT INTO expense_request (name, employeeId, email, department, reqDate, projName, reqEndDate, amount, notes, initiate, planning, execution, perform, closure, summary, status )" +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending')");
             
             statement.setString(1, employee.getName());
             statement.setString(2, employee.getEmployeeId());
             statement.setString(3, employee.getEmail());
             statement.setString(4, employee.getDepartment());
-            statement.setDate(5, new java.sql.Date(employee.getdateRequest().getTime()));
+            statement.setDate(5, new java.sql.Date(employee.getRequestDate().getTime()));
             statement.setString(6, employee.getProjName());
             statement.setDate(7, new java.sql.Date(employee.getdateEnd().getTime()));
             statement.setInt(8, employee.getAmount());
             statement.setString(9, employee.getNotes());
-            statement.setBoolean(8, employee.isInitiation());
-            statement.setBoolean(9, employee.isPlanning());
-            statement.setBoolean(10, employee.isExecution());
-            statement.setBoolean(11, employee.isPerform());
-            statement.setBoolean(12, employee.isClosure());
-            statement.setString(16, employee.getSummary());
+            statement.setBoolean(10, employee.isInitiation());
+            statement.setBoolean(11, employee.isPlanning());
+            statement.setBoolean(12, employee.isExecution());
+            statement.setBoolean(13, employee.isPerform());
+            statement.setBoolean(14, employee.isClosure());
+            statement.setString(15, employee.getSummary());
  
             
             int rowsAffected = statement.executeUpdate();
@@ -692,7 +692,7 @@ public class EMSdataAccess
         try 
         {
             Statement stmt = connection.createStatement();
-            String query = "SELECT request_id, name, reqdate, status FROM expense_request";
+            String query = "SELECT request_id, name, department, reqdate, status FROM expense_request";
             ResultSet rs = stmt.executeQuery(query);
 
             while (rs.next()) 
@@ -777,12 +777,12 @@ public class EMSdataAccess
                 rowData.add(resultSet.getInt("request_id"));
                 rowData.add(resultSet.getString("name"));
                 rowData.add(resultSet.getString("employeeId"));
-                rowData.add(resultSet.getInt("email"));
+                rowData.add(resultSet.getString("email"));
                 rowData.add(resultSet.getDate("reqDate"));
                 rowData.add(resultSet.getString("projName"));
                 rowData.add(resultSet.getString("department"));
                 rowData.add(resultSet.getDate("reqEndDate"));
-                rowData.add(resultSet.getString("amount"));
+                rowData.add(resultSet.getInt("amount"));
                 rowData.add(resultSet.getString("notes"));
                 rowData.add(resultSet.getBoolean("initiate"));
                 rowData.add(resultSet.getBoolean("planning"));

@@ -22,6 +22,7 @@ public class HrPage extends JFrame implements ActionListener{
         emplist = new JButton ( );
         emplist.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/employ list.png")));
         emplist.setBounds(100, 80, 150, 150);
+        emplist.setFocusable(false);
         emplist.setBackground(Color.white);
         emplist.addActionListener(this);
         add(emplist);
@@ -29,6 +30,7 @@ public class HrPage extends JFrame implements ActionListener{
         reqlist = new JButton ();
         reqlist.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/request.png")));
         reqlist.setBounds(100, 280, 150, 150);
+        reqlist.setFocusable(false);
         reqlist.setBackground(Color.white);
         reqlist.addActionListener(this);
         add(reqlist);
@@ -36,6 +38,7 @@ public class HrPage extends JFrame implements ActionListener{
         update = new JButton ();
         update.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/update emp.png")));
         update.setBounds(300, 80, 150, 150);
+        update.setFocusable(false);
         update.setBackground(Color.white);
         update.addActionListener(this);
         add(update);
@@ -43,6 +46,7 @@ public class HrPage extends JFrame implements ActionListener{
         expe = new JButton ();
         expe.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/expenses.png")));
         expe.setBounds(300, 280,150, 150);
+        expe.setFocusable(false);
         expe.setBackground(Color.white);
         expe.addActionListener(this);
         add(expe);
@@ -50,6 +54,7 @@ public class HrPage extends JFrame implements ActionListener{
         manage = new JButton ();
         manage.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/manage emp.png")));
         manage.setBounds(500, 80, 150, 150);
+        manage.setFocusable(false);
         manage.setBackground(Color.white);
         manage.addActionListener(this);
         add(manage);
@@ -57,6 +62,7 @@ public class HrPage extends JFrame implements ActionListener{
         prefrv = new JButton ();
         prefrv.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/perfor rv.png")));
         prefrv.setBounds(500, 280,150, 150);
+        prefrv.setFocusable(false);
         prefrv.setBackground(Color.white);
         prefrv.addActionListener(this);
         add(prefrv);
@@ -118,7 +124,7 @@ public class HrPage extends JFrame implements ActionListener{
     public void disposeFrame() {
         dispose();
     }
-    //emplist,reqlist, expe, update, manage, prefrv, refr, acc;
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == emplist) {

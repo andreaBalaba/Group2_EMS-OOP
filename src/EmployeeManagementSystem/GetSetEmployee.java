@@ -51,7 +51,6 @@ public class GetSetEmployee
     private Date requestDate;
     private String status;
     private String login, passWord;
-    private Date dateRequest;
     private String projname;
     private Date dateEnd;
     private int amounts;
@@ -63,12 +62,12 @@ public class GetSetEmployee
     private boolean closure;
     private String summary;
     
-    public GetSetEmployee(String name, String employeeId,String email, Date dateRequest,String department, String projname, Date dateEnd, int amounts, String anyNotes, boolean initiate,boolean  planning,boolean  execution,boolean  perform,boolean closure, String summary) {
+    public GetSetEmployee(String name, String employeeId,String email, Date requestDate,String department, String projname, Date dateEnd, int amounts, String anyNotes, boolean initiate,boolean  planning,boolean  execution,boolean  perform,boolean closure, String summary) {
         this.employeeId = employeeId;
         this.name = name;
         this.department = department;
         this.email = email;
-        this.dateRequest = dateRequest;
+        this.requestDate = requestDate;
         this.projname = projname;
         this.dateEnd = dateEnd;
         this.amounts = amounts;
@@ -266,7 +265,7 @@ public class GetSetEmployee
         return amounts;
     }
 
-    public void getAmount(int amounts) 
+    public void setAmount(int amounts) 
     {
         this.amounts = amounts;
     }
@@ -278,16 +277,7 @@ public class GetSetEmployee
         this.anyNotes = anyNotes;
     } 
     
-    
-    public Date getdateRequest() 
-    {
-        return dateRequest;
-    }
 
-    public void setdateRequest(Date dateRequest) 
-    {
-        this.dateRequest = dateRequest;
-    }
     public Date getdateEnd() 
     {
         return dateEnd;

@@ -25,6 +25,7 @@ public class HrAccount extends JPopupMenu implements ActionListener{
         
     }
     
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == logOut) {
             

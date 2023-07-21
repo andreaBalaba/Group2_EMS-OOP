@@ -22,6 +22,7 @@ public class ManagerPage extends JFrame implements ActionListener{
         hrlist = new JButton ( );
         hrlist.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/hr list.png")));
         hrlist.setBounds(150, 100, 150, 150);
+        hrlist.setFocusable(false);
         hrlist.setBackground(Color.white);
         hrlist.addActionListener(this);
         add(hrlist);
@@ -29,6 +30,7 @@ public class ManagerPage extends JFrame implements ActionListener{
         emplist = new JButton ();
         emplist.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/update emp.png")));
         emplist.setBounds(440, 100, 150, 150);
+        emplist.setFocusable(false);
         emplist.setBackground(Color.white);
         emplist.addActionListener(this);
         add(emplist);
@@ -36,6 +38,7 @@ public class ManagerPage extends JFrame implements ActionListener{
         reqlist = new JButton ();
         reqlist.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/request.png")));
         reqlist.setBounds(150, 300,150, 150);
+        reqlist.setFocusable(false);
         reqlist.setBackground(Color.white);
         reqlist.addActionListener(this);
         add(reqlist);
@@ -43,6 +46,7 @@ public class ManagerPage extends JFrame implements ActionListener{
         expe = new JButton ();
         expe.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/expenses.png")));
         expe.setBounds(440, 300,150, 150);
+        expe.setFocusable(false);
         expe.setBackground(Color.white);
         expe.addActionListener(this);
         add(expe);
@@ -110,7 +114,8 @@ public class ManagerPage extends JFrame implements ActionListener{
         }
         else if(e.getSource() == expe) {
             dispose();
-            new ManagerExpView();
+            ManagerExpView mevw = new ManagerExpView();
+            mevw.setVisible(true);
         }
         else if (e.getSource() == refr) {
             dispose();

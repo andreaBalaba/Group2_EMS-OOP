@@ -70,6 +70,7 @@ public class ForManagerHrLists extends JFrame implements ActionListener {
         employeeTable.setEnabled(false);
     }
     
+    @Override
     public void actionPerformed(ActionEvent e){
         
         if (e.getSource() == refr) {

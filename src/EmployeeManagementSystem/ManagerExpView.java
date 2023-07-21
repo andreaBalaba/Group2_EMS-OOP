@@ -21,7 +21,6 @@ public class ManagerExpView extends JFrame implements ActionListener, MouseListe
         setBounds(100, 100, 750, 550);
         setLocationRelativeTo(null);
         setResizable(false);
-        setVisible(true);
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -104,11 +103,11 @@ public class ManagerExpView extends JFrame implements ActionListener, MouseListe
                     employee.setName(rowData.get(1).toString());
                     employee.setEmployeeId(rowData.get(2).toString());
                     employee.setEmail(rowData.get(3).toString());
-                    employee.setdateRequest((Date) rowData.get(4));
+                    employee.setRequestDate((Date) rowData.get(4));
                     employee.setProjName(rowData.get(5).toString());
-                    employee.setdateEnd((Date) rowData.get(6));
-                    employee.setDepartment(rowData.get(7).toString());
-                    employee.setAmount(rowData.get(8).toString());
+                    employee.setDepartment(rowData.get(6).toString());
+                    employee.setdateEnd((Date) rowData.get(7));
+                    employee.setAmount((int)rowData.get(8));
                     employee.setNotes(rowData.get(9).toString());
                     employee.setInitiation((boolean) rowData.get(10));
                     employee.setPlanning((boolean) rowData.get(11));

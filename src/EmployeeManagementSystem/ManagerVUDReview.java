@@ -400,8 +400,16 @@ public class ManagerVUDReview extends JFrame implements ActionListener
         }  
         else if (e.getSource() == updateButton) 
         {
-            String selectedEmployeeId = employeeIdComboBox.getSelectedItem().toString();
-            updateReviewData(selectedEmployeeId); 
+           
+            if (employeeIdComboBox.getSelectedIndex() != -1) 
+            { 
+                 String selectedEmployeeId = employeeIdComboBox.getSelectedItem().toString();
+                 updateReviewData(selectedEmployeeId); 
+            } 
+            else 
+            {
+                JOptionPane.showMessageDialog(this, "Please select an employee ID to delete.", "Delete Error", JOptionPane.ERROR_MESSAGE);
+            }
         } 
         else if (e.getSource() == deleteButton) 
         {

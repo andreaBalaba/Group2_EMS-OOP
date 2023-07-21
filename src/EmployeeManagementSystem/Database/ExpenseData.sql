@@ -19,9 +19,9 @@ closure boolean,
 summary text,
 status VARCHAR(20)
 );
-/*
-INSERT INTO expense_request (name, employeeId, email, reqDate, projName, reqEndDate, amount, notes, inititate, planning, execution, perform, closure )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);*/
 
+INSERT INTO expense_request (name, employeeId, email, department, reqDate, projName, reqEndDate, amount, notes, initiate, planning, execution, perform, closure, summary, status )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending');
 
+SELECT * FROM expense_request;
 

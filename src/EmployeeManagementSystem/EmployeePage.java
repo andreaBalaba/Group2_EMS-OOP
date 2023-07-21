@@ -22,6 +22,7 @@ public class EmployeePage extends JFrame implements ActionListener{
         req = new JButton ();
         req.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/Time off.png")));
         req.setBounds(150, 150, 150, 150);
+        req.setFocusable(false);
         req.setBackground(Color.white);
         req.addActionListener(this);
         add(req);
@@ -29,6 +30,7 @@ public class EmployeePage extends JFrame implements ActionListener{
         exps = new JButton ();
         exps.setIcon(new ImageIcon(ClassLoader.getSystemResource("EmployeeManagementSystem/Icon/expenses.png")));
         exps.setBounds(440, 150, 150, 150);
+        exps.setFocusable(false);
         exps.setBackground(Color.white);
         exps.addActionListener(this);
         add(exps);
@@ -73,6 +75,7 @@ public class EmployeePage extends JFrame implements ActionListener{
         dispose();
     }
     
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == req) {
             new ChooseEmpId();

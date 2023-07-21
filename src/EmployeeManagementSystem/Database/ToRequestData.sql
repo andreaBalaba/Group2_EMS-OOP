@@ -25,9 +25,9 @@ CREATE TABLE time_off_request (
 
 INSERT INTO time_off_request ( employee_name, department, manager, employee_id, total_hours, date_of_absence_from, date_of_absence_to, vacation, medical_leave, 
               jury_duty, personal_leave, family_reasons, to_vote, bereavement, time_off_without_pay, reason_for_request, employee_signature, request_date, status)
- VALUES ('Juan Dela Cruz', 'Development', 'Mr.Almadin', '0006', 24, '2023-07-15', '2023-07-17', TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE,
-    'Vacation trip with family', 'Juan Dela Cruz', '2023-07-12', 'Pending');
+ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending');
 
 SELECT * FROM time_off_request;
+
 
 
