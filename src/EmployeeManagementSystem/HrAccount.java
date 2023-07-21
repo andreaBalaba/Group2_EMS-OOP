@@ -12,16 +12,16 @@ public class HrAccount extends JPopupMenu implements ActionListener{
         searchProf = new JMenuItem("Search Profile");
         searchProf.addActionListener(this);
         
-        logOut = new JMenuItem("Log Out");
-        logOut.addActionListener(this);
-        
         timeoff = new JMenuItem("Time Off");
         timeoff.addActionListener(this);
         
+        logOut = new JMenuItem("Log Out");
+        logOut.addActionListener(this);
+        
         
         add(searchProf);
-        add(logOut);
         add(timeoff);
+        add(logOut);
         
     }
     
